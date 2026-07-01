@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-VAULT_LOCAL="$HOME/GoogleDrive/workspace/Obsidian Vault/Blog/posts"
+VAULT_LOCAL="$HOME/workspace/Obsidian Vault/Blog/posts"
 HUGO_DIR="$HOME/workspace/blog"
 HUGO_CONTENT="$HUGO_DIR/content/posts"
 
