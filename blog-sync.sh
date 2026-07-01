@@ -10,9 +10,9 @@ HUGO_CONTENT="$HUGO_DIR/content/posts"
 
 echo "📅 $(date '+%Y-%m-%d %H:%M') — Blog sync started"
 
-# Sync vault → Hugo (local rsync, instant)
+# Sync vault → Hugo (local rsync, instant, exclude syncthing temps)
 mkdir -p "$HUGO_CONTENT"
-if ! rsync -a --delete "$VAULT_LOCAL/" "$HUGO_CONTENT/" 2>&1; then
+if ! rsync -a --delete --exclude='.syncthing*' "$VAULT_LOCAL/" "$HUGO_CONTENT/" 2>&1; then
     echo "⚠️ sync failed"
     echo "Status: WARN — sync failed, skipping publish"
     exit 1
