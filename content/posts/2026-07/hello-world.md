@@ -1,11 +1,9 @@
 ---
-title: Hello World — My New Hugo Blog
+title: "Hello World — My New Hugo Blog"
 date: 2026-07-01T12:00:00+08:00
-tags:
-  - hugo
-  - github-pages
+tags: ["hugo", "github-pages"]
 draft: false
-summary: First post on my new Hugo blog hosted on GitHub Pages.
+summary: "First post on my new Hugo blog hosted on GitHub Pages."
 ---
 
 This is my first post on a Hugo blog hosted on GitHub Pages.
