@@ -1,27 +1,40 @@
 #!/bin/bash
-# blog-sync.sh — Sync posts between Obsidian vault and Hugo content
-# Usage: ./blog-sync.sh [push|pull|sync]
-#   push — Obsidian → Hugo (before hugo build + git push)
-#   pull — Hugo → Obsidian (if you edited directly in Hugo dir)
-#   sync — two-way sync
+# blog-sync.sh — Sync posts from Syncthing vault → Hugo → git push
+# Uses local Syncthing-synced vault — no rclone/GDrive dependency
 
 set -euo pipefail
 
-VAULT_DIR="$HOME/GoogleDrive/workspace/Obsidian Vault/Blog/posts"
-HUGO_DIR="$HOME/workspace/blog/content/posts"
+VAULT_LOCAL="$HOME/GoogleDrive/workspace/Obsidian Vault/Blog/posts"
+HUGO_DIR="$HOME/workspace/blog"
+HUGO_CONTENT="$HUGO_DIR/content/posts"
 
-ACTION="${1:-push}"
+echo "📅 $(date '+%Y-%m-%d %H:%M') — Blog sync started"
 
-mkdir -p "$VAULT_DIR" "$HUGO_DIR"
-
-if [ "$ACTION" = "push" ]; then
-    rsync -a --delete "$VAULT_DIR/" "$HUGO_DIR/"
-    echo "✓ Pushed: vault → hugo ($VAULT_DIR → $HUGO_DIR)"
-elif [ "$ACTION" = "pull" ]; then
-    rsync -a "$HUGO_DIR/" "$VAULT_DIR/"
-    echo "✓ Pulled: hugo → vault ($HUGO_DIR → $VAULT_DIR)"
-else
-    rsync -a "$VAULT_DIR/" "$HUGO_DIR/"
-    rsync -a "$HUGO_DIR/" "$VAULT_DIR/"
-    echo "✓ Synced both ways"
+# Sync vault → Hugo (local rsync, instant)
+mkdir -p "$HUGO_CONTENT"
+if ! rsync -a --delete "$VAULT_LOCAL/" "$HUGO_CONTENT/" 2>&1; then
+    echo "⚠️ sync failed"
+    echo "Status: WARN — sync failed, skipping publish"
+    exit 1
 fi
+echo "✓ Synced: vault → hugo (local rsync)"
+
+# Build Hugo
+cd "$HUGO_DIR"
+BUILD_OUTPUT=$(hugo --minify 2>&1)
+BUILD_LINES=$(echo "$BUILD_OUTPUT" | tail -1)
+echo "✓ Hugo build: $BUILD_LINES"
+
+# Git push if changes
+git add -A
+CHANGES=$(git diff --cached --stat 2>/dev/null || true)
+if [ -z "$CHANGES" ]; then
+    echo "⚠ No changes to commit"
+    echo "Status: OK — no new posts"
+    exit 0
+fi
+
+git commit -m "blog: update posts"
+git push origin main 2>&1
+echo "✅ Published! Live at https://terrygzhou.github.io/"
+echo "Status: OK — changes published"
