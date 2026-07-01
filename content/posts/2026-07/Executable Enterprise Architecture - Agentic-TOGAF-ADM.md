@@ -1,11 +1,20 @@
+---
+title: Executable Enterprise Architecture - Agentic-TOGAF-ADM
+tags:
+  - enterprisearchitecture
+  - agentic-togaf
+  - ai-agents
+date: 2026-07-01
+---
 
-#enterprisearchitecture  #agentic-togaf
 
-Recently, I published a milestone update to the **ArcKit** open-source project: **PR #626** ([https://github.com/terrygzhou/arc-kit/pull/626](https://github.com/terrygzhou/arc-kit/pull/626)). This update introduces AI-agentic, tool-agnostic support for the **TOGAF Architecture Development Method (ADM)**.
+Recently, I published a milestone update to the **ArcKit** open-source project: **PR #626** (https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865). This update introduces AI-agentic, tool-agnostic support for the **TOGAF Architecture Development Method (ADM)**.
 
-If you’ve tried mapping TOGAF’s iterative phases to real-world architecture workflows, you’ve likely encountered the gap between current state and target vision—especially when EA expertise, budget, or resources are limited. PR #626 bridges that gap by translating framework guidance into executable workflows, helping teams define problems, structure solution strategies, and progress through ADM cycles without requiring dedicated EA overhead.
+Are you an executive leader without an architecture background, frustrated by the disconnect between your business goals, operational realities, and technology landscape? You know transformation is critical, but you’re stuck: unclear on where to go, how to get there, and unwilling to spend millions on Big 4 consultants for a “strategy” that may never be executable. That’s exactly why **PR #626** was built.
 
-> 🔗 PR Reference: https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865
+This release bridges the gap between TOGAF’s iterative framework and real-world execution. It translates architectural guidance into clear, actionable workflows—so you can define the right problems, structure pragmatic solution strategies, and drive progress through ADM cycles without needing a dedicated EA team or a six-figure consulting budget.
+
+repo: https://github.com/terrygzhou/arc-kit
 
 ---
 
@@ -51,32 +60,22 @@ This contribution focuses on making ADM phases **Agent-readable, configurable, a
 4. **Open Source Transparency**  
    No vendor lock-in. The rules, templates, and validation logic are fully auditable, forkable, and community-driven.
 
-5. Composition with AI agent governance.** The `togaf-agent-full` recipe shows TOGAF ADM isn't a replacement — it's a sibling. Enterprise architecture and AI agent architecture run in parallel, feeding into the same gap analysis, transition planning, and governance review. One build, two domains.
+5. **Composition with AI agent governance.** The `togaf-agent-full` recipe shows TOGAF ADM isn't a replacement — it's a sibling. Enterprise architecture and AI agent architecture run in parallel, feeding into the same gap analysis, transition planning, and governance review. One build, two domains.
 
 ---
 
 ## 🚀 How to Try It
 
-### Option A: Install from Marketplace (if published)
+Arckit support claudecode, codex, copilot, gemini, opencode, paperclip, hermes (I newly added, to be tested), just pick up your favorate one, and 
 
-```bash
-claude plugin install arckit arckit-togaf-adm
-```
-
-Requires Claude Code ≥ 2.1.143 . The `arckit` core plugin will auto-install as a dependency.
-
----
-
-### Option B: Local Dev Install (from your repo)
+### Local Dev Install (from your repo)
 
 The plugin lives at `plugins/arckit-togaf-adm/`. Link it as a local plugin:
 
 ```bash
-cd /home/terry/workspace/projects/arc-kit
+cd /your_path/workspace/projects/arc-kit
 claude plugin install --path plugins/arckit-togaf-adm
 ```
-
-Or enable directly via Claude Code's plugin directory:
 
 ```bash
 # Check current plugins
@@ -112,15 +111,12 @@ The command will:
 
 This PR is currently in review and ready for community testing. I’m looking for:
 - Feedback on phase sequencing edge cases
-- Real-world ADM workflow exports from enterprise teams
+- Real-world ADM workflow exports from enterprise teams, I created a sample one here:
 - Suggestions for mapping ADM to compliance frameworks (NIST, ISO, etc.)
 - Contributors for phase-specific linting rules or artifact templates
 
 If you work with TOGAF, architecture governance, or open-source EA tooling, please star the repo, comment on the PR, or open an issue with your use case.
 
-🔗 **Repository**: `github.com/tractorjuice/arc-kit`  
-🔗 **Pull Request**: `#626`  
-🔗 **Docs**: `[link to updated docs if available]`
 
 ---
 

@@ -8,8 +8,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   deploy:
@@ -35,4 +33,3 @@ jobs:
           personal_token: ${{ secrets.GH_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          commit_message: "blog: deploy ${GITHUB_SHA::7}"
