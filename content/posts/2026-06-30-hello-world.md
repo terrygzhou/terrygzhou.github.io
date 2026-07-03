@@ -19,9 +19,9 @@ I over-engineered prompts. I fine-tuned on noisy, misaligned datasets. I chased 
   
 But that “waste” wasn’t waste. It was tuition. In AI engineering, you don’t learn from success. You learn from the gap between expectation and output. Every broken pipeline, every misrouted query, every failed auto-refactor taught me more about system design than any documentation ever could. The tokens didn’t disappear—they became intuition.
 
-## Five Projects, Two Tracks
+## Five Projects, Hundreds of features, Two Tracks
 
-Across five projects—two greenfield builds and three legacy refactors—one consistent pattern emerged: LLMs work best when tightly constrained, not left to freeform execution.
+Across five projects—3 greenfield builds and 2 legacy refactors—one consistent pattern emerged: LLMs work best when tightly constrained, not left to freeform execution.
 
 Greenfield work taught me the value of explicit fallbacks and latency budgets. For these new projects, building a reliable, automated execution loop is the gold standard for repeatability. Legacy refactoring, however, requires a different strategy. There, AI’s true leverage isn’t writing code from scratch; it’s surfacing hidden domain boundaries, drafting clear contracts, and accelerating human review.
 

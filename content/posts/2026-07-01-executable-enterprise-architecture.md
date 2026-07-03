@@ -106,6 +106,8 @@ Once installed, verify the commands appear:
 Look for the 9 ADM commands. Then try a single command:
 
 ```
+/arckit init my-project
+
 /arckit-togaf-adm:adm-preliminary  <project ID or name, e.g. '001', 'enterprise transformation vision'>
 ```
 

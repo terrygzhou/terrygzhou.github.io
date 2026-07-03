@@ -10,8 +10,6 @@ tags:
 status: published
 ---
 
-# How to Manage Your AI Agents at Enterprise Scale
-
 > **TL;DR**: Enterprises are deploying hundreds of AI agents across their operations — but most lack a systematic way to govern, secure, and orchestrate them. The ArcKit Agent Architecture overlay brings Enterprise Architecture methodology to AI agent programmes, providing inventory, design, governance, security, and maturity assessment workflows.
 
 ---
@@ -46,7 +44,7 @@ Here's what happens when organisations scale agents without a governance framewo
 
 ---
 
-## Enterprise Architecture: The Missing Framework
+## Enterprise Architecture
 
 Enterprise Architecture (EA) provides exactly the discipline needed for agent programmes. The **TOGAF ADM (Architecture Development Method)** — proven for decades in traditional IT — applies directly to AI agent governance:
 
@@ -75,14 +73,14 @@ The **ArcKit Agent Architecture** plugin (https://github.com/terrygzhou/arc-kit)
 
 ### Six Core Commands
 
-| Command | Doc Type | Purpose |
-|---------|----------|---------|
-| `/arckit:agent-inventory` | `AAGI` | Catalog all agents with capabilities, security classification, and oversight levels |
-| `/arckit:agent-design` | `AAGR` | Design agent architecture — patterns, tool contracts, memory, orchestration, guardrails |
-| `/arckit:agent-governance` | `AAOV` | Establish oversight models, approval workflows, audit requirements, compliance mapping |
-| `/arckit:agent-integration` | `AAIN` | Design agent-to-agent integration, tool contracts, and orchestration patterns |
-| `/arckit:agent-security` | `AASE` | Harden agent security — sandboxing, permission models, threat assessment |
-| `/arckit:agent-maturity` | `AAMT` | Assess and track agent programme maturity with continuous improvement metrics |
+| Command                     | Doc Type | Purpose                                                                                 |
+| --------------------------- | -------- | --------------------------------------------------------------------------------------- |
+| `/arckit:agent-inventory`   | `AAGI`   | Catalog all agents with capabilities, security classification, and oversight levels     |
+| `/arckit:agent-design`      | `AAGR`   | Design agent architecture — patterns, tool contracts, memory, orchestration, guardrails |
+| `/arckit:agent-governance`  | `AAOV`   | Establish oversight models, approval workflows, audit requirements, compliance mapping  |
+| `/arckit:agent-integration` | `AAIN`   | Design agent-to-agent integration, tool contracts, and orchestration patterns           |
+| `/arckit:agent-security`    | `AASE`   | Harden agent security — sandboxing, permission models, threat assessment                |
+| `/arckit:agent-maturity`    | `AAMT`   | Assess and track agent programme maturity with continuous improvement metrics           |
 
 ### Six-Phase Recipe
 

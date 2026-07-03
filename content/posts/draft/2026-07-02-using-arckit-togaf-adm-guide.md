@@ -8,7 +8,7 @@ tags:
   - Enterprise Architecture
 status: draft
 ---
-
+	 
 # Using ArcKit TOGAF ADM: A Guide for Non-Technical Users
 
 ## What is this plugin?
