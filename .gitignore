@@ -9,3 +9,4 @@ _posts/draft/
 
 # Syncthing
 .syncthing*
+deploy.sh
