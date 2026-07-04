@@ -1,19 +1,10 @@
 ---
 ---
 
-@import "{{ site.theme }}";
+/* Custom overrides for Architect theme */
 
-.post-header {
-  background: none !important;
-  background-color: transparent !important;
-  padding: 0 !important;
-}
-
-.post-title {
-  background: none !important;
-  color: #333 !important;
-}
-
+.post-header,
+.post-title,
 .post-content h1,
 .post-content h2,
 .post-content h3,
