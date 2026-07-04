@@ -24,12 +24,16 @@ jobs:
         with:
           hugo-version: '0.147.4'
 
-      - name: Build
-        run: cd hugo && hugo --minify --baseURL https://terrygzhou.github.io/
+      - name: Build Hugo from hugo/ into root
+        run: |
+          cd hugo && hugo --minify --baseURL https://terrygzhou.github.io/
+          cd ..
+          cp -r hugo/public/* .
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./hugo/public
-          publish_branch: gh-pages
+      - name: Commit and push built site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "build: regenerate site"
+          git push

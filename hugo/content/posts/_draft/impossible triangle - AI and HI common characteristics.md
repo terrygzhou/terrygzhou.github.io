@@ -1,3 +1,7 @@
+---
+draft: true
+---
+
 
 # Outline
 ## Describe contemporary AI evolved from logic symbolic reasonning based classic AI to LLM based AI

@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Using ArcKit TOGAF ADM: A Guide for Non-Technical Users"
 date: 2026-07-02
 tags:
