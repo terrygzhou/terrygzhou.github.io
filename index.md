@@ -8,7 +8,7 @@ title: "Terry Zhou"
 As a hands-on Enterprise Architect, I focus on turning design frameworks into executable by bridging the gap between theoretical models and pratical, production-ready AI agentic systems. 
 My work spans active contributions to open-source agentic engineering toolkits and partnering with enterprises to operationalize Agentic AI within their core business strateg.
 
-**Topics**: Enterprise Architecture · Agentic AI · AI Transformation · Digital Transformation · Software Engineering
+**Topics**: Enterprise Architecture · Agentic AI Strategy · Digital + AI Transformation · Software Engineering
 
 ---
 

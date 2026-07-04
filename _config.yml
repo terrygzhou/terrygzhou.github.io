@@ -1,11 +1,11 @@
 title: Terry Zhou
 email: terry.zhou@ymail.com
-description: "Enterprise Architecture · Agentic AI · AI Transformation · Software Engineering"
+description: "Enterprise Architecture · Agentic AI · Digital + AI Transformation · Software Engineering"
 baseurl: ""
 url: "https://terrygzhou.github.io"
 github_username: terrygzhou
 
-remote_theme: pages-themes/architect@v0.2.0
+remote_theme: pages-themes/minimal@v0.2.0
 
 plugins:
   - jekyll-remote-theme

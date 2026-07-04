@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hello World — New Blog Live
+title: Hello World — I am Back
 date: 2026-06-30
 tags:
   - hugo
