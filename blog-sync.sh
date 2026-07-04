@@ -1,40 +1,35 @@
 #!/bin/bash
-# blog-sync.sh — Sync posts from Syncthing vault → Hugo → git push
-# Uses local Syncthing-synced vault — no rclone/GDrive dependency
+# Sync blog posts from Obsidian Vault to Hugo content
+# Usage: ./blog-sync.sh
 
-set -euo pipefail
+set -e
 
-VAULT_LOCAL="$HOME/workspace/Obsidian Vault/Blog/posts"
-HUGO_DIR="$HOME/workspace/blog"
-HUGO_CONTENT="$HUGO_DIR/content/posts"
+VAULT_DIR="$HOME/workspace/Obsidian Vault/Blog/posts"
+HUGO_DIR="$PWD/hugo/content/posts"
 
-echo "📅 $(date '+%Y-%m-%d %H:%M') — Blog sync started"
-
-# Sync vault → Hugo (local rsync, instant, exclude syncthing temps)
-mkdir -p "$HUGO_CONTENT"
-if ! rsync -a --delete --exclude='.syncthing*' "$VAULT_LOCAL/" "$HUGO_CONTENT/" 2>&1; then
-    echo "⚠️ sync failed"
-    echo "Status: WARN — sync failed, skipping publish"
+if [ ! -d "$VAULT_DIR" ]; then
+    echo "Error: Obsidian blog directory not found: $VAULT_DIR"
     exit 1
 fi
-echo "✓ Synced: vault → hugo (local rsync)"
 
-# Build Hugo
-cd "$HUGO_DIR"
-BUILD_OUTPUT=$(hugo --minify 2>&1)
-BUILD_LINES=$(echo "$BUILD_OUTPUT" | tail -1)
-echo "✓ Hugo build: $BUILD_LINES"
-
-# Git push if changes
-git add -A
-CHANGES=$(git diff --cached --stat 2>/dev/null || true)
-if [ -z "$CHANGES" ]; then
-    echo "⚠ No changes to commit"
-    echo "Status: OK — no new posts"
-    exit 0
+if [ ! -d "$HUGO_DIR" ]; then
+    mkdir -p "$HUGO_DIR"
 fi
 
-git commit -m "blog: update posts"
-git push origin main 2>&1
-echo "✅ Published! Live at https://terrygzhou.github.io/"
-echo "Status: OK — changes published"
+echo "Syncing blog posts from Obsidian to Hugo..."
+synced=0
+
+for post in "$VAULT_DIR"/[0-9]*.md; do
+    [ -f "$post" ] || continue
+    filename=$(basename "$post")
+    target="$HUGO_DIR/$filename"
+    
+    # Copy if doesn't exist or has changed
+    if ! [ -f "$target" ] || ! cmp -s "$post" "$target"; then
+        cp "$post" "$target"
+        echo "  synced: $filename"
+        synced=$((synced + 1))
+    fi
+done
+
+echo "Synced $synced post(s). Ready for Hugo build."
