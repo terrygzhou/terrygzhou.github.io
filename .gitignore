@@ -4,5 +4,8 @@
 # Obsidian
 .obsidian/
 
-# Blog posts are symlinked to Obsidian vault
-# Don't track symlink contents directly
+# Drafts — not published yet
+_posts/draft/
+
+# Syncthing
+.syncthing*
