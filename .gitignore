@@ -3,4 +3,3 @@
 *.cache
 hugo_stats.json
 resources/
-public/
