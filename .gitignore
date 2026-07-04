@@ -1,5 +1,7 @@
 .DS_Store
 *.log
 *.cache
+.hugo_build.lock
 hugo_stats.json
-resources/
+hugo/.hugo_build.lock
+hugo/resources/

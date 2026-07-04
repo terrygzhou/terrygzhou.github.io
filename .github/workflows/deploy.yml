@@ -25,11 +25,11 @@ jobs:
           hugo-version: '0.147.4'
 
       - name: Build
-        run: hugo --minify --baseURL https://terrygzhou.github.io/
+        run: cd hugo && hugo --minify --baseURL https://terrygzhou.github.io/
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./hugo/public
           publish_branch: gh-pages
