@@ -11,14 +11,17 @@
 
 .post-title {
   background: none !important;
-  color: #333;
+  color: #333 !important;
 }
 
-.post-content {
-  h1, h2, h3, h4, h5, h6 {
-    background: none !important;
-    background-color: transparent !important;
-    padding: 0 !important;
-    color: #333;
-  }
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  background: none !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  color: #333 !important;
 }

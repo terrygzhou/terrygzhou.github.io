@@ -28,7 +28,8 @@ This work will be enabling **configurable, validated, and repeatable architectur
 
 ## 📦 What’s Inside PR #626?
 
-This contribution focuses on making ADM phases **Agent-readable, configurable, and actionable**. Key updates include introduction to `arckit-togaf-adm` that implements the **TOGAF ADM as structured, traceable slash commands and build recipes. It covers the full ADM cycle — Preliminary through Phase H — plus a cross-project Architecture Repository.
+This contribution focuses on making ADM phases **Agent-readable, configurable, and actionable**. Key updates include introduction to `arckit-togaf-adm` that implements the **TOGAF ADM as structured, traceable slash commands and build recipes, and `arckit-agent-architecture` that provide architecture for managing agents in enterprise environment based on `arckit-togaf-adm`. It covers the full ADM cycle — Preliminary through Phase H — plus a cross-project Architecture Repository. 
+Note that this post focus on `arckit-togaf-adm` only. 
 
 ### The 9 Commands (Full ADM Cycle)
 
@@ -70,7 +71,7 @@ Arckit support claudecode, codex, copilot, gemini, opencode, paperclip, hermes, 
 
 ### Local Dev Install (from your repo)
 
-The plugin lives at `plugins/arckit-togaf-adm/`. Link it as a local plugin:
+The plugin lives at `plugins/arckit-togaf-adm`. Link it as a local plugin:
 
 ```bash
 
@@ -107,7 +108,7 @@ Once installed, verify the commands appear:
 Look for the 9 ADM commands. Then try a single command:
 
 ```
-/arckit init my-project
+/arckit init
 
 /arckit-togaf-adm:adm-preliminary  <project ID or name, e.g. '001', 'enterprise transformation vision'>
 ```
