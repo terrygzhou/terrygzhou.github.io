@@ -1,20 +1,8 @@
-# Hugo build cache
-hugo/resources/
-hugo/public/
-*.hugo_build.lock
-.hugo_build.lock
-
-# OS
+# macOS
 .DS_Store
-Thumbs.db
 
-# Hugo build output at root (do NOT track)
-index.html
-index.xml
-sitemap.xml
-404.html
-assets/
-categories/
-page/
-posts/
-tags/
+# Obsidian
+.obsidian/
+
+# Blog posts are symlinked to Obsidian vault
+# Don't track symlink contents directly
