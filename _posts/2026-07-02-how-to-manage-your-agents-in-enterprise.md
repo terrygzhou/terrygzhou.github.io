@@ -70,7 +70,7 @@ Traditional EA frameworks didn't anticipate autonomous agents. You need:
 
 ## The Solution: ArcKit Agent Architecture Overlay
 
-The **ArcKit Agent Architecture** plugin (https://github.com/terrygzhou/arc-kit) bridges EA methodology with AI agent governance. It provides six slash commands and a six-phase build recipe:
+The [**ArcKit Agent Architecture** plugin](https://github.com/terrygzhou/arc-kit) bridges EA methodology with AI agent governance. It provides six slash commands and a six-phase build recipe:
 
 ### Six Core Commands
 
@@ -95,12 +95,15 @@ Each phase produces traceable artefacts that feed into the next. No silos, no du
 
 ## How to Use the Plugin
 
-### Installation
+### Installation (local)
 
 ```bash
-claude plugin install arckit arckit-agent-architecture
-```
+git clone https://github.com/terrygzhou/arc-kit/tree/main
+cd arc-kit
 
+claude --plugin-dir ./plugins/arckit-agent-architecture
+```
+	
 ### Workflow
 
 #### Step 1: Inventory Your Agents
@@ -237,11 +240,10 @@ MarsPost needed to govern agents spanning:
 
 ## References
 
-- [ArcKit Documentation](https://github.com/tractorjuice/arc-kit)
-- [ArcKit Agent Architecture Plugin](https://github.com/tractorjuice/arc-kit/tree/main/plugins/arckit-agent-architecture)
+- [ArcKit Agent Architecture Plugin](https://github.com/terrygzhou/arc-kit/tree/main/plugins/arckit-agent-architecture)
 - [TOGAF Standard](https://www.opengroup.org/standards/togaf)
-- [UK AI Playbook](https://www.gov.uk/government/publications/ai-playbook)
-- [NIST AI Risk Management Framework](https://www.nist.gov/programs-projects/ai-risk-management-framework)
+- [UK AI Playbook](https://assets.publishing.service.gov.uk/media/67aca2f7e400ae62338324bd/AI_Playbook_for_the_UK_Government__12_02_.pdf)
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
 
 ---
 

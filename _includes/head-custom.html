@@ -1,17 +1,43 @@
 <style>
-/* Override Architect theme blue gradient backgrounds */
+/* Override Architect theme blue gradient backgrounds — applies to every post */
+
 sectionheader,
 sectionheader::before,
 sectionheader::after {
   background: none !important;
-  background-image: none !important;
   background-color: transparent !important;
+  background-image: none !important;
+  border-bottom: none !important;
 }
 
 .post-header,
 .post-header::before,
 .post-header::after {
   background: none !important;
+  background-color: transparent !important;
   background-image: none !important;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  color: #333 !important;
+}
+
+.post-content h1::before,
+.post-content h2::before,
+.post-content h3::before,
+.post-content h4::before,
+.post-content h5::before,
+.post-content h6::before {
+  background: none !important;
+  background-image: none !important;
+  border: none !important;
 }
 </style>
