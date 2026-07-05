@@ -10,11 +10,11 @@ date: 2026-07-01
 
 Are you an executive leader without an architecture background, frustrated by the disconnect between your business goals, operational realities, and technology landscape? You know transformation is critical, but you’re stuck: unclear on where to go, how to get there, and unwilling to spend millions on Big 4 consultants for a “strategy” that may never be executable. That’s exactly why **PR #626** was built. 
 
-Recently, I published a milestone update to the **ArcKit** open-source project: **PR #626** (https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865). This update introduces AI-agentic, tool-agnostic support for the **TOGAF Architecture Development Method (ADM)**.
+Recently, I published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865). This update introduces AI-agentic, tool-agnostic support for the **TOGAF Architecture Development Method (ADM)**.
 
 This release bridges the gap between TOGAF’s iterative framework and real-world execution. It creates and translates architectural guidance into clear, actionable workflows—so you can define the right problems, structure pragmatic solution strategies, and drive progress through ADM cycles without needing a dedicated EA team or a six-figure consulting budget.
 
-repo: https://github.com/terrygzhou/arc-kit
+ [repo:](https://github.com/terrygzhou/arc-kit)
 
 ---
 
@@ -29,6 +29,7 @@ This work will be enabling **configurable, validated, and repeatable architectur
 ## 📦 What’s Inside PR #626?
 
 This contribution focuses on making ADM phases **Agent-readable, configurable, and actionable**. Key updates include introduction to `arckit-togaf-adm` that implements the **TOGAF ADM as structured, traceable slash commands and build recipes, and `arckit-agent-architecture` that provide architecture for managing agents in enterprise environment based on `arckit-togaf-adm`. It covers the full ADM cycle — Preliminary through Phase H — plus a cross-project Architecture Repository. 
+
 Note that this post focus on `arckit-togaf-adm` only. 
 
 ### The 9 Commands (Full ADM Cycle)
@@ -74,17 +75,15 @@ Arckit support claudecode, codex, copilot, gemini, opencode, paperclip, hermes, 
 The plugin lives at `plugins/arckit-togaf-adm`. Link it as a local plugin:
 
 ```bash
-
 claude install latest
 ```
-
 
 Then in Claude code, if registered in marketplace, then
 ```
 /plugin marketplace add terrygzhou/arc-kit
 ```
 
-otherwise,  load the plugin from local directory:
+Otherwise,  load the plugin from local directory:
 ```bash
 # Check current plugins
 claude plugin list
@@ -93,9 +92,7 @@ claude plugin list
 git clone https://github.com/terrygzhou/arc-kit
 cd arc-kit
 claude --plugin-dir ./plugins/arckit-togaf-adm
-
 ```
-
 
 ### Quick Test
 
@@ -108,8 +105,10 @@ Once installed, verify the commands appear:
 Look for the 9 ADM commands. Then try a single command:
 
 ```
-/arckit init
-
+/arckit-togaf-adm:adm-preliminary
+```
+or, 
+```
 /arckit-togaf-adm:adm-preliminary  <project ID or name, e.g. '001', 'enterprise transformation vision'>
 ```
 
@@ -126,7 +125,8 @@ The command will:
 Enterprise Architecture artefacts for **MagicDelivery's AgenticEA** AI transformation programme — generated using ArcKit TOGAF ADM and Agent Architecture plugins.
 `scope: Omnichannel AI agents across customer sales, service, shopping, and fulfillment`
 
-https://github.com/terrygzhou/MagicDelivery
+[Case study: MagicDelivery-AI-Transformation](https://github.com/terrygzhou/MagicDelivery)
+
 ---
 
 ## 🤝 What’s Next?
