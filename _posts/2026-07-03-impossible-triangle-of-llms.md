@@ -32,17 +32,17 @@ There’s no “best” configuration. Only context-appropriate ones. Here’s h
 - ⚡ **Optimize for Speed**  
     _When:_ Real-time agents, edge devices, rapid prototyping, or live coding assistants.  
     _Trade-off:_ Truncated context, narrower coverage, heavier quantization.  
-    _My setup:_ `Qwen3.6-27B-NVFP4_Q4` on vLLM, 32K context, 1 concurrent user, zero CPU↔GPU cache swapping.
+    _My setup:_ `Qwen3.6-27B-NVFP4_Q4` on vLLM, 32K context, 1 concurrent user, fully in VRAM with zero CPU↔GPU cache swapping.
     
-- 📖 **Optimize for Context**  
+- 📖 **Optimise for Context**  
     _When:_ Long documents, legal/medical records, multi-turn analysis, or large codebases.  
     _Trade-off:_ Slower generation, higher memory costs, potential coherence drift.  
-    _My setup:_ `Qwen3.6-MoE-3B` on vLLM, 250K context, 2–4 concurrent users, accepting minor VRAM/RAM sharing to preserve latency.
+    _My setup:_ `Qwen3.6-MoE-3B` on vLLM, 250K context, 2–4 concurrent users, accepting minor VRAM/RAM sharing to compromise latency.
     
-- 🧩 **Optimize for Knowledge**  
+- 🧩 **Optimise for Knowledge**  
     _When:_ Vertical domains (finance, healthcare, engineering), complex reasoning, or agent foundations.  
     _Trade-off:_ Higher inference costs, slower cold starts, less real-time agility.  
-    _My setup:_ `Qwen3.6-27B-Q5` via llama.cpp (for higher precision than vLLM supports), prioritizing depth for investment analysis.
+    _My setup:_ `Qwen3.6-27B-Q5` via llama.cpp (for higher precision beyond the current vLLM supports), but squeezing the kv-cache context length for prioritising depth for investment analysis.
     
 ## Lessons learnt
 
