@@ -12,9 +12,8 @@ Are you an executive leader without an architecture background, frustrated by th
 
 Recently, I published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865). This update introduces AI-agentic, tool-agnostic support for the **TOGAF Architecture Development Method (ADM)**.
 
-This release bridges the gap between TOGAF’s iterative framework and real-world execution. It creates and translates architectural guidance into clear, actionable workflows—so you can define the right problems, structure pragmatic solution strategies, and drive progress through ADM cycles without needing a dedicated EA team or a six-figure consulting budget.
+This release ( [Repo of the codebase:](https://github.com/terrygzhou/arc-kit)) bridges the gap between TOGAF’s iterative framework and real-world execution. It creates and translates architectural guidance into clear, actionable workflows—so you can define the right problems, structure pragmatic solution strategies, and drive progress through ADM cycles without needing a dedicated EA team or a six-figure consulting budget.
 
- [repo:](https://github.com/terrygzhou/arc-kit)
 
 ---
 
@@ -30,7 +29,7 @@ This work will be enabling **configurable, validated, and repeatable architectur
 
 This contribution focuses on making ADM phases **Agent-readable, configurable, and actionable**. Key updates include introduction to `arckit-togaf-adm` that implements the **TOGAF ADM as structured, traceable slash commands and build recipes, and `arckit-agent-architecture` that provide architecture for managing agents in enterprise environment based on `arckit-togaf-adm`. It covers the full ADM cycle — Preliminary through Phase H — plus a cross-project Architecture Repository. 
 
-Note that this post focus on `arckit-togaf-adm` only. 
+Note that this post focus on `arckit-togaf-adm` only, instead of `arckit-agent-architecture` (discussed in another post). 
 
 ### The 9 Commands (Full ADM Cycle)
 
@@ -122,10 +121,9 @@ The command will:
 
 ### An Example 
 
-Enterprise Architecture artefacts for **MagicDelivery's AgenticEA** AI transformation programme — generated using ArcKit TOGAF ADM and Agent Architecture plugins.
+Enterprise Architecture artefacts for **MagicDelivery's AgenticEA** AI transformation programme — generated using ArcKit TOGAF ADM and Agent Architecture plugins (see [Case study: MagicDelivery-AI-Transformation](https://github.com/terrygzhou/MagicDelivery)).
 `scope: Omnichannel AI agents across customer sales, service, shopping, and fulfillment`
 
-[Case study: MagicDelivery-AI-Transformation](https://github.com/terrygzhou/MagicDelivery)
 
 ---
 
@@ -146,4 +144,4 @@ If you work with TOGAF, architecture governance, or open-source EA tooling, plea
 
 Enterprise architecture doesn’t have to be stuck in PowerPoint. By making TOGAF ADM a first-class citizen in ArcKit, I am taking a concrete step toward **repeatable, auditable, and automated architecture delivery**. Frameworks only matter when they ship. This PR helps them do exactly that.
 
-Thanks to the ArcKit maintainers, early reviewers, and the open-source community that makes tools like this possible. Onward to Phase B. 🛠️📘 and welcome to raise any enquires to my repo https://github.com/terrygzhou/arc-kit.
+Thanks to the ArcKit maintainers, early reviewers, and the open-source community that makes tools like this possible. Onward to Phase B that I will add more features and welcome to raise any enquires to my repo https://github.com/terrygzhou/arc-kit.

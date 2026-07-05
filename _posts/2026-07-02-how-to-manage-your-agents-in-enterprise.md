@@ -1,13 +1,14 @@
 ---
 layout: post
-title: "How to Manage Your AI Agents at Enterprise Scale"
+title: How to Manage Your AI Agents at Enterprise Scale
 date: 2026-07-02
 tags:
-  - AI Agents
-  - Enterprise Architecture
-  - Agent Governance
+  - AI-Agents
+  - Agent-governance
   - ArcKit
-  - Agent Architecture
+  - Agentic-Architecture
+  - enterprisearchitecture
+  - agentic-togaf
 status: published
 ---
 
@@ -70,7 +71,7 @@ Traditional EA frameworks didn't anticipate autonomous agents. You need:
 
 ## The Solution: ArcKit Agent Architecture Overlay
 
-The [**ArcKit Agent Architecture** plugin](https://github.com/terrygzhou/arc-kit) bridges EA methodology with AI agent governance. It provides six slash commands and a six-phase build recipe:
+The [**ArcKit Agent Architecture** plugin](https://github.com/terrygzhou/arc-kit/tree/main/plugins/arckit-agent-architecture) bridges EA methodology with AI agent governance. It provides six slash commands and a six-phase build recipe:
 
 ### Six Core Commands
 
