@@ -1,7 +1,19 @@
-/* Custom overrides for Architect theme */
+/* Override Architect theme blue gradient on sectionheader and headings */
 
-.post-header,
-.post-title,
+sectionheader {
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-bottom: none !important;
+}
+
+sectionheader::before,
+sectionheader::after {
+  background: none !important;
+  background-image: none !important;
+  border: none !important;
+}
+
 .post-content h1,
 .post-content h2,
 .post-content h3,
@@ -10,6 +22,17 @@
 .post-content h6 {
   background: none !important;
   background-color: transparent !important;
-  padding: 0 !important;
+  background-image: none !important;
   color: #333 !important;
+}
+
+.post-content h1::before,
+.post-content h2::before,
+.post-content h3::before,
+.post-content h4::before,
+.post-content h5::before,
+.post-content h6::before {
+  background: none !important;
+  background-image: none !important;
+  border: none !important;
 }
