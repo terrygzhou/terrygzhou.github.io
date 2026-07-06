@@ -144,11 +144,12 @@ Assesses programme health: cross-dimensional scoring, improvement roadmaps, indu
 - Start with `/arckit:agent-inventory` to catalogue your current agent landscape
 - Follow the six-phase recipe: inventory → design → governance → integration → security → maturity
 - Pair with the ArcKit TOGAF ADM overlay (`arckit-togaf-adm`) for full Enterprise Architecture coverage
+
 ---
 
 ## Real-World Example: MagicDelivery's Agent Programme
 
-*Context: MagicDelivery is transforming a 10,000-staff organisation with hundreds of AI agents across operations.* [MagicDelivery Repo](https://github.com/terrygzhou/MagicDelivery)
+*Context: MagicDelivery [MagicDelivery Repo](https://github.com/terrygzhou/MagicDelivery) is transforming a 10,000-staff organisation with hundreds of AI agents across operations.* 
 
 ### Challenge
 
@@ -158,6 +159,18 @@ MagicDelivery needed to govern agents spanning:
 - **Workflow orchestrators** for cross-functional processes
 - **Security auditors** for vulnerability assessment
 
+### Agent Architecture (6 artefacts)
+
+[](https://github.com/terrygzhou/MagicDelivery#agent-architecture-6-artefacts)
+
+|Artefact|Description|
+|---|---|
+|AGT-INV|Agent Inventory (8 agent types)|
+|AGT-DES|Agent Design (architecture, patterns, orchestration)|
+|AGT-INT|Agent Integration (multi-agent, cross-domain)|
+|AGT-GOV|Agent Governance (guardrails, oversight, compliance)|
+|AGT-SEC|Agent Security (controls, sandboxing, privacy)|
+|AGT-MAT|Agent Maturity Assessment|
 ### Approach
 
 1. **Inventory** (`/arckit:agent-inventory`): Catalogued all  agents with ownership, risk levels, and deployment status
