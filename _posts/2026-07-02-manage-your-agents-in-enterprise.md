@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to Manage Your AI Agents at Enterprise Scale
+title: Manage Your AI Agents at Enterprise Scale
 date: 2026-07-02
 tags:
   - AI-Agents

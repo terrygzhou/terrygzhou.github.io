@@ -41,5 +41,55 @@ sectionheader::after {
 }
 </style>
 
-<!-- Umami Analytics -->
-<script async defer src="https://umami.eywalink.org/script.js" data-website-id="a0b6f621-98c9-4adb-82f9-4f179a08d674"></script>
+<!-- Umami Analytics — with client cookie differentiation -->
+<script async defer src="https://umami.eywalink.org/script.js" data-website-id="a0b6f621-98c9-4adb-82f9-4f179a08d674" data-before-send="umamiBeforeSend"></script>
+<script>
+// Cookie helpers
+function _setCookie(name, val, days) {
+  var d = new Date();
+  d.setTime(d.getTime() + (days * 864e5));
+  document.cookie = name + '=' + val + ';expires=' + d.toUTCString() + ';path=/';
+}
+function _getCookie(name) {
+  var m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+  return m ? m[1] : null;
+}
+function _sha256(text) {
+  var buf = new TextEncoder().encode(text);
+  return crypto.subtle.digest('SHA-256', buf).then(function(hash) {
+    return Array.from(new Uint8Array(hash)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+  });
+}
+
+// Stable reader ID — persists across sessions via 1st-party cookie
+var _readerIdCookie = 'ew_reader_id';
+(async function() {
+  var existing = _getCookie(_readerIdCookie);
+  if (!existing) {
+    var raw = crypto.randomUUID();
+    var hashed = await _sha256(raw);
+    var id = hashed.substring(0, 40);
+    _setCookie(_readerIdCookie, id, 730); // 2 years
+  }
+  // Wait for umami global, then identify
+  var tries = 0;
+  function tryIdentify() {
+    if (window.umami && umami.identify) {
+      var rid = _getCookie(_readerIdCookie);
+      if (rid) umami.identify(rid, { source: 'reader_cookie' });
+    } else if (++tries < 20) {
+      setTimeout(tryIdentify, 100);
+    }
+  }
+  tryIdentify();
+})();
+
+// Attach cookie-derived metadata to every event
+function umamiBeforeSend(type, payload) {
+  var rid = _getCookie(_readerIdCookie);
+  if (rid) {
+    payload.reader_id = rid;
+  }
+  return payload;
+}
+</script>
