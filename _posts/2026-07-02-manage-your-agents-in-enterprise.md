@@ -96,11 +96,7 @@ claude --plugin-dir ./plugins/arckit-agent-architecture
 /arckit:agent-inventory Catalog all AI agents in the data processing pipeline
 ```
 
-This produces a comprehensive register with:
-- Agent ID, name, purpose, model, deployment status
-- Owner, risk level, oversight level
-- Capability matrix (tools, skills, memory, outputs)
-- Dependency map showing agent-to-agent connections
+Produces a master register: agent IDs, owners, risk/oversight tiers, capability matrices, and dependency maps.
 
 #### Step 2: Design New Agent Architecture
 
@@ -108,12 +104,7 @@ This produces a comprehensive register with:
 /arckit:agent-design research-agent
 ```
 
-Generates architecture specification covering:
-- Architecture pattern selection (single/chain/multi-agent/hierarchical)
-- Component diagram with LLM core, tool layer, memory, guardrails
-- Tool contract matrix with schemas and permissions
-- Memory architecture (session, durable, vector layers)
-- Orchestration design with error handling
+Generates architecture specs: pattern selection (single/chain/multi/hierarchical), component diagrams, tool contracts, memory layers, and orchestration logic.
 
 #### Step 3: Establish Governance
 
@@ -121,12 +112,7 @@ Generates architecture specification covering:
 /arckit:agent-governance research-agent
 ```
 
-Creates governance framework with:
-- Three-tier oversight model (human-in-the-loop, human-on-the-loop, autonomous with audit)
-- Approval matrix with SLAs and escalation paths
-- Audit programme (quarterly full audits, weekly spot checks, monthly security audits)
-- Monitoring KPIs (approval rate, escalation rate, compliance score)
-- Compliance mapping to UK AI Playbook, EU AI Act, NIST AI RMF
+Creates oversight framework: HITL/HOTL/AWA tiers, approval SLAs, audit cadence (weekly/monthly/quarterly), KPIs, and compliance mapping (UK/EU/NIST).
 
 #### Step 4: Design Integration
 
@@ -134,11 +120,7 @@ Creates governance framework with:
 /arckit:agent-integration
 ```
 
-Plans how agents communicate:
-- Integration patterns (MCP, REST, event-driven)
-- Shared tool contracts and memory stores
-- Orchestration frameworks (LangGraph, CrewAI)
-- Error propagation and retry strategies
+Plans agent communication: integration patterns (MCP/REST/events), shared contracts/memory, orchestration frameworks, and retry strategies.
 
 #### Step 5: Harden Security
 
@@ -146,11 +128,7 @@ Plans how agents communicate:
 /arckit:agent-security
 ```
 
-Secures agents against threats:
-- Sandbox design and isolation boundaries
-- Permission models (least privilege, capability-based)
-- Threat assessment (prompt injection, data exfiltration)
-- Guardrail configuration (output validation, input sanitization, rate limiting)
+Secures against threats: sandbox isolation, least-privilege permissions, threat modeling (injection/exfiltration), and guardrail configuration.
 
 #### Step 6: Measure Maturity
 
@@ -158,12 +136,14 @@ Secures agents against threats:
 /arckit:agent-maturity
 ```
 
-Assesses programme health:
-- Maturity model across dimensions (design, governance, security, integration)
-- Scorecards and improvement roadmaps
-- Benchmarking against industry standards
-- Continuous improvement tracking
+Assesses programme health: cross-dimensional scoring, improvement roadmaps, industry benchmarking, and continuous tracking.
 
+### Next Steps
+
+- Install the ArcKit Agent Architecture overlay: `claude plugin install arckit arckit-agent-architecture`
+- Start with `/arckit:agent-inventory` to catalogue your current agent landscape
+- Follow the six-phase recipe: inventory → design → governance → integration → security → maturity
+- Pair with the ArcKit TOGAF ADM overlay (`arckit-togaf-adm`) for full Enterprise Architecture coverage
 ---
 
 ## Real-World Example: MagicDelivery's Agent Programme
@@ -187,14 +167,6 @@ MagicDelivery needed to govern agents spanning:
 5. **Security** (`/arckit:agent-security`): Implemented sandbox boundaries, permission models, and injection prevention
 6. **Maturity** (`/arckit:agent-maturity`): Established baseline metrics and improvement roadmap
 
-### Outcome
-
-| Metric            | Before         | After                              |
-| ----------------- | -------------- | ---------------------------------- |
-| Agent visibility  | 3 agents known | 16 agents catalogued               |
-| Security review   | None           | 100% coverage                      |
-| Compliance gaps   | Unknown        | Mapped to 3 frameworks             |
-| Agent integration | Manual         | Automated through shared contracts |
 
 ---
 
@@ -207,16 +179,6 @@ MagicDelivery needed to govern agents spanning:
 5. **Measure to improve**: Maturity models track progress and guide investment
 6. **Traceability matters**: Every agent decision links to business strategy and requirements
 
----
-
-## Next Steps
-
-- Install the ArcKit Agent Architecture overlay: `claude plugin install arckit arckit-agent-architecture`
-- Start with `/arckit:agent-inventory` to catalogue your current agent landscape
-- Follow the six-phase recipe: inventory → design → governance → integration → security → maturity
-- Pair with the ArcKit TOGAF ADM overlay (`arckit-togaf-adm`) for full Enterprise Architecture coverage
-
----
 
 > *"The difference between an agent programme that scales and one that collapses is not technology — it's architecture."*
 
