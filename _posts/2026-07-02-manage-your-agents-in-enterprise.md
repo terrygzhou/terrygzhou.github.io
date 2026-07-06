@@ -159,9 +159,9 @@ MagicDelivery needed to govern agents spanning:
 - **Workflow orchestrators** for cross-functional processes
 - **Security auditors** for vulnerability assessment
 
-### Agent Architecture (6 artefacts)
+### Outcome: Agent Architecture (6 artefacts)
 
-[](https://github.com/terrygzhou/MagicDelivery#agent-architecture-6-artefacts)
+[Outcome](https://github.com/terrygzhou/MagicDelivery#agent-architecture-6-artefacts)
 
 |Artefact|Description|
 |---|---|
