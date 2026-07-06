@@ -12,7 +12,7 @@ tags:
 status: published
 ---
 
-> **TL;DR**: Enterprises are deploying hundreds of AI agents across their operations — but most lack a systematic way to govern, secure, and orchestrate them. The ArcKit Agent Architecture overlay brings Enterprise Architecture methodology to AI agent programmes, providing inventory, design, governance, security, and maturity assessment workflows.
+> **TL;DR**: Enterprises are deploying hundreds of AI agents across their operations — but most lack a systematic way to govern, secure, and orchestrate them. Recently I have published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865).  The ArcKit Agent Architecture overlay, implemented in this  [Arckit Agent-Architecture plugin](https://github.com/terrygzhou/arc-kit/tree/main/plugins/arckit-agent-architecture) brings Enterprise Architecture methodology to AI agent programmes, providing inventory, design, governance, security, and maturity assessment workflows.
 
 ---
 
@@ -34,13 +34,13 @@ The challenge is no longer *building* agents — it's **managing** them at scale
 
 Here's what happens when organisations scale agents without a governance framework:
 
-| Symptom               | Root Cause                                   | Impact                                       |
-| --------------------- | -------------------------------------------- | -------------------------------------------- |
-| **Agent Sprawl**      | Shadow AI — teams build agents independently | 100+ agents with no inventory, no visibility |
-| **Duplicate Effort**  | Multiple teams solving the same problem      | Wasted investment, conflicting outputs       |
-| **Security Gaps**     | No standardised security review for agents   | Data exposure, compliance violations         |
-| **Integration Chaos** | Agents can't communicate or share context    | Siloed automation, missed opportunities      |
-| **Compliance Risk**   | No oversight model or audit trail            | Regulatory penalties, board-level scrutiny   |
+| Symptom               | Root Cause                                          | Impact                                       |
+| --------------------- | --------------------------------------------------- | -------------------------------------------- |
+| **Agent Sprawl**      | Shadow AI agents — teams build agents independently | 100+ agents with no inventory, no visibility |
+| **Duplicate Effort**  | Multiple teams solving the same problem             | Wasted investment, conflicting outputs       |
+| **Security Gaps**     | No standardised security review for agents          | Data exposure, compliance violations         |
+| **Integration Chaos** | Agents can't communicate or share context           | Siloed automation, missed opportunities      |
+| **Compliance Risk**   | No oversight model or audit trail                   | Regulatory penalties, board-level scrutiny   |
 
 **The fundamental issue**: Organisations treat agents as individual projects rather than as a **programme** that needs architecture, governance, and lifecycle management.
 
