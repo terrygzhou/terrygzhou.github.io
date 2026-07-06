@@ -46,26 +46,9 @@ Here's what happens when organisations scale agents without a governance framewo
 
 ---
 
-## Enterprise Architecture
+## Enterprise Architecture (EA)
 
-Enterprise Architecture (EA) provides exactly the discipline needed for agent programmes. The **TOGAF ADM (Architecture Development Method)** — proven for decades in traditional IT — applies directly to AI agent governance:
-
-### Why EA Works for Agents
-
-1. **Structured thinking**: EA forces organisations to think systematically about their technology landscape
-2. **Traceability**: Every decision links to business strategy, requirements, and risk assessments
-3. **Governance**: Built-in oversight, approval workflows, and compliance mapping
-4. **Lifecycle management**: Clear stages from planning through retirement
-
-### The Gap
-
-Traditional EA frameworks didn't anticipate autonomous agents. You need:
-
-- **Agent-specific design patterns** (single agents, chains, swarms, hierarchies)
-- **Oversight models** calibrated to agent risk and autonomy
-- **Integration patterns** for agent-to-agent communication
-- **Security frameworks** addressing prompt injection, tool abuse, and data handling
-- **Maturity models** to measure and improve agent programmes over time
+EA, leveraging established frameworks like TOGAF ADM, brings the necessary discipline to AI agent programs by enforcing structured planning, strategic traceability, clear governance, and full lifecycle management. However, because traditional EA wasn’t built for autonomous systems, it must be adapted with agent-specific approaches—including tailored design patterns, risk-calibrated oversight, seamless integration protocols, robust security against modern AI threats, and maturity models—to effectively govern and scale enterprise AI deployments.
 
 ---
 
@@ -183,13 +166,13 @@ Assesses programme health:
 
 ---
 
-## Real-World Example: MarsPost's Agent Programme
+## Real-World Example: MagicDelivery's Agent Programme
 
-*Context: MagicDelivery is transforming a 10,000-staff organisation with hundreds of AI agents across operations.*
+*Context: MagicDelivery is transforming a 10,000-staff organisation with hundreds of AI agents across operations.* [MagicDelivery Repo](https://github.com/terrygzhou/MagicDelivery)
 
 ### Challenge
 
-MarsPost needed to govern agents spanning:
+MagicDelivery needed to govern agents spanning:
 - **Research agents** for policy analysis
 - **Compliance checkers** for regulatory mapping
 - **Workflow orchestrators** for cross-functional processes
@@ -206,12 +189,12 @@ MarsPost needed to govern agents spanning:
 
 ### Outcome
 
-| Metric | Before | After |
-|--------|--------|-------|
-| Agent visibility | 3 agents known | 16 agents catalogued |
-| Security review | None | 100% coverage |
-| Compliance gaps | Unknown | Mapped to 3 frameworks |
-| Agent integration | Manual | Automated through shared contracts |
+| Metric            | Before         | After                              |
+| ----------------- | -------------- | ---------------------------------- |
+| Agent visibility  | 3 agents known | 16 agents catalogued               |
+| Security review   | None           | 100% coverage                      |
+| Compliance gaps   | Unknown        | Mapped to 3 frameworks             |
+| Agent integration | Manual         | Automated through shared contracts |
 
 ---
 
