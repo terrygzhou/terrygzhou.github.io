@@ -1,12 +1,11 @@
 ---
+layout: post
 title: Observability Stack — Architecture for multi-agent AI systems
 tags:
   - observability
   - docker
   - architecture
   - multi-agent
-status: documented
-created: 2026-07-11
 ---
 
 ## Overview
@@ -101,13 +100,13 @@ No `extra_hosts`, no hardcoded IPs. The network is the configuration.
 ```mermaid
 graph LR
     subgraph apps["Application Workloads"]
-        vllm["vllm-mtp<br>Inference engine :8000/metrics"]
-        loop["loop_factory<br>LangGraph engine :8081/metrics"]
+        vllm["vllm-mtp\nInference engine :8000/metrics"]
+        loop["loop_factory\nLangGraph engine :8081/metrics"]
     end
 
     subgraph obs["Observability Stack"]
-        prom["prometheus<br>Pull-based, 15s scrape, 15d retention"]
-        grafana["grafana<br>Dashboard visualization"]
+        prom["prometheus\nPull-based, 15s scrape, 15d retention"]
+        grafana["grafana\nDashboard visualization"]
     end
 
     vllm -.->|"scraped every 15s"|prom
@@ -127,27 +126,27 @@ graph LR
 
 ```mermaid
 graph LR
-    admin["Admin<br>Observes dashboards"]
+    admin["Admin\nObserves dashboards"]
 
     subgraph ingest["Ingestion"]
-        app_traces["App OTel Traces<br>OTLP"]
-        app_logs["App Logs<br>stdout / log files"]
+        app_traces["App OTel Traces\nOTLP"]
+        app_logs["App Logs\nstdout / log files"]
     end
 
     subgraph routing["Routing Layer"]
-        otel_recv["OTel Collector<br>Receivers :4317 / :4318"]
-        otel_batch["OTel Batch<br>5s timeout, 100/batch, 128MiB limit"]
+        otel_recv["OTel Collector\nReceivers :4317 / :4318"]
+        otel_batch["OTel Batch\n5s timeout, 100/batch, 128MiB limit"]
     end
 
     subgraph storage["Storage Layer"]
-        phoenix_db["Phoenix SQLite<br>Traces & evaluations"]
-        loki_store["Loki Store<br>Label-indexed log chunks"]
-        prom_tsdb["Prometheus TSDB<br>15-day retention"]
+        phoenix_db["Phoenix SQLite\nTraces & evaluations"]
+        loki_store["Loki Store\nLabel-indexed log chunks"]
+        prom_tsdb["Prometheus TSDB\n15-day retention"]
     end
 
     subgraph viz["Visualization"]
-        grafana_dash["Grafana Dashboards<br>Auto-provisioned"]
-        phoenix_ui["Phoenix UI<br>Trace exploration"]
+        grafana_dash["Grafana Dashboards\nAuto-provisioned"]
+        phoenix_ui["Phoenix UI\nTrace exploration"]
     end
 
     app_traces -->|"pushed"|otel_recv
@@ -240,11 +239,11 @@ graph LR
         end
 
         subgraph vllm["vllms/Qwen3.6-27B/ (consumer)"]
-            vllm_c["vllm-mtp<br>:8000/metrics"]
+            vllm_c["vllm-mtp\n:8000/metrics"]
         end
 
         subgraph loop["loop_factory/ (consumer)"]
-            loop_c["loop-1<br>:8081/metrics"]
+            loop_c["loop-1\n:8081/metrics"]
             otel_lf["otel-collector"]
             promtail["promtail"]
         end

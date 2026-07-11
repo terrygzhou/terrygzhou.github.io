@@ -41,6 +41,36 @@ sectionheader::after {
 }
 </style>
 
+<!-- Mermaid.js — render ```mermaid blocks as diagrams -->
+<style>
+.mermaid-container { text-align: center; margin: 1.5rem 0; }
+.mermaid-container pre { display: none; }
+.mermaid-container svg { max-width: 100%; height: auto; }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+  script.onload = function() {
+    mermaid.initialize({ startOnLoad: false, theme: 'default' });
+    var blocks = document.querySelectorAll('code.language-mermaid');
+    blocks.forEach(function(code) {
+      var pre = code.parentElement;
+      var container = document.createElement('div');
+      container.className = 'mermaid-container';
+      var text = code.textContent;
+      var svg_wrapper = document.createElement('div');
+      svg_wrapper.className = 'mermaid';
+      svg_wrapper.textContent = text;
+      container.appendChild(svg_wrapper);
+      pre.parentNode.insertBefore(container, pre);
+    });
+    if (blocks.length) mermaid.run();
+  };
+  document.head.appendChild(script);
+});
+</script>
+
 <!-- Umami Analytics — with client cookie differentiation -->
 <script async defer src="https://umami.eywalink.org/script.js" data-website-id="a0b6f621-98c9-4adb-82f9-4f179a08d674" data-before-send="umamiBeforeSend"></script>
 <script>
@@ -93,4 +123,4 @@ function umamiBeforeSend(type, payload) {
   return payload;
 }
 </script>
-<!-- build-force: 2026-07-11 10:36:07 -->
+<!-- build-force: 2026-07-11 10:46:21 -->
