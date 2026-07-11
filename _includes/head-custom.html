@@ -49,7 +49,7 @@ sectionheader::after {
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
 mermaid.initialize({ startOnLoad: false });
-document.addEventListener('DOMContentLoaded', function() {
+function renderMermaid() {
   var blocks = document.querySelectorAll('pre > code.language-mermaid');
   blocks.forEach(function(code) {
     var pre = code.parentElement;
@@ -59,8 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
     div.textContent = text;
     pre.parentNode.replaceChild(div, pre);
   });
-  setTimeout(function() { mermaid.run(); }, 100);
-});
+  mermaid.run({ suppressErrors: true });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderMermaid);
+} else {
+  renderMermaid();
+}
 </script>
 
 <!-- Umami Analytics — with client cookie differentiation -->
