@@ -72,6 +72,35 @@ networks:
 
 One line of YAML. No IP addresses. No port forwarding between projects. Any new container can join the network and immediately become visible to the observability stack.
 
+**The `external` Pattern in practice:**
+
+<div class="mermaid">graph LR
+    subgraph bridge["Docker bridge: grafana-stack_observability (external: true)"]
+        subgraph producer["grafana-stack/ (producer)"]
+            prom["prometheus"]
+            grafana["grafana"]
+            loki["loki"]
+            phoenix["phoenix"]
+            otel["otel-collector"]
+        end
+
+        subgraph vllm["vllms/Qwen3.6-27B/ (consumer)"]
+            vllm_c["vllm-mtp\n:8000/metrics"]
+        end
+
+        subgraph loop["loop_factory/ (consumer)"]
+            loop_c["loop-1\n:8081/metrics"]
+            otel_lf["otel-collector"]
+            promtail["promtail"]
+        end
+    end
+
+    prom -.->|"scrapes :8000/metrics"|vllm_c
+    prom -.->|"scrapes :8081/metrics"|loop_c
+    otel_lf -->|"OTLP :4317"|otel
+    promtail -->|"push :3100"|loki
+</div>
+
 ### What Connects
 
 | Consumer | Project | What It Sends |
@@ -225,32 +254,7 @@ Grafana auto-loads JSON dashboard files from `/var/lib/grafana/dashboards` on a 
 
 ### The `external` Pattern
 
-<div class="mermaid">graph LR
-    subgraph bridge["Docker bridge: grafana-stack_observability (external: true)"]
-        subgraph producer["grafana-stack/ (producer)"]
-            prom["prometheus"]
-            grafana["grafana"]
-            loki["loki"]
-            phoenix["phoenix"]
-            otel["otel-collector"]
-        end
-
-        subgraph vllm["vllms/Qwen3.6-27B/ (consumer)"]
-            vllm_c["vllm-mtp\n:8000/metrics"]
-        end
-
-        subgraph loop["loop_factory/ (consumer)"]
-            loop_c["loop-1\n:8081/metrics"]
-            otel_lf["otel-collector"]
-            promtail["promtail"]
-        end
-    end
-
-    prom -.->|"scrapes :8000/metrics"|vllm_c
-    prom -.->|"scrapes :8081/metrics"|loop_c
-    otel_lf -->|"OTLP :4317"|otel
-    promtail -->|"push :3100"|loki
-</div>
+See the network topology diagram above in [§2: Shared Network Design](#2-shared-network-design).
 
 **Mechanism:**
 1. `grafana-stack` creates `grafana-stack_observability` on `docker compose up`
