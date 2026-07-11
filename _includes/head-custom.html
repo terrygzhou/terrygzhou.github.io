@@ -49,17 +49,13 @@ sectionheader::after {
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
 mermaid.initialize({ startOnLoad: false });
-function renderMermaid() {
-  var blocks = document.querySelectorAll('pre > code.language-mermaid');
-  blocks.forEach(function(code) {
-    var pre = code.parentElement;
-    var text = code.textContent.trim();
-    var div = document.createElement('div');
-    div.className = 'mermaid';
-    div.textContent = text;
-    pre.parentNode.replaceChild(div, pre);
-  });
-  mermaid.run({ suppressErrors: true });
+async function renderMermaid() {
+  var divs = document.querySelectorAll('.mermaid');
+  var promises = [];
+  for (var i = 0; i < divs.length; i++) {
+    promises.push(mermaid.run({ nodes: [divs[i]] }));
+  }
+  await Promise.all(promises);
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', renderMermaid);
