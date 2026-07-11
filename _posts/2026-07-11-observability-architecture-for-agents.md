@@ -97,8 +97,7 @@ No `extra_hosts`, no hardcoded IPs. The network is the configuration.
 
 ### Metrics Path (Prometheus — Pull)
 
-```mermaid
-graph LR
+<div class="mermaid">graph LR
     subgraph apps["Application Workloads"]
         vllm["vllm-mtp\nInference engine :8000/metrics"]
         loop["loop_factory\nLangGraph engine :8081/metrics"]
@@ -112,7 +111,7 @@ graph LR
     vllm -.->|"scraped every 15s"|prom
     loop -.->|"scraped every 15s"|prom
     prom -->|"data source"|grafana
-```
+</div>
 
 **Prometheus scrape config** (`prometheus.yml`):
 
@@ -124,8 +123,7 @@ graph LR
 
 ### Traces, Logs, Metrics Path (OTel — Push)
 
-```mermaid
-graph LR
+<div class="mermaid">graph LR
     admin["Admin\nObserves dashboards"]
 
     subgraph ingest["Ingestion"]
@@ -160,7 +158,7 @@ graph LR
     grafana_dash -->|"OpenTelemetry API"|phoenix_db
     admin -.->|"views :3000"|grafana_dash
     admin -.->|"views :6006"|phoenix_ui
-```
+</div>
 
 **OTel pipelines** (`otel-collector/config.yml`):
 
@@ -227,8 +225,7 @@ Grafana auto-loads JSON dashboard files from `/var/lib/grafana/dashboards` on a 
 
 ### The `external` Pattern
 
-```mermaid
-graph LR
+<div class="mermaid">graph LR
     subgraph bridge["Docker bridge: grafana-stack_observability (external: true)"]
         subgraph producer["grafana-stack/ (producer)"]
             prom["prometheus"]
@@ -253,7 +250,7 @@ graph LR
     prom -.->|"scrapes :8081/metrics"|loop_c
     otel_lf -->|"OTLP :4317"|otel
     promtail -->|"push :3100"|loki
-```
+</div>
 
 **Mechanism:**
 1. `grafana-stack` creates `grafana-stack_observability` on `docker compose up`
