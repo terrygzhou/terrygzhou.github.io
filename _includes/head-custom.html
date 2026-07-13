@@ -68,11 +68,11 @@ async function renderMermaid() {
     target.parentNode.replaceChild(wrapper, target);
     nodes.push(wrapper);
   }
-  var promises = [];
-  for (var i = 0; i < nodes.length; i++) {
-    promises.push(mermaid.run({ nodes: [nodes[i]] }));
+  // Render ALL diagrams in one mermaid.run() call so each gets a unique cache ID.
+  // Calling mermaid.run() per-diagram in Promise.all causes Date.now() collisions.
+  if (nodes.length > 0) {
+    await mermaid.run({ nodes });
   }
-  await Promise.all(promises);
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', renderMermaid);
@@ -133,4 +133,4 @@ function umamiBeforeSend(type, payload) {
   return payload;
 }
 </script>
-<!-- build-force: 2026-07-13 22:04:28 -->
+<!-- build-force: 2026-07-13 22:10:34 -->
