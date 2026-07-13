@@ -1,5 +1,5 @@
 ---
-title: Architecting self-improving AI Agent Workflow Loops
+title: Practice of AI agent workflow patterns
 tags:
   - agent-pipeline
   - ai-agents
@@ -20,12 +20,48 @@ The architecture I choose to run these loops dramatically impacts reliability, f
 In this pattern, an external or parent orchestrator (e.g., FastAPI service, Airflow DAG, **Temporal** workflow, or custom Python controller) manages the lifecycle of several independent _children_ LangGraph graphs. The orchestrator routes tasks, persists state, triggers HIL checkpoints, and decides when to advance to the next iteration.
 
 ### How it works
-```
-[Orchestrator] ←→ [LangGraph: Spec Generation]
-      ↕
-[Orchestrator] ←→ [LangGraph: Code Generation]
-      ↕
-[Orchestrator] ←→ [LangGraph: Test & Validate]
+
+```mermaid
+graph TB
+    subgraph User["User Layer"]
+        H1[("Human Reviewer")]
+    end
+
+    subgraph Orchestrator["Central Orchestrator"]
+        OC["Orchestrator Controller\nFastAPI / Temporal / Airflow"]
+    end
+
+    subgraph Workflows["LangGraph Workflows"]
+        LG1["LangGraph:\nSpec Generation"]
+        LG2["LangGraph:\nCode Generation"]
+        LG3["LangGraph:\nTest & Validate"]
+    end
+
+    subgraph Infra["Infrastructure"]
+        ST["State Store\nPostgreSQL / Redis"]
+        OBS["Observability\nOpenTelemetry + LangSmith"]
+    end
+
+    H1 <-->|interrupt / resume| OC
+    OC <-->|HTTP / gRPC| LG1
+    OC <-->|HTTP / gRPC| LG2
+    OC <-->|HTTP / gRPC| LG3
+    LG1 <--> ST
+    LG2 <--> ST
+    LG3 <--> ST
+    LG1 -->|traces| OBS
+    LG2 -->|traces| OBS
+    LG3 -->|traces| OBS
+
+    classDef userLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,color:#000
+    classDef orchLayer fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
+    classDef wfLayer fill:#e8f5e9,stroke:#388e3c,stroke-width:1px,color:#000
+    classDef infraLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px,color:#000
+    classDef extArrow stroke:#9e9e9e,stroke-width:1px
+    class H1 userLayer
+    class OC orchLayer
+    class LG1,LG2,LG3 wfLayer
+    class ST,OBS infraLayer
 ```
 
 | Aspect           | Implementation Detail                                                                                                                                                                                 |
@@ -55,8 +91,42 @@ In this pattern, an external or parent orchestrator (e.g., FastAPI service, Airf
 Here, a single LangGraph `StateGraph` acts as the central orchestrator. Sub-tasks are implemented as nodes, tools, or conditional branches. State flows natively through LangGraph’s typed state machine, and HIL/self-improvement loops are built directly into the graph.
 
 ### How it works
-```
-[Start] → [Plan] → [Generate] → [Validate] → [Reflection/Improve] → [Conditional Edge: Loop or HIL] → [End]
+
+```mermaid
+graph TB
+    subgraph User["User Layer"]
+        HU[("Human-in-the-Loop")]
+    end
+
+    subgraph StateGraph["Single LangGraph StateGraph"]
+        direction LR
+        Start(("Start")) --> Plan["Plan\nGenerate Spec"]
+        Plan --> Generate["Generate\nCode / Artifacts"]
+        Generate --> Validate["Validate\nTests + Lint + Spec"]
+        Validate --> Reflect["Reflection\nCompare vs Requirements"]
+        Reflect --> Gate{"Pass / Fail Gate"}
+        Gate -->|"All tests pass"| End(("End"))
+        Gate -->|"Fail / Improve"| Generate
+        Gate -->|"Needs human"| HU
+        HU -->|"Resume"| Generate
+    end
+
+    subgraph Infra["Infrastructure"]
+        CKPT["Checkpoint\nSqliteSaver / PostgresSaver"]
+        LS["LangSmith Trace\nSingle Trace"]
+    end
+
+    StateGraph <--> CKPT
+    StateGraph --> LS
+
+    classDef userLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,color:#000
+    classDef sgLayer fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
+    classDef infraLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px,color:#000
+    classDef loopEdge stroke:#f57c00,stroke-width:2px,stroke-dasharray: 5 5
+    class HU userLayer
+    class Start,Plan,Generate,Validate,Reflect,Gate,End sgLayer
+    class CKPT,LS infraLayer
+    class Gate loopEdge
 ```
 
 
@@ -88,12 +158,59 @@ Here, a single LangGraph `StateGraph` acts as the central orchestrator. Sub-task
 Each node in a top-level LangGraph graph is itself a fully independent LangGraph workflow. LangGraph supports this natively via subgraphs, or you can federate them as separate graph instances sharing a parent state context.
 
 ### How it works
-```
-[Main Graph]
-   ├─ Node A: [LangGraph Subgraph: Architecture Design]
-   ├─ Node B: [LangGraph Subgraph: Code Generation + Unit Tests]
-   ├─ Node C: [LangGraph Subgraph: Integration Tests & Refactor]
-   └─ Conditional edges route between subgraphs based on validation results
+
+```mermaid
+graph TB
+    subgraph User["User Layer"]
+        HH[("Human Reviewer\nper Subgraph")]
+    end
+
+    subgraph ParentGraph["Parent LangGraph Graph"]
+        direction TB
+        MStart(("Start")) --> ArchNode["Node A"]
+        ArchNode --> CodeNode["Node B"]
+        CodeNode --> IntegNode["Node C"]
+        IntegNode --> MGate{"Validate Gate"}
+        MGate -->|"All pass"| MEnd(("End"))
+        MGate -->|"Refactor"| IntegNode
+    end
+
+    subgraph SubA["Subgraph: Architecture Design"]
+        ArchNode --> SA1["Design Review"]
+        SA1 --> SA2["Spec Output"]
+        SA2 -->|"HIL pause"| HH
+    end
+
+    subgraph SubB["Subgraph: Code Gen + Unit Tests"]
+        CodeNode --> SB1["Code Generation"]
+        SB1 --> SB2["Unit Tests"]
+        SB2 -->|"HIL pause"| HH
+    end
+
+    subgraph SubC["Subgraph: Integration Tests"]
+        IntegNode --> SC1["Integration Tests"]
+        SC1 --> SC2["Refactor Loop"]
+        SC2 -->|"HIL pause"| HH
+    end
+
+    subgraph Infra["Infrastructure"]
+        PState["Parent State\nChannels"]
+        CKPTS["Nested Checkpoints\nadd_subgraph()"]
+        LS2["Nested LangSmith Traces"]
+    end
+
+    ParentGraph <--> PState
+    ParentGraph <--> CKPTS
+    ParentGraph --> LS2
+
+    classDef userLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:1px,color:#000
+    classDef parentLayer fill:#fff3e0,stroke:#f57c00,stroke-width:1px,color:#000
+    classDef subLayer fill:#e8f5e9,stroke:#388e3c,stroke-width:1px,color:#000
+    classDef infraLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px,color:#000
+    class HH userLayer
+    class MStart,ArchNode,CodeNode,IntegNode,MGate,MEnd parentLayer
+    class SA1,SA2,SB1,SB2,SC1,SC2 subLayer
+    class PState,CKPTS,LS2 infraLayer
 ```
 
 | Aspect           | Implementation Detail                                                                                                                                                   |
