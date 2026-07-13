@@ -50,10 +50,27 @@ sectionheader::after {
 <script>
 mermaid.initialize({ startOnLoad: false });
 async function renderMermaid() {
-  var divs = document.querySelectorAll('.mermaid');
+  // Support both legacy <div class="mermaid"> AND Hugo's <code class="language-mermaid">
+  var sources = document.querySelectorAll('.mermaid, code.language-mermaid');
+  var nodes = [];
+  for (var i = 0; i < sources.length; i++) {
+    var el = sources[i];
+    // Extract mermaid text: from <code> if nested, otherwise raw text
+    var codeEl = el.querySelector ? el.querySelector('code') : null;
+    var diagram = codeEl ? codeEl.textContent : el.textContent;
+    var wrapper = document.createElement('div');
+    wrapper.className = 'mermaid';
+    wrapper.textContent = diagram.trim();
+
+    // Replace the right parent: <code class="language-mermaid"> lives inside <pre>,
+    // so replace the whole <pre> to avoid leftover <pre> styling around the diagram.
+    var target = el.tagName.toLowerCase() === 'code' ? el.parentNode : el;
+    target.parentNode.replaceChild(wrapper, target);
+    nodes.push(wrapper);
+  }
   var promises = [];
-  for (var i = 0; i < divs.length; i++) {
-    promises.push(mermaid.run({ nodes: [divs[i]] }));
+  for (var i = 0; i < nodes.length; i++) {
+    promises.push(mermaid.run({ nodes: [nodes[i]] }));
   }
   await Promise.all(promises);
 }
@@ -116,4 +133,4 @@ function umamiBeforeSend(type, payload) {
   return payload;
 }
 </script>
-<!-- build-force: 2026-07-13 21:43:37 -->
+<!-- build-force: 2026-07-13 22:04:28 -->
