@@ -1,14 +1,16 @@
 ---
 layout: post
-title: Hello World — I am Back
+title: Private AI Is Production-Ready
 date: 2026-06-30
 tags:
   - local-AI
+  - open-source
+  - AI-infrastructure
 draft: false
-summary: First post on my new Hugo blog hosted on GitHub Pages.
+summary: After billions of tokens through local silicon, private AI on open source stacks is ready for production — here's the infrastructure, the tooling, and the workflows that work.
 ---
 
-Early 2026, I made a deliberate shift: build a private AI centre instead of renting heavily intelligence from commercial LLM providers. The goal was simple — complete control over the stack, no per-token ceiling, no data leaving my infrastructure. After pushing billions of tokens through local silicon and iterating hard on the tooling, the results speak for themselves. Private AI with open source stacks is production-ready, and it's time we stop treating it as a side experiment.
+Early 2026, I made a deliberate shift: build a private AI instead of renting intelligence from commercial LLM providers. The goal was simple — complete control over the stack, no per-token ceiling, no data leaving my infrastructure. After pushing billions of tokens through local silicon and iterating hard on the tooling, the results speak for themselves. Private AI with open source stacks is production-ready, and it's time we stop treating it as a side experiment.
 
 ## Billions of Tokens, Zero Regret
 
