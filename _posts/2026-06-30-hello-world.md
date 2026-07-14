@@ -9,20 +9,18 @@ tags:
 draft: false
 summary: After billions of tokens through local silicon, private AI on open source stacks is ready for production — here's the infrastructure, the tooling, and the workflows that work.
 ---
-
 Early 2026, I made a deliberate shift: build a private AI instead of renting intelligence from commercial LLM providers. The goal was simple — complete control over the stack, no per-token ceiling, no data leaving my infrastructure. After pushing billions of tokens through local silicon and iterating hard on the tooling, the results speak for themselves. Private AI with open source stacks is production-ready, and it's time we stop treating it as a side experiment.
 
 ## Billions of Tokens, Zero Regret
 
-Yes, I ran through tens of billions of tokens locally. And honestly, that's the point. When you control the hardware, you can experiment aggressively without a bill chasing you down. I pushed prompts to their limits, tested models across quantisation levels, stress-tested RAG pipelines, and broke things on purpose so I could understand failure modes.
+Yes, I ran through tens of billions of tokens locally. And honestly, that's the point. When you control the hardware, you can experiment aggressively without a bill chasing you down. I pushed prompts to their limits, tested models across quantisation levels, stress-tested RAG pipelines, AI agent loops, and broke things on purpose so I could understand failure modes.
 
 Every misconfiguration, every broken pipeline, every model swap sharpened my engineering judgment. Those tokens didn't waste away — they built intuition. And that intuition is what lets me ship real systems, not proof-of-concepts.
 
 
 ## Five Projects, Two Approaches
 
-
-Across five projects — three greenfield builds, two legacy refactors — one pattern held up consistently: LLMs perform best when tightly constrained, not left freeform.
+Across five major projects — three greenfield builds, two legacy refactors — one pattern held up consistently: LLMs perform best when tightly constrained, not left freeform.
 
 Greenfield work rewards explicit fallbacks, latency budgets, and reliable automated execution loops. Build that discipline upfront and repeatability follows. Legacy refactors need a different play — the leverage here isn't rewriting from scratch; it's surfacing hidden domain boundaries, drafting clear contracts, and accelerating human review.
 
@@ -31,7 +29,7 @@ Either way, observability is non-negotiable. Instrument everything from day one.
 
 ## Under the Hood: Local LLMs, Knowledge Base, and Tooling
 
-### Configuring and Running Local LLMs
+### 1. Configuring and Running Local LLMs
 
 Running models locally changed how I approach AI engineering. I standardised on a hybrid stack:
 
@@ -42,10 +40,10 @@ Running models locally changed how I approach AI engineering. I standardised on 
 - **Qwen3.6-27B-NVFP4** is my current sweet spot. Expect a deep dive on fine-tuning variations in a future post.
 - **Hugging Face** is where I stay current on model releases.
 
-Quantisation is table stakes now. `Q4_K_M` hit the best balance across VRAM, speed, context, and perplexity for my RTX 5090. Early lesson: context window size matters far less than context hygiene. Garbage in, garbage out — that rule hasn't changed. Sliding windows, strategic truncation, and explicit prompt templates did more for quality than any 128K context chase.
+Quantisation is table stakes now. `Q4_K_M` hit the best balance across VRAM, speed, context, and perplexity for my machines. Early lesson: context window size matters far less than context hygiene. Garbage in, garbage out — that rule hasn't changed. Sliding windows, strategic truncation, and explicit prompt templates did more for quality than any 128K context chase.
 
 
-### Building a Personal Knowledge Base
+### 2. Building a Personal Knowledge Base
 
 My RAG pipeline went through three major rewrites. Here's what stabilised:
 - **Chunk by semantic boundaries**, not fixed token counts.
@@ -57,7 +55,7 @@ My RAG pipeline went through three major rewrites. Here's what stabilised:
 
 The value of growing my personal KB is obvious — it gives my local agents an edge over frontier models on many tasks.
 
-### Evaluating AI Coding Tools
+### 3. Evaluating AI Coding Tools
 
 I tested nearly every major assistant on the market. Here's where I landed:
 - **Cursor, OpenCode**: best for contextual ideation and multi-file editing.
