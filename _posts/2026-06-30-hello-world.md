@@ -3,83 +3,85 @@ layout: post
 title: Hello World — I am Back
 date: 2026-06-30
 tags:
-  - hugo
-  - github-pages
+  - local-AI
 draft: false
 summary: First post on my new Hugo blog hosted on GitHub Pages.
 ---
 
-Early this year, I chose to invest in building a local AI lab rather than consuming commercial APIs. The goal was simple: gain complete control and remove the cost boundaries to aggressive experimentation and production. After driving many billions of tokens through local silicon across countless iterations, the results are clear. The true ROI didn't come from perfect runs, but from the 90% 'waste' factor—the failures that forced deep technical understanding. I’m ready to share what actually worked, what didn’t, and why that famous 95% “waste” stat ended up being the most valuable part of the journey.
+Early 2026, I made a deliberate shift: build a private AI centre instead of renting heavily intelligence from commercial LLM providers. The goal was simple — complete control over the stack, no per-token ceiling, no data leaving my infrastructure. After pushing billions of tokens through local silicon and iterating hard on the tooling, the results speak for themselves. Private AI with open source stacks is production-ready, and it's time we stop treating it as a side experiment.
 
-## The “Wasted” Billions of Tokens Were Never Really Wasted
+## Billions of Tokens, Zero Regret
 
-Yes, I burned through tens of billions of tokens. And if you look at the raw logs, roughly 95% of them went into tuning, failed experiments, and hard-earned corrections.
+Yes, I ran through tens of billions of tokens locally. And honestly, that's the point. When you control the hardware, you can experiment aggressively without a bill chasing you down. I pushed prompts to their limits, tested models across quantisation levels, stress-tested RAG pipelines, and broke things on purpose so I could understand failure modes.
 
-I over-engineered prompts. I fine-tuned on noisy, misaligned datasets. I chased benchmark scores that meant nothing in practice. I mismanaged context windows, misconfigured RAG retrieval thresholds, and let hallucinated code slip into production branches before catching it.
+Every misconfiguration, every broken pipeline, every model swap sharpened my engineering judgment. Those tokens didn't waste away — they built intuition. And that intuition is what lets me ship real systems, not proof-of-concepts.
 
-  
-But that “waste” wasn’t waste. It was tuition. In AI engineering, you don’t learn from success. You learn from the gap between expectation and output. Every broken pipeline, every misrouted query, every failed auto-refactor taught me more about system design than any documentation ever could. The tokens didn’t disappear—they became intuition.
 
-## Five Projects, Hundreds of features, Two Tracks
+## Five Projects, Two Approaches
 
-Across five projects—3 greenfield builds and 2 legacy refactors—one consistent pattern emerged: LLMs work best when tightly constrained, not left to freeform execution.
 
-Greenfield work taught me the value of explicit fallbacks and latency budgets. For these new projects, building a reliable, automated execution loop is the gold standard for repeatability. Legacy refactoring, however, requires a different strategy. There, AI’s true leverage isn’t writing code from scratch; it’s surfacing hidden domain boundaries, drafting clear contracts, and accelerating human review.
+Across five projects — three greenfield builds, two legacy refactors — one pattern held up consistently: LLMs perform best when tightly constrained, not left freeform.
 
-No matter which path you take, building out observability infrastructure is a non-negotiable step upfront. In this space, treating your skills as long-term  assets is the real investment.
+Greenfield work rewards explicit fallbacks, latency budgets, and reliable automated execution loops. Build that discipline upfront and repeatability follows. Legacy refactors need a different play — the leverage here isn't rewriting from scratch; it's surfacing hidden domain boundaries, drafting clear contracts, and accelerating human review.
+
+Either way, observability is non-negotiable. Instrument everything from day one. That's the backbone of every system I build.
 
 
 ## Under the Hood: Local LLMs, Knowledge Base, and Tooling
 
-### Configuring & Running Local LLMs
+### Configuring and Running Local LLMs
 
-Running models locally changed how I think about AI and trade-offs. I standardised around a hybrid stack:
+Running models locally changed how I approach AI engineering. I standardised on a hybrid stack:
 
-- **Ollama** for rapid iteration and quick prototyping:  `ollama launch claude` was my favorite for using Claude for free.
-- **llama.cpp** and **LMS Studio** for ARM/Mac MLX compatibility and low-latency inference, great for parameters fine tune, but not concurrency.
-- **vLLM** when I needed throughput and continuous batching, concurrency, best for agents working
-- **SGLang** - tried, faster, but expensive in consuming my precious VRAM room,  and quickly abandon it as not fit for my agent environments.
-- **Qwen3.6-27B-NVFP4** is the best fit in my case, yet there are still many variations to fine-tune (I will cover in my future posts)
-- **Hugging Face** is the community I visit most often to stay on top of new models. 
+- **Ollama** for rapid iteration and prototyping — `ollama launch claude` was my go-to for quick Claude access without API calls.
+- **llama.cpp** and **LMS Studio** for ARM/Mac MLX compatibility and low-latency inference. Great for parameter tuning, less ideal for concurrency.
+- **vLLM** for throughput and continuous batching — the workhorse for agent workloads. Multi-modal scenarios tell a different story; I'll cover that separately.
+- **SGLang** — fast on paper, but VRAM-hungry. Dropped it quickly; didn't fit my agent environment.
+- **Qwen3.6-27B-NVFP4** is my current sweet spot. Expect a deep dive on fine-tuning variations in a future post.
+- **Hugging Face** is where I stay current on model releases.
 
-Quantisation became daily reality. `Q4_K_M` struck the best balance between VRAM, speed, context and perplexity for my hardware. I learned early that context window size matters less than **context hygiene**. Garbage in, garbage out is the only law that hasn’t changed. Sliding windows, strategic truncation, and explicit prompt templates made more difference than chasing 128K contexts. Of course, I can share different stories when talking about multi modal scenarios ( I will tell my ai voice and video creation in another post).
+Quantisation is table stakes now. `Q4_K_M` hit the best balance across VRAM, speed, context, and perplexity for my RTX 5090. Early lesson: context window size matters far less than context hygiene. Garbage in, garbage out — that rule hasn't changed. Sliding windows, strategic truncation, and explicit prompt templates did more for quality than any 128K context chase.
+
 
 ### Building a Personal Knowledge Base
 
-My RAG pipeline went through three major rewrites before stabilising and performance. What finally worked:
+My RAG pipeline went through three major rewrites. Here's what stabilised:
+- **Chunk by semantic boundaries**, not fixed token counts.
+- **Hybrid search**: BM25 for exact match, vectors for semantic retrieval, node4j for semantic relationships.
+- **Embedding strategy**: fast, smaller models for retrieval; larger models reserved for synthesis.
+- **Storage**: Chroma for local dev, Qdrant for scalable vectors, node4j for graph-based semantic networks.
+- **Ingestion guardrails**: source channels, validation, metadata tagging, and periodic re-embedding to combat drift.
+- **Personal KB**: started from Obsidian notes with Kapathy LLM wiki, later extended to a custom plugin backed by Qdrant and node4j.
 
-- **Chunk by semantic boundaries**, not fixed token counts
-- **Hybrid search**: BM25 for exact match + vectors for semantic retrieval, node4j for semantic relationship.
-- **Embedding strategy**: Fast, smaller models for retrieval; larger models reserved for synthesis
-- **Storage**: Chroma for local dev, Qdrant for scalable vectors, node4j for graph-based semantic network.
-- **Ingestion guardrails**: Source channels, validation, metadata tagging, and periodic re-embedding to combat drift. 
-- **Personal KB** starting from Obsidian note with `Kapathy LLM wiki` and later extended to custom plugin working on backend Qdrant and node4J.
+The value of growing my personal KB is obvious — it gives my local agents an edge over frontier models on many tasks.
 
 ### Evaluating AI Coding Tools
 
-I tested nearly every major assistant on the market. Here’s where I landed:
+I tested nearly every major assistant on the market. Here's where I landed:
+- **Cursor, OpenCode**: best for contextual ideation and multi-file editing.
+- **Continue**: ideal as a local orchestrator chaining LLMs, tools, and git history.
+- **Aider**: surgical precision for targeted refactors and test-driven iteration.
+- **GitHub Copilot, Codex, Claude Code**: still unbeatable if cost is no concern.
+- **Hermes agent ACP**: not the sharpest at raw code syntax — and that's fine. It learns independently, shares skills across coding and beyond. The compound returns are undeniable.
+- **Observable, measurable and self-improvement**: spending time establishing the observability and evaluation framework gains faster delivery speed.
 
-- **Cursor, OpenCode**: Best for contextual ideation and multi-file editing
-- **Continue**: Ideal as a local orchestrator that chains LLMs, tools, and git history
-- **Aider**: Surgical precision for targeted refactors and test-driven iteration
-- **GitHub Copilot, Codex, Claude code**: Still unbeatable if less care costs.
-- **Hermes agent ACP**: not best tool to understand the code syntax, so what?  It's my favourite because it learns by itself, share skills across coding and beyond - I saw the compound returns after 6 month's usage. (I will address this in another post)
-
-None of them work in a vacuum. The real advantage came from building a **repeatable workflow**: AI proposes → I verify → tests enforce → version control guards against drift. AI doesn’t replace engineering discipline; it accelerates and amplifies it.
-
-## Lessons That Actually Stuck
-
-1. **Optimisation is a trap early on.** Ship a working pipeline before you chase latency or throughput.
-2. **Evaluation > Generation.** If you can’t measure it, you can’t improve it. I built lightweight eval suites long before I polished prompts.
-3. **Local AI isn’t just about privacy.** It’s about iteration speed, data control, and debugging transparency.
-4. **The best AI engineers aren’t prompt wizards.** They’re **architects** who know how to isolate problems from systemic observation, execute divide-and-conquer against boundaries, and balance automation and intervention.
-5. **95% “waste” is just the tuition fee for intuition.** Treat failed tokens as data, not debt.
-
-## Looking Forward
-
-Investing my time on this journey has made me a better engineer, architect and team-mate of agents.  And I have to be honest: without my over 20 years in architecture and system design, I cannot do this alone. The tokens spent, the models swapped, the dockers crashed, the pipelines rebuilt—they all point to one truth: AI isn’t a silver bullet. It’s a mirror of yourself with more powerful hands. It reflects your process, your rigor, and your willingness to iterate.
+None of these tools work in isolation. The real advantage is a repeatable workflow powered by a self-learning knowledge base — AI proposes, I verify, AI executes, tests enforce, version control guards against drift, and the loop self-corrects. AI doesn't replace engineering discipline — it amplifies it.
 
 
-**I’d love to hear your take.** Are you running local, cloud, or hybrid? What tools have you standardised on, and what broke your pipeline unexpectedly? what your anticipation on next generation software and enterprise architecture? Drop your thoughts in the comments or reach out directly. 
+## What Actually Matters
 
-From now on, I'll publish here regularly.
+1. **Ship the pipeline before you optimise it.** Latency and throughput come after working systems.
+2. **Evaluation beats generation.** If you can't measure it, you can't improve it. I built lightweight eval suites before I polished prompts.
+3. **Local AI isn't just about privacy.** It's about iteration speed, data control, and debugging transparency — things commercial APIs can never give you.
+4. **The best AI engineers aren't prompt wizards.** They're architects who isolate problems from systemic observation, execute divide-and-conquer against boundaries, and know when to automate and when to intervene.
+5. **Every token spent is data, not debt.** Treat the exploration budget as investment in engineering intuition.
+
+
+## Why This Matters for the Industry
+
+This journey has made me a better collaborator with AI agents. And I'll be straight with you — none of this works without two decades in architecture and system design as foundation. The models swapped, the dockers crashed, the pipelines rebuilt — they all reinforce one thing: AI is a mirror of your process, your rigor, and your willingness to ship.
+
+But more importantly, this isn't just my project. Every time another team stands up a private LLM, builds a knowledge pipeline, or ships an agent on open source — we strengthen the entire ecosystem. Private AI is the path forward. Your data stays yours. Your costs scale with compute, not tokens. And the open source community delivers faster than any vendor roadmap.
+
+
+**Let's talk.** Are you running local, cloud, or hybrid? What's your stack? What broke your pipeline that shouldn't have? Drop your thoughts in the comments or reach out directly. Building in public, as always.
