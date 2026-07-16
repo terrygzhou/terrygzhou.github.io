@@ -7,9 +7,9 @@ tags:
   - ai-agents
 date: 2026-07-01
 ---
-Are you an executive leader without an architecture background, frustrated by the disconnect between your business goals, operational realities, and technology landscape? You know transformation is critical, but you’re stuck: unclear on where to go, how to get there, and unwilling to spend millions on Big 4 consultants for a “strategy” that may never be executable. That’s exactly why **PR #626** was built. 
+Are you an executive leader without an architecture background, frustrated by the disconnect between your business goals, operational realities, and technology landscape? You know transformation is critical, but you’re stuck: unclear on where to go, how to get there, and unwilling to spend millions on Big 4 consultants for a “strategy” that may never be executable. That’s exactly why **PR #626** was built. 
 
-Recently, I published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865). This update introduces AI-agentic, tool-agnostic support for the **TOGAF Architecture Development Method (ADM)**.
+Recently, I published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865). This update introduces AI-agentic, tool-agnostic support for the **TOGAF Architecture Development Method (ADM)**.
 
 This release ( [Repo of the codebase:](https://github.com/terrygzhou/arc-kit)) bridges the gap between TOGAF’s iterative framework and real-world execution. It creates and translates architectural guidance into clear, actionable workflows—so you can define the right problems, structure pragmatic solution strategies, and drive progress through ADM cycles without needing a dedicated EA team or a six-figure consulting budget.
 
@@ -26,7 +26,7 @@ This work will be enabling **configurable, validated, and repeatable architectur
 
 ## 📦 What’s Inside PR #626?
 
-This contribution focuses on making ADM phases **Agent-readable, configurable, and actionable**. Key updates include introduction to `arckit-togaf-adm` that implements the **TOGAF ADM as structured, traceable slash commands and build recipes, and `arckit-agent-architecture` that provide architecture for managing agents in enterprise environment based on `arckit-togaf-adm`. It covers the full ADM cycle — Preliminary through Phase H — plus a cross-project Architecture Repository. 
+This contribution focuses on making ADM phases **Agent-readable, configurable, and actionable**. Key updates include introduction to `arckit-togaf-adm` that implements the **TOGAF ADM as structured, traceable slash commands and build recipes, and `arckit-agent-architecture` that provide architecture for managing agents in enterprise environment based on `arckit-togaf-adm`. It covers the full ADM cycle — Preliminary through Phase H — plus a cross-project Architecture Repository. 
 
 Note that this post focus on `arckit-togaf-adm` only, instead of `arckit-agent-architecture` (discussed in another post). 
 
@@ -60,7 +60,7 @@ Note that this post focus on `arckit-togaf-adm` only, instead of `arckit-agent-a
 4. **Open Source Transparency**  
    No vendor lock-in. The rules, templates, and validation logic are fully auditable, forkable, and community-driven.
 
-5. **Composition with AI agent governance.** The `togaf-agent-full` recipe shows TOGAF ADM isn't a replacement — it's a sibling. Enterprise architecture and AI agent architecture run in parallel, feeding into the same gap analysis, transition planning, and governance review. One build, two domains. (see my another post to use this to manage many agents in an agent-architecture)
+5. **Composition with AI agent governance.** The `togaf-agent-full` recipe shows TOGAF ADM isn't a replacement — it's a sibling. Enterprise architecture and AI agent architecture run in parallel, feeding into the same gap analysis, transition planning, and governance review. One build, two domains. (see my another post to use this to manage many agents in an agent-architecture)
 
 ---
 
@@ -74,9 +74,10 @@ Arckit supports claudecode, codex, co-pilot, gemini, opencode. Based on Arckit's
 | ------------ | ------------------------- | ------------------------ |
 | Execution    | Batch DAG, parallel       | Interactive, sequential  |
 | State        | `.arckit/state.json`      | Claude session memory    |
-| Placeholders | Wave prompts, auto-derive | `$ARGUMENTS` inline      |
+| Placeholders | Wave prompts, auto-derive | `$ARGUMENTS` inline      |
 | Resume       | `--resume`                | Manual re-invocation     |
 | Best for     | Full-cycle automation     | Ad-hoc, exploratory work |
+
 ### CLI
 
 ```bash
@@ -133,7 +134,7 @@ claude agent recipes/togaf-adm-full.yaml
 
 ### Local Dev Install (from your repo)
 
-The plugin lives at `plugins/arckit-togaf-adm`. Link it as a local plugin:
+The plugin lives at `plugins/arckit-togaf-adm`. Link it as a local plugin:
 
 ```bash
 claude install latest
@@ -177,13 +178,13 @@ The command will:
 
 1. Ask if PRIN (architecture principles) exists — create it first if missing
 2. Ask max 2 rounds of questions about scope, drivers, constraints
-3. Generate `ARC-{P}-ADMP-v1.0.md` with architecture vision
-4. Suggest next steps (`/arckit:business-capability-map`, `/arckit:gap-analysis`)
+3. Generate `ARC-{P}-ADMP-v1.0.md` with architecture vision
+4. Suggest next steps (`/arckit:business-capability-map`, `/arckit:gap-analysis`)
 
 
 ### An Example 
 
-Enterprise Architecture artefacts for **MagicDelivery's AgenticEA** AI transformation programme — generated using ArcKit TOGAF ADM and Agent Architecture plugins (see [Case study: MagicDelivery-AI-Transformation](https://github.com/terrygzhou/MagicDelivery)).
+Enterprise Architecture artefacts for **MagicDelivery's AgenticEA** AI transformation programme — generated using ArcKit TOGAF ADM and Agent Architecture plugins (see [Case study: MagicDelivery-AI-Transformation](https://github.com/terrygzhou/MagicDelivery)).
 `scope: Omnichannel AI agents across customer sales, service, shopping, and fulfillment`
 
 ---
