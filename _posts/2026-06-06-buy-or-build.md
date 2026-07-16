@@ -1,6 +1,6 @@
 ---
 title: Buy Over Build? Rethinking IT Strategy in the AI wave
-date: 2026-07-06
+date: 2026-06-06
 tags:
   - IT-Strategy
   - buy-or-build

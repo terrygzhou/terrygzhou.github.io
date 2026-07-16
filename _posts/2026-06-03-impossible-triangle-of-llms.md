@@ -1,7 +1,11 @@
 ---
 layout: post
 title: "The Impossible Triangle: Speed, Context and Knowledge"
-date: 2026-07-03
+date: 2026-06-03
+tags:
+  - llm
+  - local-AI
+  - ai-infra
 ---
 As AI shifts from rule-based logic to pattern-driven LLMs, knowledge is no longer stored as explicit rules—it’s compressed into statistical intuition across billions of parameters. But scale hits a physical wall. In my experience tuning local models, I’ve identified **the Impossible Triangle of LLM Tuning**: Context, Speed, and Knowledge. You can optimize two corners, but the third always suffers.
 

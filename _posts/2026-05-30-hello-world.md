@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Private AI Is Production-Ready
-date: 2026-06-30
+date: 2026-05-30
 tags:
   - local-AI
   - open-source
