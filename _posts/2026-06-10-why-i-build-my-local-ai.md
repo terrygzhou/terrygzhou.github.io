@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Why I build my local AI with less spend on AI Subscriptions
-date: 2026-07-16
+date: 2026-06-10
 tags:
   - local-AI
   - AI-strategy
