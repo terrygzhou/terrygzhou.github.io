@@ -7,7 +7,6 @@ tags:
   - ai-agents
 date: 2026-07-01
 ---
-
 Are you an executive leader without an architecture background, frustrated by the disconnect between your business goals, operational realities, and technology landscape? You know transformation is critical, but you’re stuck: unclear on where to go, how to get there, and unwilling to spend millions on Big 4 consultants for a “strategy” that may never be executable. That’s exactly why **PR #626** was built. 
 
 Recently, I published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865). This update introduces AI-agentic, tool-agnostic support for the **TOGAF Architecture Development Method (ADM)**.
@@ -67,7 +66,70 @@ Note that this post focus on `arckit-togaf-adm` only, instead of `arckit-agent-a
 
 ## 🚀 How to Try It
 
-Arckit support claudecode, codex, copilot, gemini, opencode, paperclip, hermes, just pick up your favorite one.
+Arckit supports claudecode, codex, co-pilot, gemini, opencode. Based on Arckit's foundation, there are two ways of running it: CLI or plugin where CLI supports BYOAI via opencode (detailed below).
+
+**Recommendation**: Use CLI for end-to-end ADM runs (15 targets, dependency graph, parallel dispatch). Use Plugin when you want to step through phases with user input between each.
+
+|              | CLI                       | Plugin                   |
+| ------------ | ------------------------- | ------------------------ |
+| Execution    | Batch DAG, parallel       | Interactive, sequential  |
+| State        | `.arckit/state.json`      | Claude session memory    |
+| Placeholders | Wave prompts, auto-derive | `$ARGUMENTS` inline      |
+| Resume       | `--resume`                | Manual re-invocation     |
+| Best for     | Full-cycle automation     | Ad-hoc, exploratory work |
+### CLI
+
+```bash
+# 1. Install CLI
+pipx install arckit-cli
+
+# 2. Initialize project if you run copilot
+arckit init my-project --ai copilot
+
+# 2. or you can BYOAI if you run Ollama or vllm locally
+arckit config set llm.base_url http://pop-os:8080
+arckit config set llm.model Qwen3.6-27B
+arckit config set llm.api_key test-key
+
+# 3. Run full ADM cycle
+cd my-project
+arckit init .
+arckit build --recipe togaf-adm-full
+
+# 4. Answer wave prompts (interactive):
+#    Wave 1 — NAME, DISC_SCOPE, REQ_SCOPE, STKE_SCOPE
+#    Wave 2 — P (project short ID, defaults "001")
+#    Wave 3 — phase overrides (optional, each P_<ID> independently)
+
+# 5. Resume after interruption
+arckit build --recipe togaf-adm-full --resume
+```
+
+### Plugin
+```bash
+# 1. Install plugin (requires Claude Code v2.1.172+)
+claude install latest
+/plugin marketplace add tractorjuice/arckit-claude
+claude plugin install arckit arckit-togaf-adm
+
+
+# 2. Run individual commands (interactive, in order):
+/arckit:discovery           # Capture current-state baseline
+/arckit:adm-preliminary      # Architecture vision, scope, drivers
+/arckit:business-capability-map    # Business capability hierarchy
+/arckit:application-inventory      # Application catalog
+/arckit:data-architecture          # Data architecture (Phase C.2)
+/arckit:technology-architecture   # Technology architecture (Phase D)
+/arckit:application-rationalization # Keep/merge/replace/retire
+/arckit:gap-analysis              # Current vs target gap matrix
+/arckit:transition-architecture   # Migration work packages
+/arckit:architecture-board        # Compliance scorecard
+/arckit:architecture-change       # Post-baseline changes (optional)
+/arckit:architecture-repository  # Repository synthesis (optional)
+
+# 3. Or run the full recipe in one shot:
+claude agent recipes/togaf-adm-full.yaml
+```
 
 ### Local Dev Install (from your repo)
 
@@ -123,7 +185,6 @@ The command will:
 
 Enterprise Architecture artefacts for **MagicDelivery's AgenticEA** AI transformation programme — generated using ArcKit TOGAF ADM and Agent Architecture plugins (see [Case study: MagicDelivery-AI-Transformation](https://github.com/terrygzhou/MagicDelivery)).
 `scope: Omnichannel AI agents across customer sales, service, shopping, and fulfillment`
-
 
 ---
 
