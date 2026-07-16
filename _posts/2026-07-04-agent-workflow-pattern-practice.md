@@ -290,15 +290,15 @@ For most AI agent loop factories, **Pattern 2 (LangGraph as orchestrator)** prov
 
 As your system scales and sub-loops diverge in compute, validation, or human review requirements, **evolve to Pattern 3 (hierarchical subgraphs)**. This preserves modularity while keeping LangGraph’s routing and checkpointing intact.
 
-Only use **Pattern 1 (External Manager)** if you’re tying into existing enterprise tools, need strict scheduling rules, or must run parts of your pipeline on completely separate infrastructure.
+Only use **Pattern 1 (External Manager)** if you’re tying into existing enterprise tools, need strict scheduling rules, or must run parts of your pipeline on completely separate infrastructure.
 
 ---
 
 ## 🔚 Final Thoughts
 
-Building AI workflows that improve over time isn’t about crafting the perfect prompt. It’s about designing **flows that remember, reflect, validate, and know when to ask for help**. The right architecture turns chaotic trial-and-error into a predictable, auditable production line.
+Building AI workflows that improve over time isn’t about crafting the perfect prompt. It’s about designing **flows that remember, reflect, validate, and know when to ask for help**. The right architecture turns chaotic trial-and-error into a predictable, auditable production line.
 
-In [`loop_engineering_factory`](https://github.com/terrygzhou/loop_engineering_factory), I’m actively evolving from a single unified flow into nested, modular loops. The aim isn’t full autonomy—it’s **reliable, transparent, and continuously improving AI-assisted development**.
+In [`loop_engineering_factory`](https://github.com/terrygzhou/loop_engineering_factory), I’m actively evolving from a single unified flow into nested, modular loops. The aim isn’t full autonomy—it’s **reliable, transparent, and continuously improving AI-assisted development**.
   
 If you’re experimenting with agent loops, I’d love to see how you structure your checkpoints, feedback cycles, and human review steps. Drop a link in the comments or open a discussion on the repo.
 

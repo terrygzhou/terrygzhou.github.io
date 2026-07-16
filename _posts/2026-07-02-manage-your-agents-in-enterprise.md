@@ -12,7 +12,7 @@ tags:
 status: published
 ---
 
-> **TL;DR**: Enterprises are deploying hundreds of AI agents across their operations — but most lack a systematic way to govern, secure, and orchestrate them. Recently I have published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865).  The ArcKit Agent Architecture overlay, implemented in this  [Arckit Agent-Architecture plugin](https://github.com/terrygzhou/arc-kit/tree/main/plugins/arckit-agent-architecture) brings Enterprise Architecture methodology to AI agent programmes, providing inventory, design, governance, security, and maturity assessment workflows.
+> **TL;DR**: Enterprises are deploying hundreds of AI agents across their operations — but most lack a systematic way to govern, secure, and orchestrate them. Recently I have published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865).  The ArcKit Agent Architecture overlay, implemented in this  [Arckit Agent-Architecture plugin](https://github.com/terrygzhou/arc-kit/tree/main/plugins/arckit-agent-architecture) brings Enterprise Architecture methodology to AI agent programmes, providing inventory, design, governance, security, and maturity assessment workflows.
 
 ---
 
@@ -171,6 +171,7 @@ MagicDelivery needed to govern agents spanning:
 |AGT-GOV|Agent Governance (guardrails, oversight, compliance)|
 |AGT-SEC|Agent Security (controls, sandboxing, privacy)|
 |AGT-MAT|Agent Maturity Assessment|
+
 ### Approach
 
 1. **Inventory** (`/arckit:agent-inventory`): Catalogued all  agents with ownership, risk levels, and deployment status
