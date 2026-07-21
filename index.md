@@ -5,10 +5,161 @@ title: "Terry Zhou"
 
 ## About
 
-As a hands-on Enterprise Architect, I focus on turning design frameworks into executable by bridging the gap between theoretical models and pratical, production-ready AI agentic systems. 
+As a hands-on Enterprise Architect, I focus on turning design frameworks into executable by bridging the gap between theoretical models and pratical, production-ready AI agentic systems.
 My work spans active contributions to open-source agentic engineering toolkits and partnering with enterprises to operationalize Agentic AI within their core business strateg.
 
 **Topics**: Enterprise Architecture · Agentic AI Strategy · Digital + AI Transformation · Software Engineering
+
+---
+
+## Repositories
+
+<style>
+#repos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.repo-card {
+  display: block;
+  padding: 16px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.1s;
+  background: #1f1f1f;
+}
+.repo-card:hover {
+  box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+  border-color: #0366d6;
+  transform: translateY(-1px);
+}
+.repo-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05em;
+  font-weight: 600;
+}
+.repo-card-desc {
+  margin: 8px 0 0;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #aaa;
+}
+.repo-card-meta {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 0.8em;
+  color: #888;
+}
+.repo-topic {
+  background: #0d2a63;
+  color: #58a6ff;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75em;
+}
+.repo-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+#repos-status {
+  color: #666;
+  font-style: italic;
+}
+#repos-status.error {
+  color: #e5534b;
+  font-style: normal;
+}
+</style>
+
+<div id="repos-grid">
+  <p id="repos-status">Loading repositories…</p>
+</div>
+
+<script>
+(function() {
+  const grid = document.getElementById('repos-grid');
+
+  function timeAgo(dateStr) {
+    var seconds = Math.floor((Date.now() - new Date(dateStr)) / 1000);
+    var intervals = [
+      [31536000, 'y'], [2592000, 'mo'], [86400, 'd'], [3600, 'h'], [60, 'm']
+    ];
+    for (var i = 0; i < intervals.length; i++) {
+      var count = Math.floor(seconds / intervals[i][0]);
+      if (count >= 1) return count + intervals[i][1] + ' ago';
+    }
+    return 'just now';
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str || ''));
+    return div.innerHTML;
+  }
+
+  async function loadRepos() {
+    try {
+      var res = await fetch('https://api.github.com/users/terrygzhou/repos?sort=updated&per_page=100');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      var repos = await res.json();
+
+      repos = repos.filter(function(r) { return !r.fork; });
+      repos.sort(function(a, b) { return new Date(b.updated_at) - new Date(a.updated_at); });
+      repos = repos.slice(0, 20);
+
+      if (!repos.length) {
+        grid.innerHTML = '<p id="repos-status">No public repositories found.</p>';
+        return;
+      }
+
+      grid.innerHTML = repos.map(function(r) {
+        var descHtml = r.description
+          ? '<p class="repo-card-desc">' + escapeHtml(r.description) + '</p>'
+          : '<p class="repo-card-desc" style="color:#666;">No description</p>';
+
+        var topicsHtml = ''
+        if (r.topics && r.topics.length > 0) {
+          topicsHtml = '<div class="repo-topics">' +
+            r.topics.map(function(t) { return '<span class="repo-topic">' + escapeHtml(t) + '</span>'; }).join('') +
+            '</div>';
+        }
+
+        var lang = r.language ? '<span>📦 ' + escapeHtml(r.language) + '</span>' : '';
+        var stars = '<span>⭐ ' + r.stargazers_count + '</span>';
+
+        return '<a href="' + r.html_url + '" target="_blank" rel="noopener" class="repo-card">' +
+          '<div class="repo-card-header">' +
+            '<svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8A2.5 2.5 0 0 1 15 2.5v9a.5.5 0 0 1-.5.5H2v-1h12V2.5a1.5 1.5 0 0 0-1.5-1.5h-8A1.5 1.5 0 0 0 3 2.5v6h-.5a2 2 0 1 1 0-4 .5.5 0 0 1 .5-.5Z"/><path d="M2 14l.657-1.643A2 2 0 0 1 3.967 11H14.033a2 2 0 0 1 1.309.357L16 14H2Z"/></svg>' +
+            escapeHtml(r.name) +
+          '</div>' +
+          descHtml +
+          '<div class="repo-card-meta">' +
+            lang + stars +
+            '<span title="' + escapeHtml(r.updated_at) + '">🕒 ' + timeAgo(r.updated_at) + '</span>' +
+          '</div>' +
+          topicsHtml +
+        '</a>';
+      }).join('');
+    } catch (e) {
+      grid.innerHTML = '<p id="repos-status" class="error">Failed to load repositories: ' + escapeHtml(e.message) + '</p>';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadRepos);
+  } else {
+    loadRepos();
+  }
+})();
+</script>
 
 ---
 
