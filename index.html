@@ -3,16 +3,16 @@ layout: default
 title: "Terry Zhou"
 ---
 
-## About
+<h2>About</h2>
 
-As a hands-on Enterprise Architect, I focus on turning design frameworks into executable by bridging the gap between theoretical models and pratical, production-ready AI agentic systems.
-My work spans active contributions to open-source agentic engineering toolkits and partnering with enterprises to operationalize Agentic AI within their core business strateg.
+<p>As a hands-on Enterprise Architect, I focus on turning design frameworks into executable by bridging the gap between theoretical models and pratical, production-ready AI agentic systems.
+My work spans active contributions to open-source agentic engineering toolkits and partnering with enterprises to operationalize Agentic AI within their core business strateg.</p>
 
-**Topics**: Enterprise Architecture · Agentic AI Strategy · Digital + AI Transformation · Software Engineering
+<p><strong>Topics</strong>: Enterprise Architecture · Agentic AI Strategy · Digital + AI Transformation · Software Engineering</p>
 
----
+<hr>
 
-## Repositories
+<h2>Repositories</h2>
 
 <style>
 #repos-grid {
@@ -85,7 +85,7 @@ My work spans active contributions to open-source agentic engineering toolkits a
 
 <script>
 (function() {
-  const grid = document.getElementById('repos-grid');
+  var grid = document.getElementById('repos-grid');
 
   function timeAgo(dateStr) {
     var seconds = Math.floor((Date.now() - new Date(dateStr)) / 1000);
@@ -125,7 +125,7 @@ My work spans active contributions to open-source agentic engineering toolkits a
           ? '<p class="repo-card-desc">' + escapeHtml(r.description) + '</p>'
           : '<p class="repo-card-desc" style="color:#666;">No description</p>';
 
-        var topicsHtml = ''
+        var topicsHtml = '';
         if (r.topics && r.topics.length > 0) {
           topicsHtml = '<div class="repo-topics">' +
             r.topics.map(function(t) { return '<span class="repo-topic">' + escapeHtml(t) + '</span>'; }).join('') +
@@ -161,14 +161,16 @@ My work spans active contributions to open-source agentic engineering toolkits a
 })();
 </script>
 
----
+<hr>
 
-## Posts
+<h2>Posts</h2>
 
+<ul>
 {% for post in site.posts %}
-- **[{{ post.title }}]({{ post.url | relative_url }})** — {{ post.date | date: "%b %-d, %Y" }}
+  <li><strong><a href="{{ post.url | relative_url }}">{{ post.title }}</a></strong> — {{ post.date | date: "%b %-d, %Y" }}</li>
 {% endfor %}
+</ul>
 
----
+<hr>
 
-[Posts](/posts/) · [Tags](/tags/)
+<p><a href="/posts/">Posts</a> · <a href="/tags/">Tags</a></p>
