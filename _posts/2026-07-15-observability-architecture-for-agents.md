@@ -6,7 +6,7 @@ tags:
   - docker
   - architecture
   - multi-agent
-date: 2026-06-21
+date: 2026-07-15
 ---
 
 ## Overview

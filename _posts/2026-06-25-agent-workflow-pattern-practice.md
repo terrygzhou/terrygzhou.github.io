@@ -5,7 +5,7 @@ tags:
   - ai-agents
   - LangGraph
   - Agentic-Architecture
-date: 2026-06-15
+date: 2026-06-25
 ---
 
 Building software with AI agents involves an iterative, feedback-driven looping process, instead of writing prompts manually. In my open-source project [`loop_engineering_factory`](https://github.com/terrygzhou/loop_engineering_factory), I’ve been developing an **AI agent-driven loop-engineering factories** that produce working software with minimal human intervention. 
