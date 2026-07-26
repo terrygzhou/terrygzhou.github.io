@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Managing Context in Vibe Coding: How I Keep Agents Alive Across Sessions"
+title: "Managing Context Overflow in AI Coding Agents: How I Keep Sessions Alive Across Boundaries"
 date: 2026-07-26
 tags:
   - AI-Agents
@@ -8,13 +8,15 @@ tags:
   - Context-Management
   - Vibe-Coding
   - Open-Source
-draft: true
-summary: Context overflow is an architecture problem. When you code in a large project codebase, did you notice that context windows kill agent sessions mid-task. Here's how I architect handoff files, subagent delegation, and task decomposition to keep coding agents productive across session boundaries.
+  - VSCode
+draft: false
+summary: Context overflow is an architecture problem. When coding in a large project codebase, context windows kill agent sessions mid-task. Here's how I architect handoff files, subagent delegation, and task decomposition to keep coding agents productive across session boundaries.
 ---
+Context overflow is an architecture problem. When coding in a large project codebase, context windows kill agent sessions mid-task. Here's how I architect handoff files, subagent delegation, and task decomposition to keep coding agents productive across session boundaries.
 
 The session always dies. You're deep into a coding task — the agent is refactoring, testing, iterating — then the context window fills, the conversation stalls, and you're staring at half-finished work. Next session starts, the fresh agent spends 30 minutes re-familiarising itself with what already happened, and the cycle repeats.
 
-One-million-token context windows may help, but they're a temporary fix that burns through tokens faster that leads to your token costs. The real solution is not bigger models — it's better architecture around how agents persist state and delegate work.
+One-million-token context windows may help, but they're a temporary fix that burns through tokens faster, which drives up your costs. The real solution is not bigger models — it's better architecture around how agents persist state and delegate work.
 
 Here's what works in practice, built over my months of running AI agents through VS Code via the ACP extension.
 
@@ -127,14 +129,10 @@ The extension is built on the Agent Client Protocol — an open standard that de
 
 Context overflow is not a model problem. It's an architecture problem. The agents that survive session boundaries are the ones that persist state, delegate work, and operate on decomposed tasks — not the ones running on 1M-context models burning through tokens.
 
-The six-practice stack: git commits after every task, handoff files, AGENTS.md wiring, 50% context triggers, subagent delegation, and task decomposition. Every item costs minutes of setup and saves hours of wasted context.
+The five-practice stack: git commits after every task, handoff files wired into AGENTS.md, 50% context triggers, subagent delegation, and task decomposition. Every item costs minutes of setup and saves hours of wasted context.
 
 When the open-source agent ecosystem matures, the winners will be the frameworks that bake these patterns in — not the ones that chase bigger context windows.
 
 Every time another team ships an agent that survives its own session boundary, we strengthen the entire agentic workflow ecosystem. Your agents don't need infinite context — they need discipline.
 
 Let's talk. How are you handling session boundaries in your agent pipelines?
-
----
-
-*Tags: `#AIAgents` `#ACP` `#ContextManagement` `#VibeCoding` `#OpenSource` `#VSCode`*
