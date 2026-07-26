@@ -12,8 +12,6 @@ draft: true
 summary: Context overflow is an architecture problem. When you code in a large project codebase, did you notice that context windows kill agent sessions mid-task. Here's how I architect handoff files, subagent delegation, and task decomposition to keep coding agents productive across session boundaries.
 ---
 
-# Managing Context in Vibe Coding: How I Keep Agents Alive Across Sessions
-
 The session always dies. You're deep into a coding task — the agent is refactoring, testing, iterating — then the context window fills, the conversation stalls, and you're staring at half-finished work. Next session starts, the fresh agent spends 30 minutes re-familiarising itself with what already happened, and the cycle repeats.
 
 One-million-token context windows may help, but they're a temporary fix that burns through tokens faster that leads to your token costs. The real solution is not bigger models — it's better architecture around how agents persist state and delegate work.
