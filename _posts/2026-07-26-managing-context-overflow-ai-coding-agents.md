@@ -86,7 +86,7 @@ Good decomposition follows three rules:
 
 ## 5. The ACP Extension: Context Visibility
 
-The ACP extension shows context utilisation in real time — see the context bar (find details from https://github.com/terrygzhou/vscode-acp and follow instructions to install to your preferred IDEs) climb and trigger handoff at 50%, not at the point where the model starts hallucinating.  Built on the open Agent Client Protocol, it works in VS Code, Zed, or JetBrains without leaking conversation noise into the context window.
+The ACP extension shows context utilisation in real time — see the context bar ( detailed in [VSCode-ACP extension](https://github.com/terrygzhou/vscode-acp) (follow instructions to install to your preferred IDEs) climb and trigger handoff at 50%, not at the point where the model starts hallucinating.  Built on the open Agent Client Protocol, it works in VS Code, Zed, or JetBrains without leaking conversation noise into the context window.
 
 ---
 
