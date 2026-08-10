@@ -3,23 +3,58 @@ layout: default
 title: "Terry Zhou"
 ---
 
-<h2>About</h2>
+<h2 class="about-heading">About</h2>
 
-<p>As a hands-on Enterprise Architect, I focus on turning design frameworks into executable by bridging the gap between theoretical models and pratical, production-ready AI agentic systems.
+<p class="about-text">As a hands-on Enterprise Architect, I focus on turning design frameworks into executable by bridging the gap between theoretical models and pratical, production-ready AI agentic systems.
 My work spans active contributions to open-source agentic engineering toolkits and partnering with enterprises to operationalize Agentic AI within their core business strateg.</p>
 
-<p><strong>Topics</strong>: Enterprise Architecture · Agentic AI Strategy · Digital + AI Transformation · Software Engineering</p>
+<p class="about-topics"><strong>Topics</strong>: Enterprise Architecture · Agentic AI Strategy · Digital + AI Transformation · Software Engineering</p>
 
-<hr>
+<hr class="section-divider">
 
-<h2>Posts</h2>
+<p class="section-label">// Posts</p>
 
-<ul>
-{% for post in site.posts %}
-  <li><strong><a href="{{ post.url | relative_url }}">{{ post.title }}</a></strong> — {{ post.date | date: "%b %-d, %Y" }}</li>
-{% endfor %}
-</ul>
+<div class="post-grid">
+  {% for post in site.posts %}
+    {% if forloop.first %}
+      <a href="{{ post.url | relative_url }}" class="post-card post-card--featured">
+        <div class="post-card__body">
+          <time class="post-card__date">{{ post.date | date: "%b %-d, %Y" }}</time>
+          <h2 class="post-card__title">{{ post.title }}</h2>
+          <p class="post-card__excerpt">
+            {% if post.summary %}{{ post.summary }}{% else %}{{ post.excerpt | strip_html | truncatewords: 25 }}{% endif %}
+          </p>
+          {% if post.tags.size > 0 %}
+            <div class="post-card__tags">
+              {% for tag in post.tags limit:4 %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        <div class="post-card__meta">
+          <span class="post-card__cta">Read &rarr;</span>
+        </div>
+      </a>
+    {% else %}
+      <a href="{{ post.url | relative_url }}" class="post-card">
+        <time class="post-card__date">{{ post.date | date: "%b %-d, %Y" }}</time>
+        <h2 class="post-card__title">{{ post.title }}</h2>
+        <p class="post-card__excerpt">
+          {% if post.summary %}{{ post.summary }}{% else %}{{ post.excerpt | strip_html | truncatewords: 25 }}{% endif %}
+        </p>
+        {% if post.tags.size > 0 %}
+          <div class="post-card__tags">
+            {% for tag in post.tags limit:3 %}
+              <span class="tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
 
-<hr>
+<hr class="section-divider">
 
-<p><a href="/posts/">Posts</a> · <a href="/tags/">Tags</a> · <a href="https://github.com/terrygzhou?tab=repositories" target="_blank" rel="noopener">Repo</a></p>
+<p class="footer-links"><a href="/posts/">Posts</a> · <a href="/tags/">Tags</a> · <a href="https://github.com/terrygzhou?tab=repositories" target="_blank" rel="noopener">Repo</a></p>
