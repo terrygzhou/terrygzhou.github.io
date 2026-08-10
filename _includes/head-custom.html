@@ -289,6 +289,14 @@ function umamiBeforeSend(type, payload) {
   }
 }
 
+/* Suppress Architect theme h2::before "//" on card titles and section headers */
+.post-card h2::before,
+.post-card__title::before,
+.about-heading::before,
+.section-label::before {
+  content: none !important;
+}
+
 /* Tighten about section */
 .about-heading {
   margin-bottom: var(--space-md);
