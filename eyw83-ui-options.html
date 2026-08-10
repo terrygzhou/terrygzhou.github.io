@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EYW-83: Blog Post Listing — 3 UI Directions</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --text: #1a1a1a;
+    --text-secondary: #6b7280;
+    --text-tertiary: #9ca3af;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-light: #eff6ff;
+    --accent-subtle: #dbeafe;
+    --border: #e5e7eb;
+    --border-hover: #c7d2fe;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Presentation frame */
+  .frame {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--space-16) var(--space-8);
+  }
+
+  .present-header {
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-8);
+    border-bottom: 2px solid var(--accent);
+  }
+
+  .present-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-2);
+  }
+
+  .present-header .subtitle {
+    color: var(--text-secondary);
+    font-size: 15px;
+    max-width: 640px;
+  }
+
+  .current-state {
+    background: #fef3c7;
+    border: 1px solid #f59e0b40;
+    border-radius: var(--radius);
+    padding: var(--space-5) var(--space-6);
+    margin-bottom: var(--space-16);
+  }
+
+  .current-state h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #92400e;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .current-state ul {
+    margin-left: var(--space-5);
+    font-size: 14px;
+    color: #78350f;
+  }
+
+  .current-state li { margin-bottom: var(--space-1); }
+
+  /* Option sections */
+  .option {
+    margin-bottom: var(--space-16);
+    border-top: 3px solid var(--accent);
+    padding-top: var(--space-10);
+  }
+
+  .option-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: var(--space-1);
+  }
+
+  .option-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-1);
+  }
+
+  .option-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: var(--space-6);
+    max-width: 560px;
+  }
+
+  .option-pros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-8);
+  }
+
+  .option-pros .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 99px;
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .option-cons .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 99px;
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  .section-heading {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-5);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Shared mock header */
+  .mock-hero {
+    margin-bottom: var(--space-8);
+  }
+  .mock-hero h2 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .mock-hero p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  /* ============================================
+     OPTION A: Card Grid (2-col with excerpts)
+     ============================================ */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    transition: box-shadow 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+  }
+
+  .card-date {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-variant-numeric: tabular-nums;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .card-date::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text);
+    transition: color 0.15s ease;
+  }
+
+  .card:hover .card-title {
+    color: var(--accent);
+  }
+
+  .card-excerpt {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-top: auto;
+  }
+
+  .card-tag {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    background: var(--accent-subtle);
+    color: var(--accent);
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  /* ============================================
+     OPTION B: Vertical Timeline
+     ============================================ */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--border) 60%);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: var(--space-5);
+    padding: var(--space-5) var(--space-6);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .timeline-item:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2.5px solid var(--border);
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  }
+
+  .timeline-item:hover::before {
+    border-color: var(--accent);
+    background: var(--accent);
+    transform: scale(1.2);
+  }
+
+  .timeline-date {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: var(--space-1);
+  }
+
+  .timeline-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: var(--space-2);
+    transition: color 0.15s ease;
+  }
+
+  .timeline-item:hover .timeline-title {
+    color: var(--accent);
+  }
+
+  .timeline-excerpt {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: var(--space-3);
+  }
+
+  .timeline-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .timeline-tag {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    background: #f3f4f6;
+    color: var(--text-secondary);
+    border-radius: 4px;
+  }
+
+  /* ============================================
+     OPTION C: Minimal List (Apple Notes style)
+     ============================================ */
+  .minimal-list {
+    list-style: none;
+  }
+
+  .minimal-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s ease;
+  }
+
+  .minimal-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .minimal-item:hover {
+    background: #fafbff;
+  }
+
+  .minimal-date {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .minimal-content {
+    min-width: 0;
+  }
+
+  .minimal-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.35;
+    margin-bottom: 2px;
+    transition: color 0.15s ease;
+  }
+
+  .minimal-item:hover .minimal-title {
+    color: var(--accent);
+  }
+
+  .minimal-excerpt {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .minimal-arrow {
+    color: var(--border);
+    transition: color 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .minimal-item:hover .minimal-arrow {
+    color: var(--accent);
+    transform: translateX(3px);
+  }
+
+  /* Comparison matrix */
+  .comparison {
+    margin-top: var(--space-16);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .comparison h3 {
+    font-size: 16px;
+    font-weight: 600;
+    padding: var(--space-5) var(--space-6);
+    border-bottom: 1px solid var(--border);
+    background: #f8fafc;
+  }
+
+  .comparison table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .comparison th {
+    text-align: left;
+    padding: var(--space-3) var(--space-6);
+    background: var(--bg);
+    color: var(--text-secondary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+
+  .comparison td {
+    padding: var(--space-3) var(--space-6);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  .comparison tr:last-child td { border-bottom: none; }
+
+  .check { color: #16a34a; font-weight: 700; }
+  .warn { color: #ca8a04; }
+  .cross { color: #dc2626; }
+
+  /* Responsive note */
+  .responsive-note {
+    margin-top: var(--space-8);
+    padding: var(--space-4) var(--space-5);
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: #166534;
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+
+  <div class="present-header">
+    <h1>EYW-83: Blog Post Listing — 3 UI Directions</h1>
+    <p class="subtitle">Current state: dense bulleted list (<code>&lt;ul&gt;</code>) with minimal spacing. Posts are squeezed together with no visual breathing room, no excerpts, and no scannable hierarchy.</p>
+  </div>
+
+  <div class="current-state">
+    <h3>Problems with current layout</h3>
+    <ul>
+      <li><strong>No visual hierarchy</strong> — every post has equal weight; nothing stands out</li>
+      <li><strong>Tight vertical rhythm</strong> — list items touch each other; no whitespace between entries</li>
+      <li><strong>No preview content</strong> — titles alone don't help readers decide what to read</li>
+      <li><strong>Dated pattern</strong> — bulleted link lists feel like 2010-era blogs, not a modern personal brand</li>
+      <li><strong>Tags unused</strong> — every post has tags in frontmatter, but none display on the index</li>
+      <li><strong>No hover feedback</strong> — no interactive states to signal clickability</li>
+    </ul>
+  </div>
+
+  <!-- ============================================
+       OPTION A: Card Grid
+       ============================================ -->
+  <div class="option">
+    <div class="option-label">Option A</div>
+    <div class="option-title">Card Grid (2-column)</div>
+    <div class="option-desc">
+      Two-column grid of cards. Each card shows date, title, a 3-line excerpt, and tags. Hover lifts the card with a subtle shadow and accent border. The strongest visual option — conveys professionalism and content volume at a glance.
+    </div>
+    <div class="option-pros">
+      <span class="tag">Best scanning</span>
+      <span class="tag">Shows content depth</span>
+      <span class="tag">Modern look</span>
+      <span class="tag">Mobile-friendly</span>
+    </div>
+
+    <div class="mock-hero">
+      <h2>Terry Zhou</h2>
+      <p>Enterprise Architecture · Agentic AI · Digital + AI Transformation</p>
+    </div>
+    <div class="section-heading">Posts</div>
+
+    <div class="card-grid">
+      <a class="card" href="#">
+        <div class="card-date">Aug 6, 2026</div>
+        <div class="card-title">Why Private AI Must be in Your Enterprise AI Strategy</div>
+        <div class="card-excerpt">Exclusive reliance on public cloud AI introduces compliance exposure, fragments organisational learning, and caps long-term ROI. A private-core, cloud-edge architecture delivers data sovereignty and predictable economics.</div>
+        <div class="card-tags">
+          <span class="card-tag">AI Strategy</span>
+          <span class="card-tag">Private AI</span>
+        </div>
+      </a>
+      <a class="card" href="#">
+        <div class="card-date">Jul 26, 2026</div>
+        <div class="card-title">Managing Context Overflow in AI Coding Agents</div>
+        <div class="card-excerpt">Techniques for handling context window limitations in long-running agent workflows — practical patterns from production deployments.</div>
+        <div class="card-tags">
+          <span class="card-tag">AI Agents</span>
+        </div>
+      </a>
+      <a class="card" href="#">
+        <div class="card-date">Jul 21, 2026</div>
+        <div class="card-title">Bridging the E2E Testing Gap: Introducing SuperWeb Testing</div>
+        <div class="card-excerpt">A new approach to end-to-end testing that combines traditional automation with AI-driven validation for more resilient test suites.</div>
+        <div class="card-tags">
+          <span class="card-tag">Testing</span>
+          <span class="card-tag">Quality</span>
+        </div>
+      </a>
+      <a class="card" href="#">
+        <div class="card-date">Jul 15, 2026</div>
+        <div class="card-title">Observability Stack — Architecture for multi-agent AI systems</div>
+        <div class="card-excerpt">Designing observability infrastructure for complex multi-agent architectures: metrics, traces, and logs that actually help.</div>
+        <div class="card-tags">
+          <span class="card-tag">Architecture</span>
+          <span class="card-tag">AIOps</span>
+        </div>
+      </a>
+      <a class="card" href="#">
+        <div class="card-date">Jul 7, 2026</div>
+        <div class="card-title">Manage Your AI Agents at Enterprise Scale</div>
+        <div class="card-excerpt">Patterns and tooling for deploying and managing AI agents across large organizations with governance and guardrails.</div>
+        <div class="card-tags">
+          <span class="card-tag">AI Ops</span>
+        </div>
+      </a>
+      <a class="card" href="#">
+        <div class="card-date">Jul 1, 2026</div>
+        <div class="card-title">Executable Enterprise Architecture — Agentic-TOGAF-ADM</div>
+        <div class="card-excerpt">Making TOGAF ADM actionable through agent-driven architecture execution. Bridge the gap between framework and practice.</div>
+        <div class="card-tags">
+          <span class="card-tag">Enterprise</span>
+          <span class="card-tag">TOGAF</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="responsive-note">
+      On mobile (< 640px): collapses to a single column, same card height. On tablet (640–960px): stays 2-col. On desktop: 2-col with max-width container.
+    </div>
+  </div>
+
+  <!-- ============================================
+       OPTION B: Vertical Timeline
+       ============================================ -->
+  <div class="option">
+    <div class="option-label">Option B</div>
+    <div class="option-title">Vertical Timeline</div>
+    <div class="option-desc">
+      Single-column cards with a connecting vertical line and dot markers. Each entry is a distinct block showing date, title, excerpt, and tags. Reads top-to-bottom like a story. Best for authors whose content is chronological and sequential.
+    </div>
+    <div class="option-pros">
+      <span class="tag">Chronological clarity</span>
+      <span class="tag">Storytelling feel</span>
+      <span class="tag">Lowest implementation cost</span>
+    </div>
+
+    <div class="mock-hero">
+      <h2>Terry Zhou</h2>
+      <p>Enterprise Architecture · Agentic AI · Digital + AI Transformation</p>
+    </div>
+    <div class="section-heading">Posts</div>
+
+    <div class="timeline">
+      <a class="timeline-item" href="#">
+        <div class="timeline-date">Aug 6, 2026</div>
+        <div class="timeline-title">Why Private AI Must be in Your Enterprise AI Strategy</div>
+        <div class="timeline-excerpt">Exclusive reliance on public cloud AI introduces compliance exposure and caps long-term ROI. Private-core architecture delivers sovereignty.</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">AI Strategy</span>
+          <span class="timeline-tag">Private AI</span>
+        </div>
+      </a>
+      <a class="timeline-item" href="#">
+        <div class="timeline-date">Jul 26, 2026</div>
+        <div class="timeline-title">Managing Context Overflow in AI Coding Agents</div>
+        <div class="timeline-excerpt">Techniques for handling context window limitations in long-running agent workflows.</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">AI Agents</span>
+        </div>
+      </a>
+      <a class="timeline-item" href="#">
+        <div class="timeline-date">Jul 21, 2026</div>
+        <div class="timeline-title">Bridging the E2E Testing Gap: Introducing SuperWeb Testing</div>
+        <div class="timeline-excerpt">A new approach combining traditional automation with AI-driven validation.</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Testing</span>
+        </div>
+      </a>
+      <a class="timeline-item" href="#">
+        <div class="timeline-date">Jul 15, 2026</div>
+        <div class="timeline-title">Observability Stack — Architecture for multi-agent AI systems</div>
+        <div class="timeline-excerpt">Designing observability infrastructure for complex multi-agent architectures.</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Architecture</span>
+        </div>
+      </a>
+      <a class="timeline-item" href="#">
+        <div class="timeline-date">Jul 7, 2026</div>
+        <div class="timeline-title">Manage Your AI Agents at Enterprise Scale</div>
+        <div class="timeline-excerpt">Patterns and tooling for deploying and managing AI agents across large organizations.</div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">AI Ops</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="responsive-note">
+      Already single-column — no responsive adjustment needed. The timeline line creates natural scroll rhythm.
+    </div>
+  </div>
+
+  <!-- ============================================
+       OPTION C: Minimal List (Apple Notes style)
+       ============================================ -->
+  <div class="option">
+    <div class="option-label">Option C</div>
+    <div class="option-title">Minimal List (Apple Notes style)</div>
+    <div class="option-desc">
+      Clean single-column list with date right-aligned, title prominent, and a one-line excerpt. Thin horizontal dividers between items. Subtle right-arrow on hover. The most restrained option — prioritizes content density while remaining elegant. Think Apple News or Substack's archive.
+    </div>
+    <div class="option-pros">
+      <span class="tag">Highest density</span>
+      <span class="tag">Fastest to scan</span>
+      <span class="tag">Cleanest aesthetic</span>
+    </div>
+
+    <div class="mock-hero">
+      <h2>Terry Zhou</h2>
+      <p>Enterprise Architecture · Agentic AI · Digital + AI Transformation</p>
+    </div>
+    <div class="section-heading">Posts</div>
+
+    <div class="minimal-list">
+      <a class="minimal-item" href="#">
+        <div class="minimal-date">Aug 6, 2026</div>
+        <div class="minimal-content">
+          <div class="minimal-title">Why Private AI Must be in Your Enterprise AI Strategy</div>
+          <div class="minimal-excerpt">Data sovereignty, predictable economics, regulatory compliance, and a compounding competitive moat.</div>
+        </div>
+        <div class="minimal-arrow">›</div>
+      </a>
+      <a class="minimal-item" href="#">
+        <div class="minimal-date">Jul 26, 2026</div>
+        <div class="minimal-content">
+          <div class="minimal-title">Managing Context Overflow in AI Coding Agents</div>
+          <div class="minimal-excerpt">Handling context window limitations in long-running agent workflows.</div>
+        </div>
+        <div class="minimal-arrow">›</div>
+      </a>
+      <a class="minimal-item" href="#">
+        <div class="minimal-date">Jul 21, 2026</div>
+        <div class="minimal-content">
+          <div class="minimal-title">Bridging the E2E Testing Gap: Introducing SuperWeb Testing</div>
+          <div class="minimal-excerpt">Combining traditional automation with AI-driven validation.</div>
+        </div>
+        <div class="minimal-arrow">›</div>
+      </a>
+      <a class="minimal-item" href="#">
+        <div class="minimal-date">Jul 15, 2026</div>
+        <div class="minimal-content">
+          <div class="minimal-title">Observability Stack — Architecture for multi-agent AI systems</div>
+          <div class="minimal-excerpt">Metrics, traces, and logs that actually help with complex agent architectures.</div>
+        </div>
+        <div class="minimal-arrow">›</div>
+      </a>
+      <a class="minimal-item" href="#">
+        <div class="minimal-date">Jul 7, 2026</div>
+        <div class="minimal-content">
+          <div class="minimal-title">Manage Your AI Agents at Enterprise Scale</div>
+          <div class="minimal-excerpt">Deploying and managing AI agents with governance and guardrails.</div>
+        </div>
+        <div class="minimal-arrow">›</div>
+      </a>
+      <a class="minimal-item" href="#">
+        <div class="minimal-date">Jul 1, 2026</div>
+        <div class="minimal-content">
+          <div class="minimal-title">Executable Enterprise Architecture — Agentic-TOGAF-ADM</div>
+          <div class="minimal-excerpt">Making TOGAF ADM actionable through agent-driven execution.</div>
+        </div>
+        <div class="minimal-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="responsive-note">
+      Single column at all breakpoints. Date column narrows on mobile (72px min). Maximum content density without sacrificing readability.
+    </div>
+  </div>
+
+  <!-- ============================================
+       Comparison Matrix
+       ============================================ -->
+  <div class="comparison">
+    <h3>Comparison</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Criterion</th>
+          <th>A: Card Grid</th>
+          <th>B: Timeline</th>
+          <th>C: Minimal List</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Visual impact</strong></td>
+          <td><span class="check">★★★★★</span> Strongest</td>
+          <td><span class="check">★★★★☆</span> Distinctive</td>
+          <td><span class="warn">★★★☆☆</span> Subtle</td>
+        </tr>
+        <tr>
+          <td><strong>Content scannability</strong></td>
+          <td><span class="check">★★★★★</span> Excerpts + tags</td>
+          <td><span class="check">★★★★☆</span> Excerpts + tags</td>
+          <td><span class="check">★★★★☆</span> 1-line preview</td>
+        </tr>
+        <tr>
+          <td><strong>Information density</strong></td>
+          <td>Medium (6 posts/page)</td>
+          <td>Medium (5 posts/page)</td>
+          <td><span class="check">High (8 posts/page)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Implementation effort</strong></td>
+          <td>Medium (CSS grid + truncation)</td>
+          <td><span class="check">Low (single column)</span></td>
+          <td><span class="check">Lowest (grid row)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Mobile experience</strong></td>
+          <td>Good (1-col fallback)</td>
+          <td><span class="check">Excellent (natural)</span></td>
+          <td><span class="check">Excellent (natural)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Professional brand fit</strong></td>
+          <td><span class="check">Best — enterprise feel</span></td>
+          <td>Good — storyteller</td>
+          <td>Good — minimalist</td>
+        </tr>
+        <tr>
+          <td><strong>Excerpts from content?</strong></td>
+          <td><span class="check">Yes (auto-generate from post)</span></td>
+          <td><span class="check">Yes</span></td>
+          <td><span class="check">Yes</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>
