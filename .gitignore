@@ -11,3 +11,4 @@ _posts/draft/
 .syncthing*
 deploy.sh
 refresh.log
+refresh.sh
