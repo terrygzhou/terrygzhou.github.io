@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Practice of AI agent workflow patterns
 tags:
   - agent-pipeline
