@@ -9,9 +9,6 @@ tags:
 date: 2026-07-15
 ---
 
-
-## Overview
-
 Autonomous AI agents are learning to write code, debug themselves, and orchestrate dozens of parallel workstreams. They're fast. They're tireless. And they're producing systems so complex that no single human can keep track of what's happening inside.
 
 **When agents are building agents, who watches the watchers?**

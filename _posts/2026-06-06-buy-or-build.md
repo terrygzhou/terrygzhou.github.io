@@ -8,7 +8,6 @@ tags:
   - AI-Strategy
 ---
 
-
 For two decades, **_“buy over build”_** was enterprise IT’s default constitution. It was rational: dev talent was scarce, legacy maintenance was brutal, and vendors promised scale, security, and predictable roadmaps. Enterprises traded customisation for speed.
 
 **AI has broken that equation.** AI-assisted coding, low-code accelerators, and composable platforms have collapsed development timelines and marginal costs. As demand for tailored experiences and deep customisation surges, the balance has shifted decisively toward build. Meanwhile, vendor AI is often generic, opaque, and slow to adapt. Buying no longer guarantees advantage—it increasingly guarantees strategic mediocrity.
