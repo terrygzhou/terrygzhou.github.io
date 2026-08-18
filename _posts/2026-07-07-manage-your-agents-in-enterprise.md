@@ -1,11 +1,7 @@
 ---
 layout: post
 title: Manage Your AI Agents at Enterprise Scale
-<<<<<<<< Updated upstream:_posts/2026-07-07-manage-your-agents-in-enterprise.md
 date: 2026-07-07
-========
-date: 2026-07-08
->>>>>>>> Stashed changes:_posts/2026-07-08-manage-your-agents-in-enterprise.md
 tags:
   - AI-Agents
   - Agent-governance
