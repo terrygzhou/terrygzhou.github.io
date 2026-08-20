@@ -3,6 +3,9 @@ email: terry.zhou@ymail.com
 description: "Enterprise Architecture · Agentic AI · Digital + AI Transformation · Software Engineering" # build: 2026-07-06 23:15:29
 baseurl: ""
 url: "https://terrygzhou.github.io"
+# Post dates are authored locally; parse in the author's zone so same-day
+# posts aren't dropped by Jekyll's future-date filter (builds run in UTC).
+timezone: Australia/Melbourne
 github_username: terrygzhou
 
 remote_theme: pages-themes/architect@v0.2.0
