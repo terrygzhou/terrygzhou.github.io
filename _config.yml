@@ -10,14 +10,14 @@ github_username: terrygzhou
 
 remote_theme: pages-themes/architect@v0.2.0
 plugins:
-  - jekyll-remote-theme
-  - jekyll-feed
-  - jekyll-seo-tag
+    - jekyll-remote-theme
+    - jekyll-feed
+    - jekyll-seo-tag
 
 defaults:
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: post
+    - scope:
+          path: ""
+          type: posts
+      values:
+          layout: post
 # last-built: 2026-07-06 23:13:12
