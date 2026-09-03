@@ -1,0 +1,103 @@
+vars: {
+  layout-engine: elk
+  d2-config: {
+    theme-id: 100
+  }
+}
+
+direction: right
+
+src: {
+  label: "Source Code\n+ Server Logs"
+  shape: cylinder
+  style: {
+    fill: "#e8e8e8"
+    stroke: "#666666"
+  }
+}
+
+pipeline: SuperWeb Testing Pipeline: {
+  phase1: Phase 1\nSource Analysis: {
+    style: {
+      fill: "#fff8e1"
+      stroke: "#f9a825"
+      bold: true
+    }
+    shape: square
+  }
+  phase2: Phase 2\nData Generation: {
+    style: {
+      fill: "#fff8e1"
+      stroke: "#f9a825"
+      bold: true
+    }
+    shape: square
+  }
+  phase3: Phase 3\nBrowser Testing: {
+    style: {
+      fill: "#fff8e1"
+      stroke: "#f9a825"
+      bold: true
+    }
+    shape: square
+  }
+  phase4: Phase 4\nLog Correlation: {
+    style: {
+      fill: "#fff8e1"
+      stroke: "#f9a825"
+      bold: true
+    }
+    shape: square
+  }
+
+  p1out: schemas + API routes: {
+    shape: square
+    style: {
+      fill: "#ffffff"
+      stroke: "#f9a825"
+      font-size: 14
+      opacity: 0.9
+    }
+  }
+  p2out: LLM test data (N variations): {
+    shape: square
+    style: {
+      fill: "#ffffff"
+      stroke: "#f9a825"
+      font-size: 14
+      opacity: 0.9
+    }
+  }
+  p3out: results + screenshots: {
+    shape: square
+    style: {
+      fill: "#ffffff"
+      stroke: "#f9a825"
+      font-size: 14
+      opacity: 0.9
+    }
+  }
+
+  phase1 -> p1out
+  p1out -> phase2
+  phase2 -> p2out
+  p2out -> phase3
+  phase3 -> p3out
+  p3out -> phase4
+}
+
+out: Structured JSON Report: {
+  style: {
+    fill: "#e8f5e9"
+    stroke: "#43a047"
+    bold: true
+  }
+  shape: cylinder
+}
+
+src -> pipeline.phase1: AST pattern matching
+src -> pipeline.phase4: log sources\n(Docker, files, journal)
+pipeline.phase1 -> pipeline.phase2: JSON schemas
+pipeline.phase2 -> pipeline.phase3: test data
+pipeline.phase3 -> pipeline.phase4: test results
+pipeline.phase4 -> out: failure triage + source trace

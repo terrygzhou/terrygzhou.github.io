@@ -1,0 +1,87 @@
+vars: {
+  layout-engine: elk
+  d2-config: {
+    theme-id: 100
+  }
+}
+
+direction: right
+
+cli: superweb CLI: {
+  style: {
+    fill: "#e3f2fd"
+    stroke: "#1976d2"
+    bold: true
+  }
+  shape: hexagon
+}
+
+modes: Execution Modes: {
+  script: Script Mode: {
+    label: "Script Mode\n--mode scripted"
+    style: {
+      fill: "#e8f5e9"
+      stroke: "#43a047"
+      bold: true
+    }
+    ssteps: {
+      sa: Analyze\n(source AST scan)
+      sg: Generate\n(LLM data generation)
+      st: Test\n(Playwright)
+      sc: Correlate\n(log matching)
+      sa -> sg: JSON
+      sg -> st: JSON
+      st -> sc: JSON
+    }
+    ci: CI/CD friendly: {
+      label: "CI/CD · pre-commit hooks\nNo container overhead\nDeterministic, reproducible"
+      shape: square
+      style: {
+        fill: "#ffffff"
+        stroke: "#43a047"
+        font-size: 14
+      }
+    }
+    ssteps.sa: { style: { fill: "#ffffff" } }
+    ssteps.sg: { style: { fill: "#ffffff" } }
+    ssteps.st: { style: { fill: "#ffffff" } }
+    ssteps.sc: { style: { fill: "#ffffff" } }
+    ssteps.sc -> ci
+  }
+
+  agent: Agent Mode: {
+    label: "Agent Mode\n--mode agent"
+    style: {
+      fill: "#fce4ec"
+      stroke: "#c62828"
+      bold: true
+    }
+    ohs: OpenHands Agent Server\n(Docker): {
+      style: {
+        fill: "#ffffff"
+        stroke: "#c62828"
+      }
+      shape: square
+      conv: 3-conversation workflow: {
+        ca: Analyze\n(AI code + schema + data)
+        ct: Test\n(AI Playwright)
+        cr: Report\n(structured results + triage)
+        ca -> ct: JSON
+        ct -> cr: JSON
+        ca: { style: { fill: "#ffffff" } }
+        ct: { style: { fill: "#ffffff" } }
+        cr: { style: { fill: "#ffffff" } }
+      }
+    }
+    ohs.conv
+  }
+}
+
+cli -> modes.script
+cli -> modes.agent
+
+modes.agent.ohs: {
+  style: {
+    stroke-dash: 4
+  }
+}

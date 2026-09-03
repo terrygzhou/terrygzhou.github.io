@@ -1,0 +1,36 @@
+vars: {
+  layout-engine: elk
+  d2-config: {
+    theme-id: 100
+  }
+}
+
+direction: right
+
+apps: Application Workloads: {
+  style: { fill: "#e3f2fd"; stroke: "#1976d2"; bold: true }
+  vllm: vllm-mtp: {
+    label: "vllm-mtp\nInference engine :8000/metrics"
+    style: { fill: "#ffffff" }
+  }
+  loop: loop_factory: {
+    label: "loop_factory\nLangGraph engine :8081/metrics"
+    style: { fill: "#ffffff" }
+  }
+}
+
+obs: Observability Stack: {
+  style: { fill: "#e8f5e9"; stroke: "#43a047"; bold: true }
+  prometheus: {
+    label: "prometheus\nPull-based, 15s scrape, 15d retention"
+    style: { fill: "#ffffff" }
+  }
+  grafana: {
+    label: "grafana\nDashboard visualization"
+    style: { fill: "#ffffff" }
+  }
+}
+
+apps.vllm -> obs.prometheus: "scraped every 15s" { style: { stroke-dash: 4 } }
+apps.loop -> obs.prometheus: "scraped every 15s" { style: { stroke-dash: 4 } }
+obs.prometheus -> obs.grafana: "data source"

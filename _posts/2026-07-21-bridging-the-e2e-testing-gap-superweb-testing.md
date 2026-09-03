@@ -70,6 +70,8 @@ Each phase produces structured JSON output that flows into the next. The pipelin
 
 ## Architecture: Script Mode vs Agent Mode
 
+![SuperWeb Testing four-phase pipeline](/assets/2026-07-21-superweb-testing/pipeline.png)
+
 SuperWeb Testing offers two execution modes to suit different workflows.
 
 ### Script Mode (Default)
@@ -88,6 +90,8 @@ Runs the four-phase pipeline deterministically:
 Script mode is fast, reproducible, and CI/CD friendly. No container overhead. Ideal for automated pipelines and pre-commit hooks.
 
 ### Agent Mode (OpenHands-Powered)
+
+![Script vs Agent execution modes](/assets/2026-07-21-superweb-testing/modes.png)
 
 ```bash
 superweb run --target http://localhost:8080 --source /path/to/source --mode agent

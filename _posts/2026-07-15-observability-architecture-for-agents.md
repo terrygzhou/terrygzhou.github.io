@@ -73,32 +73,7 @@ One line of YAML. No IP addresses. No port forwarding between projects. Any new 
 
 **The `external` Pattern in practice:**
 
-<div class="mermaid">graph LR
-    subgraph bridge["Docker bridge: grafana-stack_observability (external: true)"]
-        subgraph producer["grafana-stack/ (producer)"]
-            prom["prometheus"]
-            grafana["grafana"]
-            loki["loki"]
-            phoenix["phoenix"]
-            otel["otel-collector"]
-        end
-
-        subgraph vllm["vllms/Qwen3.6-27B/ (consumer)"]
-            vllm_c["vllm-mtp\n:8000/metrics"]
-        end
-
-        subgraph loop["loop_factory/ (consumer)"]
-            loop_c["loop-1\n:8081/metrics"]
-            otel_lf["otel-collector"]
-            promtail["promtail"]
-        end
-    end
-
-    prom -.->|"scrapes :8000/metrics"|vllm_c
-    prom -.->|"scrapes :8081/metrics"|loop_c
-    otel_lf -->|"OTLP :4317"|otel
-    promtail -->|"push :3100"|loki
-</div>
+![Shared Docker bridge network: grafana-stack producer and vllm / loop_factory consumers on one external segment](/assets/2026-07-15-observability/network-topology.png)
 
 ### What Connects
 
@@ -125,21 +100,7 @@ No `extra_hosts`, no hardcoded IPs. The network is the configuration.
 
 ### Metrics Path (Prometheus — Pull)
 
-<div class="mermaid">graph LR
-    subgraph apps["Application Workloads"]
-        vllm["vllm-mtp\nInference engine :8000/metrics"]
-        loop["loop_factory\nLangGraph engine :8081/metrics"]
-    end
-
-    subgraph obs["Observability Stack"]
-        prom["prometheus\nPull-based, 15s scrape, 15d retention"]
-        grafana["grafana\nDashboard visualization"]
-    end
-
-    vllm -.->|"scraped every 15s"|prom
-    loop -.->|"scraped every 15s"|prom
-    prom -->|"data source"|grafana
-</div>
+![Prometheus pull-based metrics path: vllm-mtp and loop_factory scraped every 15s into Prometheus, rendered in Grafana](/assets/2026-07-15-observability/metrics-path.png)
 
 **Prometheus scrape config** (`prometheus.yml`):
 
@@ -151,42 +112,7 @@ No `extra_hosts`, no hardcoded IPs. The network is the configuration.
 
 ### Traces, Logs, Metrics Path (OTel — Push)
 
-<div class="mermaid">graph LR
-    admin["Admin\nObserves dashboards"]
-
-    subgraph ingest["Ingestion"]
-        app_traces["App OTel Traces\nOTLP"]
-        app_logs["App Logs\nstdout / log files"]
-    end
-
-    subgraph routing["Routing Layer"]
-        otel_recv["OTel Collector\nReceivers :4317 / :4318"]
-        otel_batch["OTel Batch\n5s timeout, 100/batch, 128MiB limit"]
-    end
-
-    subgraph storage["Storage Layer"]
-        phoenix_db["Phoenix SQLite\nTraces & evaluations"]
-        loki_store["Loki Store\nLabel-indexed log chunks"]
-        prom_tsdb["Prometheus TSDB\n15-day retention"]
-    end
-
-    subgraph viz["Visualization"]
-        grafana_dash["Grafana Dashboards\nAuto-provisioned"]
-        phoenix_ui["Phoenix UI\nTrace exploration"]
-    end
-
-    app_traces -->|"pushed"|otel_recv
-    app_logs -->|"pushed"|otel_recv
-    otel_recv -->|"batched"|otel_batch
-    otel_batch -->|"traces :6006"|phoenix_db
-    otel_batch -->|"logs :3100"|loki_store
-    otel_batch -->|"metrics :8889"|prom_tsdb
-    grafana_dash -->|"PromQL"|prom_tsdb
-    grafana_dash -->|"LogQL"|loki_store
-    grafana_dash -->|"OpenTelemetry API"|phoenix_db
-    admin -.->|"views :3000"|grafana_dash
-    admin -.->|"views :6006"|phoenix_ui
-</div>
+![OTel push pipeline: ingestion routed through the collector and batch layer into Phoenix / Loki / Prometheus storage, then visualized](/assets/2026-07-15-observability/otel-pipeline.png)
 
 **OTel pipelines** (`otel-collector/config.yml`):
 

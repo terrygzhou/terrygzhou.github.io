@@ -1,0 +1,81 @@
+vars: {
+  layout-engine: elk
+  d2-config: {
+    theme-id: 100
+  }
+}
+
+direction: right
+
+admin: Admin: {
+  label: "Admin\nObserves dashboards"
+  shape: person
+  style: { fill: "#ffffff"; stroke: "#3949ab" }
+}
+
+ingest: Ingestion: {
+  style: { fill: "#f3e5f5"; stroke: "#8e24aa"; bold: true }
+  app_traces: App OTel Traces: {
+    label: "App OTel Traces\nOTLP"
+    style: { fill: "#ffffff" }
+  }
+  app_logs: App Logs: {
+    label: "App Logs\nstdout / log files"
+    style: { fill: "#ffffff" }
+  }
+}
+
+routing: Routing Layer: {
+  style: { fill: "#fff8e1"; stroke: "#f9a825"; bold: true }
+  otel_recv: OTel Collector: {
+    label: "OTel Collector\nReceivers :4317 / :4318"
+    style: { fill: "#ffffff" }
+  }
+  otel_batch: OTel Batch: {
+    label: "OTel Batch\n5s timeout, 100/batch, 128MiB limit"
+    style: { fill: "#ffffff" }
+  }
+}
+
+storage: Storage Layer: {
+  style: { fill: "#e8f5e9"; stroke: "#43a047"; bold: true }
+  phoenix_db: Phoenix SQLite: {
+    label: "Phoenix SQLite\nTraces & evaluations"
+    shape: cylinder
+    style: { fill: "#ffffff" }
+  }
+  loki_store: Loki Store: {
+    label: "Loki Store\nLabel-indexed log chunks"
+    shape: cylinder
+    style: { fill: "#ffffff" }
+  }
+  prom_tsdb: Prometheus TSDB: {
+    label: "Prometheus TSDB\n15-day retention"
+    shape: cylinder
+    style: { fill: "#ffffff" }
+  }
+}
+
+viz: Visualization: {
+  style: { fill: "#e3f2fd"; stroke: "#1976d2"; bold: true }
+  grafana_dash: Grafana Dashboards: {
+    label: "Grafana Dashboards\nAuto-provisioned"
+    style: { fill: "#ffffff" }
+  }
+  phoenix_ui: Phoenix UI: {
+    label: "Phoenix UI\nTrace exploration"
+    style: { fill: "#ffffff" }
+  }
+}
+
+ingest.app_traces -> routing.otel_recv: "pushed"
+ingest.app_logs -> routing.otel_recv: "pushed"
+routing.otel_recv -> routing.otel_batch: "batched"
+routing.otel_batch -> storage.phoenix_db: "traces :6006"
+routing.otel_batch -> storage.loki_store: "logs :3100"
+routing.otel_batch -> storage.prom_tsdb: "metrics :8889"
+viz.grafana_dash -> storage.prom_tsdb: "PromQL"
+viz.grafana_dash -> storage.loki_store: "LogQL"
+viz.grafana_dash -> storage.phoenix_db: "OpenTelemetry API"
+admin -> viz.grafana_dash: "views :3000" { style: { stroke-dash: 4 } }
+admin -> viz.phoenix_ui: "views :6006" { style: { stroke-dash: 4 } }

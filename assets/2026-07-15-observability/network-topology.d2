@@ -1,0 +1,73 @@
+vars: {
+  layout-engine: elk
+  d2-config: {
+    theme-id: 100
+  }
+}
+
+direction: right
+
+bridge: Docker bridge: {
+  label: "grafana-stack_observability (172.25.0.0/16, external: true)"
+  shape: square
+  style: {
+    fill: "#f0f4ff"
+    stroke: "#3949ab"
+    bold: true
+  }
+}
+
+producer: grafana-stack/ (producer): {
+  label: "grafana-stack/ · producer"
+  style: { fill: "#e3f2fd"; stroke: "#1976d2"; bold: true }
+}
+consumer1: vllms/Qwen3.6-27B (consumer): {
+  label: "vllms/Qwen3.6-27B · consumer"
+  style: { fill: "#fff8e1"; stroke: "#f9a825"; bold: true }
+}
+consumer2: loop_factory/ (consumer): {
+  label: "loop_factory/ · consumer"
+  style: { fill: "#fff8e1"; stroke: "#f9a825"; bold: true }
+}
+
+bridge -> producer
+bridge -> consumer1
+bridge -> consumer2
+
+producer: {
+  prometheus
+  grafana
+  loki
+  phoenix
+  otel: otel-collector
+  prometheus: { style: { fill: "#ffffff" } }
+  grafana: { style: { fill: "#ffffff" } }
+  loki: { style: { fill: "#ffffff" } }
+  phoenix: { style: { fill: "#ffffff" } }
+  otel: { style: { fill: "#ffffff" } }
+}
+
+consumer1: {
+  vllm_c: vllm-mtp: {
+    label: "vllm-mtp\n:8000/metrics"
+    style: { fill: "#ffffff" }
+  }
+}
+
+consumer2: {
+  loop_c: loop-1: {
+    label: "loop-1\n:8081/metrics"
+    style: { fill: "#ffffff" }
+  }
+  otel_lf: otel-collector: {
+    style: { fill: "#ffffff" }
+  }
+  promtail: {
+    style: { fill: "#ffffff" }
+  }
+}
+
+producer.prometheus -> consumer1.vllm_c: "scrapes :8000/metrics" { style: { stroke-dash: 4 } }
+producer.prometheus -> consumer2.loop_c: "scrapes :8081/metrics" { style: { stroke-dash: 4 } }
+consumer2.otel_lf -> producer.otel: "OTLP :4317"
+consumer2.promtail -> producer.loki: "push :3100"
