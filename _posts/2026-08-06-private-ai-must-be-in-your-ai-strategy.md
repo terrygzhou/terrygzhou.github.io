@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Why Private AI Must be in Your Enterprise AI Strategy
+title: Private AI Must be part of the Enterprise AI Strategy
 date: 2026-08-06
 tags:
   - AI-Strategy

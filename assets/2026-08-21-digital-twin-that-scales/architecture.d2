@@ -1,0 +1,79 @@
+vars: {
+  layout-engine: elk
+  d2-config: { theme-id: 100 }
+}
+
+twin: {
+  label: "Local Digital Twin — everything on a single home server"
+  style: { stroke-dash: 4; fill: "#f7f9fc" }
+
+  sources: {
+    label: "SOURCING"
+    style: { fill: "#eef3ff" }
+    chat: { label: "Telegram / social" }
+    code: { label: "VS Code sessions" }
+    papers: { label: "research papers / github" }
+    notes: { label: "Obsidian / Apple Notes / emails / PDFs" }
+    web: { label: "web content / research crons" }
+  }
+
+  pipeline: {
+    label: "PROCESSING"
+    style: { fill: "#f2fff5" }
+    dedup: { label: "dedupe + chunk" }
+    embed: { label: "embeddings (CPU)" }
+    extract: { label: "custom GraphRAG extraction (LLM, batched)" }
+    embed -> extract: entities
+  }
+
+  storage: {
+    label: "STORAGE"
+    style: { fill: "#fff8ec" }
+    qdrant: { label: "Qdrant — 344K chunks, hybrid search"; shape: cylinder }
+    neo4j: { label: "Neo4j — 18.5K entities, ~75K relationships"; shape: cylinder }
+  }
+
+  brain: {
+    label: "CONSUMPTION — local LLM (GPU) + Mem0 adaptive layer"
+    style: { fill: "#fdf0f4" }
+  }
+}
+
+agents: {
+  label: "Agents — any session starts fresh"
+  style: { stroke-dash: 4 }
+  telegram: { label: "Telegram" }
+  vscode: { label: "VS Code" }
+  webui: { label: "web console" }
+}
+
+jobs: {
+  label: "SCHEDULED JOBS (autonomous)"
+  style: { stroke-dash: 4 }
+  ingest: { label: "daily session ingest" }
+  consolidate: { label: "memory consolidation (weekly)" }
+  prune: { label: "disk space management" }
+  backfill: { label: "graph backfill on new content" }
+}
+
+heartbeat: { label: "THE HEARTBEAT — every conversation feeds back in" }
+
+twin.sources.chat -> twin.pipeline.dedup
+twin.sources.code -> twin.pipeline.dedup
+twin.sources.papers -> twin.pipeline.dedup
+twin.sources.notes -> twin.pipeline.dedup
+twin.sources.web -> twin.pipeline.dedup
+twin.pipeline.dedup -> twin.pipeline.embed
+twin.pipeline.embed -> twin.storage.qdrant: "semantic chunks"
+twin.pipeline.extract -> twin.storage.neo4j: "entities + relationships"
+twin.storage.qdrant -> twin.brain: "vector search"
+twin.storage.neo4j -> twin.brain: "graph traversal"
+twin.brain -> agents: "one synthesised answer"
+
+agents -> heartbeat: "agent outputs, corrections, decisions"
+heartbeat -> twin.sources.chat: "captured overnight"
+
+jobs.ingest -> twin.pipeline.dedup
+jobs.backfill -> twin.pipeline.extract
+jobs.consolidate -> twin.storage.qdrant
+jobs.prune -> twin.storage.qdrant

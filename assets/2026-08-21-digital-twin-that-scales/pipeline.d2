@@ -1,0 +1,89 @@
+vars: {
+  layout-engine: elk
+  d2-config: { theme-id: 100 }
+}
+
+sources: {
+  label: "SOURCING — every channel has its own ingestion script"
+  style: { stroke-dash: 4 }
+  telegram: { label: "Telegram" }
+  social: { label: "social media" }
+  papers: { label: "research papers" }
+  github: { label: "github" }
+  vscode: { label: "VS Code sessions" }
+  obsidian: { label: "Obsidian notes" }
+  manual: { label: "manual injections" }
+  cron: { label: "automated research crons" }
+  email: { label: "emails" }
+  apple: { label: "Apple Notes" }
+  pdf: { label: "personal PDFs" }
+  work: { label: "working files" }
+  web: { label: "web content" }
+}
+
+processing: {
+  label: "PROCESSING"
+  style: { stroke-dash: 4 }
+  dedup: { label: "dedupe" }
+  chunk: { label: "chunk" }
+  embed: { label: "embed — runs on CPU, GPU kept for the brain" }
+  extract: { label: "LLM extracts entities + relationships (custom GraphRAG, batched)" }
+  dedup -> chunk
+  chunk -> embed
+  embed -> extract
+}
+
+stores: {
+  label: "STORAGE"
+  style: { stroke-dash: 4 }
+  qdrant: { label: "Qdrant — vector store (344K chunks)"; shape: cylinder }
+  neo4j: { label: "Neo4j — knowledge graph (18.5K entities, ~75K relationships)"; shape: cylinder }
+}
+
+consumption: {
+  label: "CONSUMPTION"
+  style: { stroke-dash: 4 }
+  agent: { label: "agent session (Telegram / VS Code / web) starts fresh"; shape: person }
+  mem0: { label: "Mem0 — loads what matters for this task, now" }
+  synthesize: { label: "synthesise: vector recall + graph context → one answer" }
+  agent -> mem0: query
+  mem0 -> synthesize
+}
+
+feedback: { label: "THE HEARTBEAT — agent outputs, corrections, decisions flow back in" }
+
+jobs: {
+  label: "SELF-MAINTENANCE (runs autonomously)"
+  style: { stroke-dash: 4 }
+  j1: { label: "daily session ingest" }
+  j2: { label: "memory consolidation (weekly)" }
+  j3: { label: "disk space management" }
+  j4: { label: "graph backfill on new content" }
+}
+
+sources.telegram -> processing.dedup
+sources.social -> processing.dedup
+sources.papers -> processing.dedup
+sources.github -> processing.dedup
+sources.vscode -> processing.dedup
+sources.obsidian -> processing.dedup
+sources.manual -> processing.dedup
+sources.cron -> processing.dedup
+sources.email -> processing.dedup
+sources.apple -> processing.dedup
+sources.pdf -> processing.dedup
+sources.work -> processing.dedup
+sources.web -> processing.dedup
+
+processing.embed -> stores.qdrant
+processing.extract -> stores.neo4j
+
+stores.qdrant -> consumption.mem0
+stores.neo4j -> consumption.mem0
+consumption.synthesize -> feedback
+feedback -> sources.telegram: "compounding"
+
+jobs.j1 -> sources.telegram
+jobs.j4 -> processing.extract
+jobs.j2 -> stores.qdrant
+jobs.j3 -> stores.qdrant

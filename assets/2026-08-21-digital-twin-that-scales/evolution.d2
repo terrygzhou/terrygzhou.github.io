@@ -1,0 +1,88 @@
+vars: {
+  layout-engine: elk
+  d2-config: { theme-id: 100 }
+}
+
+p1: {
+  label: "PHASE 1 — STATIC SNAPSHOT"
+  snapshot: {
+    label: "AnythingLLM / OpenNotebook / llm_wiki"
+    shape: package
+  }
+  problem: {
+    label: "structure demanded before value; no merge path across projects"
+    shape: hexagon
+    style: { fill: "#ffe8e8"; stroke: "#cc4444" }
+  }
+  snapshot -> problem: dead end
+}
+
+p2: {
+  label: "PHASE 2 — MEMORY"
+  qdrant: {
+    label: "Qdrant: one collection, one source of truth"
+    shape: cylinder
+  }
+  sources: {
+    label: "notes, emails, docs, chats, PDFs, URLs"
+    shape: document
+  }
+  overflow: {
+    label: "retrieval floods the context window"
+    shape: hexagon
+    style: { fill: "#ffe8e8"; stroke: "#cc4444" }
+  }
+  sources -> qdrant: "chunk + embed"
+  qdrant -> overflow: "too much recalled"
+}
+
+p3: {
+  label: "PHASE 3 — LEARNING"
+  agent: {
+    label: "agent sessions"
+    shape: person
+  }
+  mem0: {
+    label: "Mem0 adaptive memory layer"
+    shape: package
+  }
+  qmem: {
+    label: "Qdrant collection (dynamic)"
+    shape: cylinder
+  }
+  agent -> mem0: ask
+  mem0 -> qmem: "selective retrieval"
+  mem0 -> agent: "only what matters, now"
+}
+
+p4: {
+  label: "PHASE 4 — UNDERSTANDING"
+  qall: {
+    label: "Qdrant: 344K chunks"
+    shape: cylinder
+  }
+  neo: {
+    label: "Neo4j: 18.5K entities, 75K relationships"
+    shape: cylinder
+  }
+  graphrag: {
+    label: "custom GraphRAG extraction"
+    shape: package
+  }
+  brain: {
+    label: "local LLM (GPU)"
+    shape: package
+  }
+  answer: {
+    label: "recall + context woven into one answer"
+    shape: hexagon
+  }
+  brain -> graphrag: "batch extraction"
+  graphrag -> neo: "entities + relationships"
+  qall -> answer: "vector search"
+  neo -> answer: "graph traversal"
+}
+
+p1 -> p2: "solved: single source of truth"
+p2 -> p3: "solved: context-aware recall"
+p3 -> p4: "solved: from chunks to a connected story"
