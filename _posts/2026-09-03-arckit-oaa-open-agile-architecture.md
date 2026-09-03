@@ -38,6 +38,8 @@ In one sentence: **TOGAF ADM = enterprise baseline. O-AA C208 = sprint execution
 
 Recipe: `oaa-full` (5 phases: strategy → product → ADM Lite, plus optional security and governance targets).
 
+![OAA commands flow](assets/2026-09-03-arckit-oaa/commands-flow.svg)
+
 ```text
 PRIN → REQ/STKE → OASTR/OAPR → OAAL → OASEC → OAGOV
 ```
@@ -85,6 +87,8 @@ Foundation commands (`arckit:principles`, `arckit:requirements`, `arckit:stakeho
    - **Per-phase validation gates** — every phase ships its own completeness checks (required sections, cross-references, consistency with the previous phase's output). The gate is the control; the agent is the worker.
 
    The upshot: AI accelerates the drafting, but the *architecture of the artefact* is still governed by the standard (C208, TOGAF) and enforced by the toolkit. The agent can make it faster; it can't make it structurally wrong. That's the property that makes "executable framework" more than a slogan.
+
+![Guided control tiers](assets/2026-09-03-arckit-oaa/guided-control-tiers.svg)
 
 ---
 

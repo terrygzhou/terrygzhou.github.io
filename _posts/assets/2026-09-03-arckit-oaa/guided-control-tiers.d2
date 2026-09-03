@@ -1,0 +1,81 @@
+vars: {
+  layout-engine: elk
+}
+
+direction: down
+
+agent: {
+  label: "AI Agent"
+  shape: person
+  style: { fill: "#fff5e6" }
+}
+
+pipeline: {
+  label: "Guided Control Pipeline"
+  shape: square
+  style: { fill: "#f9f9f9"; stroke: "#888" }
+
+  tier1: {
+    label: "1. Intake Interview"
+    shape: square
+    style: { fill: "#fff8f0" }
+  }
+  tier2: {
+    label: "2. Template Rendering"
+    shape: square
+    style: { fill: "#f0f8ff" }
+  }
+  tier3: {
+    label: "3. Schema Validation"
+    shape: square
+    style: { fill: "#f0fff0" }
+  }
+  tier4: {
+    label: "4. Per-Phase Gates"
+    shape: square
+    style: { fill: "#fff0f0" }
+  }
+
+  n1: {
+    label: "Structured questions from\ntemplate field schema"
+    shape: hexagon
+  }
+  n2: {
+    label: "Renders only when all\nrequired fields populated"
+    shape: hexagon
+  }
+  n3: {
+    label: "JSON Schema check —\nincomplete fields fail, never\nsilently get invented"
+    shape: hexagon
+  }
+  n4: {
+    label: "Completeness checks +\ncross-reference\nconsistency with prior phase"
+    shape: hexagon
+  }
+
+  tier1 -> n1
+  tier2 -> n2
+  tier3 -> n3
+  tier4 -> n4
+
+  tier1 -> tier2: "fields complete"
+  tier2 -> tier3: "render OK"
+  tier3 -> tier4: "valid"
+}
+
+agent -> pipeline: "answers intake"
+
+output: {
+  label: "Artefact\n(ARC-NNN-v1.0.md)"
+  shape: document
+  style: { fill: "#e6f0ff" }
+}
+
+pipeline -> output: "passed all 4 tiers"
+
+hallucination: {
+  label: "Hallucination risk:\nfree-form agent output\nwith no structural check"
+  shape: hexagon
+  style: { fill: "#fff" }
+}
+hallucination -> agent: "no control layer"

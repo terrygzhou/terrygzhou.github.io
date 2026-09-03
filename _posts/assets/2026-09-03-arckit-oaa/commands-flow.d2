@@ -1,0 +1,73 @@
+vars: {
+  layout-engine: elk
+}
+
+direction: right
+
+foundation: Foundation: {
+  shape: square
+  style: { fill: "#f0f4ff"; stroke: "#3355aa" }
+
+  PRIN: {
+    label: "principles\n(PRIN)"
+    shape: document
+  }
+  REQ: {
+    label: "requirements\n(REQ)"
+    shape: document
+  }
+  STKE: {
+    label: "stakeholders\n(STKE)"
+    shape: document
+  }
+}
+
+oaa: OAA: {
+  shape: square
+  style: { fill: "#f6fff0"; stroke: "#447722" }
+
+  OASTR: {
+    label: "agile-strategy\n(OASTR)"
+    shape: document
+  }
+  OAPR: {
+    label: "product-architecture\n(OAPR)"
+    shape: document
+  }
+  OAAL: {
+    label: "oaa-adm-lite\n(OAAL)"
+    shape: document
+  }
+  OASEC: {
+    label: "agile-security\n(OASEC)"
+    shape: document
+    style: { stroke-dash: 3 }
+  }
+  OAGOV: {
+    label: "agile-governance\n(OAGOV)"
+    shape: document
+    style: { stroke-dash: 3 }
+  }
+}
+
+PRIN -> REQ: "deps"
+PRIN -> STKE: "deps"
+PRIN -> OASTR: ""
+PRIN -> OAPR: ""
+PRIN -> OAAL: ""
+PRIN -> OASEC: ""
+PRIN -> OAGOV: ""
+
+REQ -> OASTR: ""
+REQ -> OAPR: ""
+REQ -> OAAL: ""
+
+STKE -> OASTR: ""
+STKE -> OAAL: ""
+
+OAPR -> OAAL: ""
+OAPR -> OASEC: ""
+
+OAAL -> OASEC: ""
+OAAL -> OAGOV: ""
+OASEC -> OAGOV: "optional"
