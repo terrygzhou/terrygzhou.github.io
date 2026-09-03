@@ -10,7 +10,7 @@ tags:
 date: 2026-09-03
 status: published
 ---
-Last month I published [Executable Enterprise Architecture — Agentic-TOGAF-ADM](https://terrygzhou.github.io/2026/07/01/executable-enterprise-architecture.html), where I showed how the **ArcKit** open-source project turned the TOGAF ADM into agent-readable slash commands and build recipes. The core insight: architecture frameworks stop being slide decks and become executable, auditable, repeatable workflows.
+Two months ago, I published [Executable Enterprise Architecture — Agentic-TOGAF-ADM](https://terrygzhou.github.io/2026/07/01/executable-enterprise-architecture.html), where I showed how the **ArcKit** open-source project turned the TOGAF ADM into agent-readable slash commands and build recipes. The core insight: architecture frameworks stop being slide decks and become executable, auditable, repeatable workflows.
 
 Today, I'm shipping a new ArcKit plugin that pushes this thesis one step further: **ArcKit OAA — the Open Agile Architecture (O-AA, [Open Group C208](https://pubs.opengroup.org/architecture/o-aa-standard/)) overlay.** It's a standalone plugin with 5 commands and the `oaa-full` build recipe for sprint-based, product-driven architecture delivery. And it raises a question worth answering directly: **when do you actually need TOGAF ADM, and when does agile O-AA do the job better?**
 
