@@ -24,6 +24,8 @@ TOGAF ADM is a stage-gate machine. It works when you need a defensible, enterpri
 
 In one sentence: **TOGAF ADM = enterprise baseline. O-AA C208 = sprint execution engine for the same baseline.**
 
+> **The Executive View.** Your enterprise architecture is a 200-page PDF, and it's six months behind the roadmap that produced it. **The problem is rarely the strategy — it's the machinery that turns it into work.** ArcKit OAA closes that gap: it takes the Open Group's agile standard (C208), turns it into machine-executable workflows, and lets a cross-functional product team ship a complete architecture sprint in under a day instead of a quarter. And because every artefact is generated through a **structured intake interview** that runs the Open Group template's field schema before the AI agent writes a single line, **hallucination is out by construction — incomplete fields fail, they don't quietly get invented.** The result is not a slide deck. It's a **repeatable, auditable delivery engine** that keeps enterprise architecture in step with the product velocity that defines the roadmap.
+
 ---
 
 ## What's Inside arckit-oaa?
