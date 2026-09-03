@@ -17,7 +17,7 @@ summary: Four iterations of building a digital twin of myself — an AI mirror o
 
 Four iterations to build a digital twin — an AI mirror of who I am, what I know, how I think. It captures everything I engage with: conversations, texts, music, videos, lessons. The end result: a localised system where my agents can query who I am on demand. Semantic search, graph relationships, adaptive memory. All on my hardware, nothing sent to the cloud. The only difference is that I make decisions, not my digital twin.
 
-![The four-phase evolution: static snapshot, single-source memory, adaptive learning, graph understanding](/assets/2026-08-21-digital-twin-that-scales/evolution.svg)
+![The four-phase evolution: static snapshot, single-source memory, adaptive learning, graph understanding](assets/2026-08-21-digital-twin-that-scales/evolution.png)
 
 ## Phase 1: Static Snapshot
 
@@ -75,7 +75,7 @@ I went custom:
 
 The result: vector search for recall, graph traversal for context. 344,000 pieces of searchable content in Qdrant. 18,500 entities in the graph. Nearly 75,000 relationships. All on a single home server.
 
-![System architecture: sourcing channels, processing pipeline, Qdrant + Neo4j storage, local LLM + Mem0 consumption layer, and the heartbeat feedback loop](/assets/2026-08-21-digital-twin-that-scales/architecture.svg)
+![System architecture: sourcing channels, processing pipeline, Qdrant + Neo4j storage, local LLM + Mem0 consumption layer, and the heartbeat feedback loop](assets/2026-08-21-digital-twin-that-scales/architecture.png)
 
 When I ask "How did I become an enterprise architect?" the twin searches for semantically relevant content, explores the graph for career milestones, certifications, organisations, and people, then weaves both into a single answer. The resume provides the skeleton, the graph provides the connections, memory fills in the details.
 
@@ -83,7 +83,7 @@ When I ask "How did I become an enterprise architect?" the twin searches for sem
 
 Three stages: sourcing, processing, consumption. Every conversation feeds back in.
 
-![Data pipeline: sourcing channels, dedup + chunk + embed + GraphRAG extraction, Qdrant/Neo4j storage, Mem0 consumption, and the heartbeat feedback loop with self-maintenance jobs](/assets/2026-08-21-digital-twin-that-scales/pipeline.svg)
+![Data pipeline: sourcing, processing, storage, consumption, heartbeat feedback, and self-maintenance jobs](assets/2026-08-21-digital-twin-that-scales/pipeline.png)
 
 **Sourcing.**  Channels: Telegram, social media, research papers, github, VS Code sessions, Obsidian notes, manual injections, automated research cron jobs, emails, Apple Notes, personal PDFs, working files, web content. Each source has its own ingestion script.
 

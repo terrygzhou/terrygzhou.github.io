@@ -2,88 +2,108 @@ vars: {
   layout-engine: elk
   d2-config: { theme-id: 100 }
 }
+direction: right
+
+# --- main forward pipeline (left → right) ---
 
 sources: {
-  label: "SOURCING — every channel has its own ingestion script"
-  style: { stroke-dash: 4 }
-  telegram: { label: "Telegram" }
-  social: { label: "social media" }
-  papers: { label: "research papers" }
-  github: { label: "github" }
-  vscode: { label: "VS Code sessions" }
-  obsidian: { label: "Obsidian notes" }
-  manual: { label: "manual injections" }
-  cron: { label: "automated research crons" }
-  email: { label: "emails" }
-  apple: { label: "Apple Notes" }
-  pdf: { label: "personal PDFs" }
-  work: { label: "working files" }
-  web: { label: "web content" }
+  label: "SOURCING"
+  style: {
+    fill: "#f1f5f9"
+    stroke: "#64748b"
+    stroke-width: 2
+    border-radius: 8
+    font-size: 15
+  }
+  channels: {
+    label: "Telegram · social · papers · GitHub\nVS Code · Obsidian · emails · cron\nmanual · Apple Notes · PDFs · web"
+    style: { font-size: 11; fill: "#fff" }
+  }
 }
 
 processing: {
   label: "PROCESSING"
-  style: { stroke-dash: 4 }
-  dedup: { label: "dedupe" }
-  chunk: { label: "chunk" }
-  embed: { label: "embed — runs on CPU, GPU kept for the brain" }
-  extract: { label: "LLM extracts entities + relationships (custom GraphRAG, batched)" }
-  dedup -> chunk
-  chunk -> embed
-  embed -> extract
+  style: {
+    fill: "#fef9c3"
+    stroke: "#ca8a04"
+    stroke-width: 2
+    border-radius: 8
+    font-size: 15
+  }
+  dedup:   { label: "dedupe" }
+  chunk:   { label: "chunk" }
+  embed:   { label: "embed\n(CPU)" }
+  extract: { label: "LLM extract\nentities + relations" }
+  dedup -> chunk -> embed -> extract
 }
 
 stores: {
   label: "STORAGE"
-  style: { stroke-dash: 4 }
-  qdrant: { label: "Qdrant — vector store (344K chunks)"; shape: cylinder }
-  neo4j: { label: "Neo4j — knowledge graph (18.5K entities, ~75K relationships)"; shape: cylinder }
+  style: {
+    fill: "#dbeafe"
+    stroke: "#3b82f6"
+    stroke-width: 2
+    border-radius: 8
+    font-size: 15
+  }
+  store: {
+    label: "Qdrant (vectors)\n+ Neo4j (graph)"
+    shape: cylinder
+  }
 }
 
 consumption: {
   label: "CONSUMPTION"
-  style: { stroke-dash: 4 }
-  agent: { label: "agent session (Telegram / VS Code / web) starts fresh"; shape: person }
-  mem0: { label: "Mem0 — loads what matters for this task, now" }
-  synthesize: { label: "synthesise: vector recall + graph context → one answer" }
-  agent -> mem0: query
-  mem0 -> synthesize
+  style: {
+    fill: "#dcfce7"
+    stroke: "#16a34a"
+    stroke-width: 2
+    border-radius: 8
+    font-size: 15
+  }
+  agent:  { label: "agent session"; shape: person }
+  mem0:   { label: "Mem0" }
+  answer: { label: "answer" }
+  agent -> mem0: "query"
+  mem0 -> answer
 }
 
-feedback: { label: "THE HEARTBEAT — agent outputs, corrections, decisions flow back in" }
+# --- feedback + maintenance (below the main row) ---
+
+heartbeat: {
+  label: "HEARTBEAT"
+  subtitle: "outputs · corrections · decisions"
+  style: {
+    fill: "#fce7f3"
+    stroke: "#ec4899"
+    stroke-width: 3
+    border-radius: 8
+    font-size: 14
+    font-color: "#831843"
+  }
+}
 
 jobs: {
-  label: "SELF-MAINTENANCE (runs autonomously)"
-  style: { stroke-dash: 4 }
-  j1: { label: "daily session ingest" }
-  j2: { label: "memory consolidation (weekly)" }
-  j3: { label: "disk space management" }
-  j4: { label: "graph backfill on new content" }
+  label: "SELF-MAINTENANCE"
+  subtitle: "ingest · consolidate · prune · backfill"
+  style: {
+    fill: "#f3e8ff"
+    stroke: "#8b5cf6"
+    stroke-width: 2
+    border-radius: 8
+    font-size: 14
+  }
 }
 
-sources.telegram -> processing.dedup
-sources.social -> processing.dedup
-sources.papers -> processing.dedup
-sources.github -> processing.dedup
-sources.vscode -> processing.dedup
-sources.obsidian -> processing.dedup
-sources.manual -> processing.dedup
-sources.cron -> processing.dedup
-sources.email -> processing.dedup
-sources.apple -> processing.dedup
-sources.pdf -> processing.dedup
-sources.work -> processing.dedup
-sources.web -> processing.dedup
+# forward flow
+sources -> processing
+processing.extract -> stores.store
+stores.store -> consumption.mem0
 
-processing.embed -> stores.qdrant
-processing.extract -> stores.neo4j
+# heartbeat loop
+consumption.answer -> heartbeat
+heartbeat -> sources
 
-stores.qdrant -> consumption.mem0
-stores.neo4j -> consumption.mem0
-consumption.synthesize -> feedback
-feedback -> sources.telegram: "compounding"
-
-jobs.j1 -> sources.telegram
-jobs.j4 -> processing.extract
-jobs.j2 -> stores.qdrant
-jobs.j3 -> stores.qdrant
+# self-maintenance (dashed, quiet)
+jobs -> stores.store: { style: { stroke-dash: 4 } }
+jobs -> sources: { style: { stroke-dash: 4 } }
