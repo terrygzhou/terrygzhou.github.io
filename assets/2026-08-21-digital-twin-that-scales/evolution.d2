@@ -2,6 +2,7 @@ vars: {
   layout-engine: elk
   d2-config: { theme-id: 100 }
 }
+direction: down
 
 p1: {
   label: "PHASE 1 — STATIC SNAPSHOT"
@@ -37,6 +38,7 @@ p2: {
 }
 
 p3: {
+  direction: right
   label: "PHASE 3 — LEARNING"
   agent: {
     label: "agent sessions"
@@ -56,6 +58,7 @@ p3: {
 }
 
 p4: {
+  direction: right
   label: "PHASE 4 — UNDERSTANDING"
   qall: {
     label: "Qdrant: 344K chunks"

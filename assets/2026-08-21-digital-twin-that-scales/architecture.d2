@@ -2,8 +2,10 @@ vars: {
   layout-engine: elk
   d2-config: { theme-id: 100 }
 }
+direction: down
 
 twin: {
+  direction: down
   label: "Local Digital Twin — everything on a single home server"
   style: { stroke-dash: 4; fill: "#f7f9fc" }
 
@@ -20,6 +22,7 @@ twin: {
   pipeline: {
     label: "PROCESSING"
     style: { fill: "#f2fff5" }
+    direction: down
     dedup: { label: "dedupe + chunk" }
     embed: { label: "embeddings (CPU)" }
     extract: { label: "custom GraphRAG extraction (LLM, batched)" }
@@ -40,6 +43,7 @@ twin: {
 }
 
 agents: {
+  direction: right
   label: "Agents — any session starts fresh"
   style: { stroke-dash: 4 }
   telegram: { label: "Telegram" }
@@ -48,6 +52,7 @@ agents: {
 }
 
 jobs: {
+  direction: right
   label: "SCHEDULED JOBS (autonomous)"
   style: { stroke-dash: 4 }
   ingest: { label: "daily session ingest" }

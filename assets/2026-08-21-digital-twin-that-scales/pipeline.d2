@@ -2,9 +2,9 @@ vars: {
   layout-engine: elk
   d2-config: { theme-id: 100 }
 }
-direction: right
+direction: down
 
-# --- main forward pipeline (left → right) ---
+# --- main forward pipeline (top → bottom) ---
 
 sources: {
   label: "SOURCING"
@@ -15,6 +15,7 @@ sources: {
     border-radius: 8
     font-size: 15
   }
+  direction: right
   channels: {
     label: "Telegram · social · papers · GitHub\nVS Code · Obsidian · emails · cron\nmanual · Apple Notes · PDFs · web"
     style: { font-size: 11; fill: "#fff" }
@@ -30,6 +31,7 @@ processing: {
     border-radius: 8
     font-size: 15
   }
+  direction: down
   dedup:   { label: "dedupe" }
   chunk:   { label: "chunk" }
   embed:   { label: "embed\n(CPU)" }
@@ -61,6 +63,7 @@ consumption: {
     border-radius: 8
     font-size: 15
   }
+  direction: right
   agent:  { label: "agent session"; shape: person }
   mem0:   { label: "Mem0" }
   answer: { label: "answer" }
@@ -68,30 +71,33 @@ consumption: {
   mem0 -> answer
 }
 
-# --- feedback + maintenance (below the main row) ---
+# --- feedback + maintenance (below the main flow, side by side) ---
 
-heartbeat: {
-  label: "HEARTBEAT"
-  subtitle: "outputs · corrections · decisions"
-  style: {
-    fill: "#fce7f3"
-    stroke: "#ec4899"
-    stroke-width: 3
-    border-radius: 8
-    font-size: 14
-    font-color: "#831843"
+feedback: {
+  style: { fill: transparent; stroke: transparent; stroke-width: 0 }
+  direction: right
+  heartbeat: {
+    label: "HEARTBEAT"
+    subtitle: "outputs · corrections · decisions"
+    style: {
+      fill: "#fce7f3"
+      stroke: "#ec4899"
+      stroke-width: 3
+      border-radius: 8
+      font-size: 14
+      font-color: "#831843"
+    }
   }
-}
-
-jobs: {
-  label: "SELF-MAINTENANCE"
-  subtitle: "ingest · consolidate · prune · backfill"
-  style: {
-    fill: "#f3e8ff"
-    stroke: "#8b5cf6"
-    stroke-width: 2
-    border-radius: 8
-    font-size: 14
+  jobs: {
+    label: "SELF-MAINTENANCE"
+    subtitle: "ingest · consolidate · prune · backfill"
+    style: {
+      fill: "#f3e8ff"
+      stroke: "#8b5cf6"
+      stroke-width: 2
+      border-radius: 8
+      font-size: 14
+    }
   }
 }
 
@@ -101,9 +107,9 @@ processing.extract -> stores.store
 stores.store -> consumption.mem0
 
 # heartbeat loop
-consumption.answer -> heartbeat
-heartbeat -> sources
+consumption.answer -> feedback.heartbeat
+feedback.heartbeat -> sources
 
 # self-maintenance (dashed, quiet)
-jobs -> stores.store: { style: { stroke-dash: 4 } }
-jobs -> sources: { style: { stroke-dash: 4 } }
+feedback.jobs -> stores.store: { style: { stroke-dash: 4 } }
+feedback.jobs -> sources: { style: { stroke-dash: 4 } }
