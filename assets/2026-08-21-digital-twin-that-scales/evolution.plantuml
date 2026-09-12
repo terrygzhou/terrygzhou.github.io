@@ -1,49 +1,55 @@
-' Four-phase evolution of the digital twin
+' Four-phase evolution of the digital twin — narrow layout for mobile.
 ' Phase 1 (snapshot) -> Phase 2 (memory) -> Phase 3 (learning) -> Phase 4 (understanding)
 @startuml
-skinparam archimate {
-    roundCorner 8
-}
 skinparam defaultFontSize 13
+skinparam roundCorner 8
 
 top to bottom direction
 
-package "PHASE 1 — STATIC SNAPSHOT" as p1 {
+together {
+    rectangle "PHASE 1 — STATIC SNAPSHOT" as p1 #FFFFFF
     rectangle "AnythingLLM / OpenNotebook / llm_wiki" as p1snap <<application-component>>
     rectangle "structure demanded before value; no merge path" as p1prob #FFE8E8
+    p1 -down-> p1snap
     p1snap -down-> p1prob : dead end
 }
 
-package "PHASE 2 — MEMORY" as p2 {
+together {
+    rectangle "PHASE 2 — MEMORY" as p2 #FFFFFF
     rectangle "notes, emails, docs, chats, PDFs, URLs" as p2src
     rectangle "Qdrant: one collection, one source of truth" as p2q <<data-store>> #E8F0FE
     rectangle "retrieval floods the context window" as p2ov #FFE8E8
+    p2 -down-> p2src
     p2src -down-> p2q : chunk + embed
     p2q -down-> p2ov : too much recalled
 }
 
-package "PHASE 3 — LEARNING" as p3 {
+together {
+    rectangle "PHASE 3 — LEARNING" as p3 #FFFFFF
     rectangle "agent sessions" as p3a <<application-component>>
     rectangle "Mem0 adaptive memory layer" as p3m <<application-service>>
     rectangle "Qdrant collection (dynamic)" as p3c <<data-store>> #E8F0FE
-    p3a -right-> p3m : ask
-    p3m -right-> p3c : selective retrieval
-    p3m -left-> p3a : only what matters, now
+    p3 -down-> p3a
+    p3a -down-> p3m : ask
+    p3m -down-> p3c : selective retrieval
 }
 
-package "PHASE 4 — UNDERSTANDING" as p4 {
+together {
+    rectangle "PHASE 4 — UNDERSTANDING" as p4 #FFFFFF
     rectangle "local LLM (GPU)" as p4brain <<technology-system-software>> #E8F0FE
+    rectangle "custom GraphRAG extraction" as p4g <<application-service>>
     rectangle "Qdrant: 344K chunks" as p4q <<data-store>> #E8F0FE
     rectangle "Neo4j: 18.5K entities, 75K relationships" as p4neo <<data-store>> #E8F0FE
-    rectangle "custom GraphRAG extraction" as p4g <<application-service>>
     rectangle "recall + context woven into one answer" as p4ans #FFE8E8
-    p4brain -right-> p4g : batch extraction
-    p4g -right-> p4neo : entities + relationships
-    p4q -right-> p4ans : vector search
-    p4neo -right-> p4ans : graph traversal
+    p4 -down-> p4brain
+    p4brain -down-> p4g : batch extraction
+    p4g -down-> p4neo : entities + relationships
+    p4brain -down-> p4q : semantic recall
+    p4q -down-> p4ans : vector search
+    p4neo -down-> p4ans : graph traversal
 }
 
-p1 -down-> p2 : solved: single source of truth
-p2 -down-> p3 : solved: context-aware recall
-p3 -down-> p4 : solved: from chunks to a connected story
+p1prob -down-> p2 : solved: single source of truth
+p2ov -down-> p3 : solved: context-aware recall
+p3c -down-> p4 : solved: from chunks to a connected story
 @enduml

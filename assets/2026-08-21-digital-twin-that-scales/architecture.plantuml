@@ -1,76 +1,74 @@
 ' System architecture: sourcing -> processing -> storage -> consumption,
 ' with agents, scheduled jobs, and the heartbeat feedback loop.
+' Narrow layout for mobile.
 @startuml
-skinparam archimate {
-    roundCorner 8
-}
 skinparam defaultFontSize 13
+skinparam roundCorner 8
 
 top to bottom direction
 
-package "Local Digital Twin — everything on a single home server" as twin {
-
-    package "SOURCING" as src {
-        rectangle "Telegram / social" as s1 <<application-component>>
-        rectangle "VS Code sessions" as s2 <<application-component>>
-        rectangle "research papers / github" as s3 <<application-component>>
-        rectangle "Obsidian / Apple Notes / emails / PDFs" as s4 <<application-component>>
-        rectangle "web content / research crons" as s5 <<application-component>>
-    }
-
-    package "PROCESSING" as proc {
-        rectangle "dedupe + chunk" as d1 <<process>>
-        rectangle "embeddings (CPU)" as d2 <<process>>
-        rectangle "custom GraphRAG extraction (LLM, batched)" as d3 <<application-service>>
-        d1 -right-> d2
-        d2 -down-> d3 : entities
-    }
-
-    package "STORAGE" as store {
-        rectangle "Qdrant — 344K chunks, hybrid search" as qd <<data-store>> #E8F0FE
-        rectangle "Neo4j — 18.5K entities, ~75K relationships" as n4j <<data-store>> #E8F0FE
-    }
-
-    package "CONSUMPTION — local LLM (GPU) + Mem0 adaptive layer" as cons {
-        rectangle "local LLM (GPU)" as llm <<technology-system-software>> #E8F0FE
-        rectangle "Mem0 adaptive layer" as m0 <<application-service>>
-        m0 -right-> llm
-    }
+together {
+    rectangle "**SOURCING**" as src1 #FFFFFF
+    rectangle "Telegram / social" as s1 <<application-component>>
+    rectangle "VS Code sessions" as s2 <<application-component>>
+    rectangle "research papers / GitHub" as s3 <<application-component>>
+    rectangle "Obsidian / Apple Notes / emails / PDFs" as s4 <<application-component>>
+    rectangle "web content / research crons" as s5 <<application-component>>
+    src1 -[hidden]down- s1
+    s1 -[hidden]down- s2
+    s2 -[hidden]down- s3
+    s3 -[hidden]down- s4
+    s4 -[hidden]down- s5
 }
 
-package "Agents — any session starts fresh" as agents {
-    rectangle "Telegram" as a1 <<application-component>>
-    rectangle "VS Code" as a2 <<application-component>>
-    rectangle "web console" as a3 <<application-component>>
+together {
+    rectangle "**PROCESSING**" as proc1 #FFFFFF
+    rectangle "dedupe + chunk" as d1 <<process>>
+    rectangle "embeddings (CPU)" as d2 <<process>>
+    rectangle "custom GraphRAG extraction (LLM, batched)" as d3 <<application-service>>
+    proc1 -[hidden]down- d1
+    d1 -[hidden]down- d2
+    d2 -[hidden]down- d3
 }
 
-package "SCHEDULED JOBS (autonomous)" as jobs {
-    rectangle "daily session ingest" as j1 <<process>>
-    rectangle "memory consolidation (weekly)" as j2 <<process>>
-    rectangle "disk space management" as j3 <<process>>
-    rectangle "graph backfill on new content" as j4 <<process>>
+together {
+    rectangle "**STORAGE**" as store1 #FFFFFF
+    rectangle "Qdrant — 344K chunks, hybrid search" as qd <<data-store>> #E8F0FE
+    rectangle "Neo4j — 18.5K entities, ~75K relationships" as n4j <<data-store>> #E8F0FE
+    store1 -[hidden]down- qd
+    qd -[hidden]down- n4j
 }
 
-rectangle "THE HEARTBEAT — every conversation feeds back in" as hb #FCE7F3
+together {
+    rectangle "**CONSUMPTION — local LLM (GPU) + Mem0 adaptive layer**" as cons1 #FFFFFF
+    rectangle "Mem0 adaptive layer" as m0 <<application-service>>
+    rectangle "local LLM (GPU)" as llm <<technology-system-software>> #E8F0FE
+    cons1 -[hidden]down- m0
+    m0 -[hidden]down- llm
+}
 
-s1 -down-> d1
-s2 -down-> d1
-s3 -down-> d1
-s4 -down-> d1
-s5 -down-> d1
-d2 -down-> qd : semantic chunks
-d3 -down-> n4j : entities + relationships
+s5 -down-> proc1 : everything flows in
+d3 -down-> store1 : semantic chunks + entities
 qd -down-> m0 : vector search
-n4j -down-> llm : graph traversal
-llm -down-> a1 : one synthesised answer
-a1 -[hidden]right- a2
-a2 -[hidden]right- a3
 
-a1 -down-> hb : agent outputs, corrections, decisions
-hb -down-> s1 : captured overnight
+together {
+    rectangle "**AGENTS — any session starts fresh**" as agents1 #FFFFFF
+    rectangle "Telegram · VS Code · web console" as a1 <<application-component>>
+    agents1 -[hidden]down- a1
+}
 
-j1 -down-> d1
-j4 -down-> d3
-j2 -down-> qd
-j3 -down-> qd
+llm -down-> agents1 : one synthesised answer
+
+together {
+    rectangle "**HEARTBEAT — scheduled jobs (cron)**" as hb #FCE7F3
+    rectangle "sourcing cron — web content, research" as h1 <<application-service>>
+    rectangle "ingest jobs — anythingLLM, notebook, pdfs" as h2 <<application-service>>
+    rectangle "maintenance — Qdrant / Neo4j / Mem0" as h3 <<application-service>>
+    hb -[hidden]down- h1
+    h1 -[hidden]down- h2
+    h2 -[hidden]down- h3
+}
+
+a1 -down-> hb : outputs, corrections, decisions
+h3 .down.> src1 : fed into SOURCING overnight
 @enduml

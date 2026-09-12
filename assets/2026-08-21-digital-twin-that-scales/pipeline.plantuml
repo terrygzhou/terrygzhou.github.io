@@ -1,50 +1,61 @@
 ' Data pipeline: sourcing, processing, storage, consumption, heartbeat feedback,
-' and self-maintenance jobs.
+' and self-maintenance jobs. Narrow layout for mobile.
 @startuml
-skinparam archimate {
-    roundCorner 8
-}
 skinparam defaultFontSize 13
+skinparam roundCorner 8
 
 top to bottom direction
 
-package "SOURCING" as srcs {
-    rectangle "Telegram · social · papers · GitHub\nVS Code · Obsidian · emails · cron\nmanual · Apple Notes · PDFs · web" as ch <<application-component>>
+together {
+    rectangle "**SOURCING**" as src1 #FFFFFF
+    rectangle "Telegram · social · papers · GitHub" as src2 <<application-component>>
+    rectangle "VS Code · Obsidian · emails · cron" as src3 <<application-component>>
+    rectangle "manual · Apple Notes · PDFs · web" as src4 <<application-component>>
+    src1 -[hidden]down- src2
+    src2 -[hidden]down- src3
+    src3 -[hidden]down- src4
 }
 
-package "PROCESSING" as proc {
+together {
+    rectangle "**PROCESSING**" as proc1 #FFFFFF
     rectangle "dedupe" as p1 <<process>>
     rectangle "chunk" as p2 <<process>>
     rectangle "embed (CPU)" as p3 <<process>>
     rectangle "LLM extract\nentities + relations" as p4 <<application-service>>
-    p1 -right-> p2
-    p2 -right-> p3
-    p3 -right-> p4
+    proc1 -[hidden]down- p1
+    p1 -[hidden]down- p2
+    p2 -[hidden]down- p3
+    p3 -[hidden]down- p4
 }
 
-package "STORAGE" as st {
+together {
+    rectangle "**STORAGE**" as store1 #FFFFFF
     rectangle "Qdrant (vectors) + Neo4j (graph)" as db <<data-store>> #E8F0FE
+    store1 -[hidden]down- db
 }
 
-package "CONSUMPTION" as cons {
-    rectangle "agent session" as a1 <<application-component>>
-    rectangle "Mem0" as a2 <<application-service>>
-    rectangle "answer" as a3
-    a1 -right-> a2 : query
-    a2 -right-> a3
+together {
+    rectangle "**CONSUMPTION**" as cons1 #FFFFFF
+    rectangle "agent session" as c2 <<application-component>>
+    rectangle "Mem0" as c3 <<application-service>>
+    rectangle "answer" as c4
+    cons1 -[hidden]down- c2
+    c2 -[hidden]down- c3
+    c3 -[hidden]down- c4
 }
 
-package "HEARTBEAT" as fb #FCE7F3
-package "SELF-MAINTENANCE" as jobs #F3E8FF
+src4 -down-> proc1 : everything flows in
+p4 -down-> store1 : stored
+db -down-> c2 : retrieved
 
-srcs -down-> p1
-p4 -down-> db
-db -down-> a2
+together {
+    rectangle "HEARTBEAT — outputs, corrections, decisions" as fb #FCE7F3
+}
+c4 -down-> fb : every conversation feeds back in
 
-a3 -down-> fb : outputs, corrections, decisions
-fb -down-> srcs : captured overnight
-
-jobs -[hidden]down- fb
+together {
+    rectangle "SELF-MAINTENANCE — schedule + maintain" as jobs #F3E8FF
+}
+fb -down-> jobs
 jobs .down.> db : maintain
-jobs .down.> srcs : schedule
 @enduml
