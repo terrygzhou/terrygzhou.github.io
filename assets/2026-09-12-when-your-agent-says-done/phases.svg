@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1304" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">When Your Agent Says "Done"</title>
+  <desc id="d">Seven stages: five that built the workflow (trust, false checkpoint, executable checks, the cron loop, fresh-session onboarding), then two properties of the finished system (five concrete done-conditions, and the verifier verifying itself).</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#5f5e5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas -->
+  <rect x="0" y="0" width="720" height="1304" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="40" y="30" font-size="19" font-weight="500" fill="#1a1a18">When Your Agent Says &#8220;Done&#8221;</text>
+  <text x="40" y="50" font-size="12" fill="#88877f">How a multi-agent workflow evolved from trust-based completion to evidence-based completion</text>
+
+  <!-- ════════════════════════════════════════════════════════════
+       STAGE 1: TRUST  y=64..234
+       ════════════════════════════════════════════════════════════ -->
+  <g>
+    <rect x="40" y="64" width="640" height="170" rx="16" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+    <text x="60" y="92" font-size="14" font-weight="500" fill="#444441">Trust &#8212; the baseline that broke</text>
+    <text x="60" y="112" font-size="12" fill="#5f5e5a">A workflow built on trust. It looked seamless &#8212; until it wasn&#39;t.</text>
+  </g>
+
+  <!-- subagent row (5 chips) -->
+  <g>
+    <rect x="66" y="128" width="90" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+    <text x="111" y="150" font-size="13" font-weight="500" fill="#444441" text-anchor="middle" dominant-baseline="central">Subagent 1</text>
+    <rect x="186" y="128" width="90" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+    <text x="231" y="150" font-size="13" font-weight="500" fill="#444441" text-anchor="middle" dominant-baseline="central">Subagent 2</text>
+    <rect x="306" y="128" width="90" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+    <text x="351" y="150" font-size="13" font-weight="500" fill="#444441" text-anchor="middle" dominant-baseline="central">Subagent 3</text>
+    <rect x="426" y="128" width="90" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+    <text x="471" y="150" font-size="13" font-weight="500" fill="#444441" text-anchor="middle" dominant-baseline="central">Subagent 4</text>
+    <rect x="546" y="128" width="90" height="44" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+    <text x="591" y="150" font-size="13" font-weight="500" fill="#444441" text-anchor="middle" dominant-baseline="central">Subagent 5</text>
+  </g>
+
+  <!-- down arrows into bubble -->
+  <line x1="111" y1="172" x2="111" y2="186" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="231" y1="172" x2="231" y2="186" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="351" y1="172" x2="351" y2="186" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="471" y1="172" x2="471" y2="186" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="591" y1="172" x2="591" y2="186" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- the cheap claim bubble -->
+  <g>
+    <rect x="290" y="200" width="140" height="40" rx="20" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+    <text x="360" y="220" font-size="14" font-weight="500" fill="#791F1F" text-anchor="middle" dominant-baseline="central">&#8220;All done.&#8221;</text>
+  </g>
+  <!-- caption -->
+  <text x="470" y="224" font-size="12" font-weight="500" fill="#A32D2D">&#8594; no evidence</text>
+
+  <!-- stage label 1 -->
+  <g>
+    <circle cx="56" cy="258" r="15" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+    <text x="56" y="258" font-size="13" font-weight="500" fill="#444441" text-anchor="middle" dominant-baseline="central">1</text>
+    <text x="78" y="258" font-size="13" font-weight="500" fill="#444441" dominant-baseline="central">Trust</text>
+    <text x="78" y="276" font-size="11.5" fill="#5f5e5a">Completion was a feeling. No way to re-check.</text>
+  </g>
+
+  <!-- connector to stage 2 -->
+  <line x1="360" y1="286" x2="360" y2="306" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ════════════════════════════════════════════════════════════
+       STAGE 2: FALSE CHECKPOINT  y=308..450
+       ════════════════════════════════════════════════════════════ -->
+  <g>
+    <rect x="40" y="308" width="640" height="142" rx="16" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+    <text x="60" y="336" font-size="14" font-weight="500" fill="#791F1F">The checkpoint that proved nothing</text>
+    <text x="60" y="356" font-size="12" fill="#A32D2D">The check asked &#8220;does the file exist?&#8221; &#8594; yes &#8594; marked done.</text>
+  </g>
+
+  <!-- two boxes inside: wrong vs right -->
+  <g>
+    <rect x="66" y="374" width="292" height="62" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+    <text x="212" y="398" font-size="13" font-weight="500" fill="#791F1F" text-anchor="middle" dominant-baseline="central">File exists &#8594; done</text>
+    <text x="212" y="418" font-size="11.5" fill="#A32D2D" text-anchor="middle" dominant-baseline="central">The check passed on a stub &#8212; it was a lie</text>
+  </g>
+  <g>
+    <rect x="382" y="374" width="292" height="62" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+    <text x="528" y="398" font-size="13" font-weight="500" fill="#27500A" text-anchor="middle" dominant-baseline="central">Work is verifiable &#8594; done</text>
+    <text x="528" y="418" font-size="11.5" fill="#3B6D11" text-anchor="middle" dominant-baseline="central">A check must be able to fail visibly</text>
+  </g>
+
+  <!-- stage label 2 -->
+  <g>
+    <circle cx="56" cy="472" r="15" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+    <text x="56" y="472" font-size="13" font-weight="500" fill="#791F1F" text-anchor="middle" dominant-baseline="central">2</text>
+    <text x="78" y="472" font-size="13" font-weight="500" fill="#791F1F" dominant-baseline="central">The false checkpoint</text>
+    <text x="78" y="490" font-size="11.5" fill="#5f5e5a">Verification logic is itself a product &#8212; and it can be confidently wrong.</text>
+  </g>
+
+  <!-- connector to stage 3 -->
+  <line x1="360" y1="512" x2="360" y2="532" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ════════════════════════════════════════════════════════════
+       STAGE 3: EXECUTABLE CHECKS  y=534..660
+       ════════════════════════════════════════════════════════════ -->
+  <g>
+    <rect x="40" y="534" width="640" height="126" rx="16" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="60" y="562" font-size="14" font-weight="500" fill="#085041">Completion as an executable fact</text>
+    <text x="60" y="582" font-size="12" fill="#0F6E56">Each task has a specific test that can fail visibly. No more &#8220;the file is there.&#8221;</text>
+  </g>
+
+  <!-- three test chips -->
+  <g>
+    <rect x="66" y="598" width="184" height="46" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="158" y="616" font-size="12.5" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">The code is present</text>
+    <text x="158" y="634" font-size="11" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">grep finds the symbol</text>
+    <rect x="268" y="598" width="184" height="46" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="360" y="616" font-size="12.5" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">The old way is gone</text>
+    <text x="360" y="634" font-size="11" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">no legacy calls remain</text>
+    <rect x="470" y="598" width="184" height="46" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="562" y="616" font-size="12.5" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">It all builds</text>
+    <text x="562" y="634" font-size="11" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">the project compiles</text>
+  </g>
+
+  <!-- stage label 3 -->
+  <g>
+    <circle cx="56" cy="684" r="15" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="56" y="684" font-size="13" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">3</text>
+    <text x="78" y="684" font-size="13" font-weight="500" fill="#085041" dominant-baseline="central">Executable checks</text>
+    <text x="78" y="702" font-size="11.5" fill="#5f5e5a">Any future session can re-run the same test and get the same fact.</text>
+  </g>
+
+  <!-- connector to stage 4 -->
+  <line x1="360" y1="724" x2="360" y2="744" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ════════════════════════════════════════════════════════════
+       STAGE 4: THE CRON LOOP  y=746..932
+       ════════════════════════════════════════════════════════════ -->
+  <g>
+    <rect x="40" y="746" width="640" height="186" rx="16" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="60" y="774" font-size="14" font-weight="500" fill="#085041">The loop that runs itself</text>
+    <text x="60" y="794" font-size="12" fill="#0F6E56">Every two hours: check, and if something&#39;s missing, send work to fix it. Ends on evidence, not on a report.</text>
+  </g>
+
+  <!-- check node -->
+  <g>
+    <rect x="66" y="820" width="220" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="176" y="842" font-size="13" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">Run the checks</text>
+    <text x="176" y="862" font-size="11" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">every 2 hours</text>
+  </g>
+
+  <!-- passes node -->
+  <g>
+    <rect x="360" y="806" width="180" height="46" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+    <text x="450" y="824" font-size="13" font-weight="500" fill="#27500A" text-anchor="middle" dominant-baseline="central">All pass</text>
+    <text x="450" y="842" font-size="11" fill="#3B6D11" text-anchor="middle" dominant-baseline="central">&#8594; done, evidence-based</text>
+  </g>
+
+  <!-- fails node -->
+  <g>
+    <rect x="360" y="866" width="180" height="46" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+    <text x="450" y="884" font-size="13" font-weight="500" fill="#712B13" text-anchor="middle" dominant-baseline="central">Something missing</text>
+    <text x="450" y="902" font-size="11" fill="#993C1D" text-anchor="middle" dominant-baseline="central">&#8594; send work to fix it</text>
+  </g>
+
+  <!-- arrows from check -->
+  <line x1="286" y1="828" x2="360" y2="828" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="286" y1="868" x2="360" y2="888" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- loop back from fails to check -->
+  <path d="M540 888 L596 888 L596 916 L176 916 L176 876" fill="none" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="386" y="934" font-size="11" fill="#5f5e5a" text-anchor="middle">gaps spawn work &#8212; the loop repeats until nothing is missing</text>
+
+  <!-- stage label 4 -->
+  <g>
+    <circle cx="56" cy="956" r="15" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+    <text x="56" y="956" font-size="13" font-weight="500" fill="#085041" text-anchor="middle" dominant-baseline="central">4</text>
+    <text x="78" y="956" font-size="13" font-weight="500" fill="#085041" dominant-baseline="central">The self-running loop</text>
+    <text x="78" y="974" font-size="11.5" fill="#5f5e5a">The loop ends on evidence &#8212; not on a report.</text>
+  </g>
+
+  <!-- connector to stage 5 -->
+  <line x1="360" y1="996" x2="360" y2="1016" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ════════════════════════════════════════════════════════════
+       STAGE 5: FRESH-SESSION ONBOARDING  y=1018..1118
+       ════════════════════════════════════════════════════════════ -->
+  <g>
+    <rect x="40" y="1018" width="640" height="100" rx="16" fill="#E8EEF5" stroke="#1E5AA8" stroke-width="0.5"/>
+    <text x="60" y="1046" font-size="14" font-weight="500" fill="#16365C">Fresh sessions, onboarded from disk</text>
+    <text x="60" y="1066" font-size="12" fill="#1E5AA8">Each run starts blank. A single context file brings it up to speed &#8212; so nothing depends on one session remembering.</text>
+  </g>
+
+  <!-- stage label 5 -->
+  <g>
+    <circle cx="56" cy="1140" r="15" fill="#E8EEF5" stroke="#1E5AA8" stroke-width="0.5"/>
+    <text x="56" y="1140" font-size="13" font-weight="500" fill="#16365C" text-anchor="middle" dominant-baseline="central">5</text>
+    <text x="78" y="1140" font-size="13" font-weight="500" fill="#16365C" dominant-baseline="central">Onboarding</text>
+    <text x="78" y="1158" font-size="11.5" fill="#5f5e5a">Continuity stops depending on any one session remembering anything.</text>
+  </g>
+
+  <!-- ════════════════════════════════════════════════════════════
+       STAGES 6-7: THE SYSTEM, AS PROPERTIES  y=1180..1290
+       ════════════════════════════════════════════════════════════ -->
+  <!-- divider line -->
+  <line x1="40" y1="1180" x2="680" y2="1180" stroke="#5f5e5a" stroke-width="0.5"/>
+  <text x="40" y="1176" font-size="11" font-weight="500" fill="#88877f" letter-spacing="1.5" opacity="0.7">AND TWO PROPERTIES OF THE FINISHED SYSTEM</text>
+
+  <!-- Stage 6 panel: "done" = 5 concrete tests -->
+  <g>
+    <rect x="40" y="1194" width="312" height="92" rx="16" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+    <g>
+      <circle cx="62" cy="1218" r="12" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+      <text x="62" y="1218" font-size="12" font-weight="500" fill="#27500A" text-anchor="middle" dominant-baseline="central">6</text>
+    </g>
+    <text x="84" y="1218" font-size="13" font-weight="500" fill="#27500A" dominant-baseline="central">&#8220;Done&#8221; = five concrete tests</text>
+    <text x="84" y="1240" font-size="11.5" fill="#3B6D11">Queue empty &#183; script passes &#183; code builds</text>
+    <text x="84" y="1258" font-size="11.5" fill="#3B6D11">&#183; types check &#183; every task&#39;s test passes</text>
+    <text x="84" y="1276" font-size="10.5" fill="#5f5e5a" opacity="0.8">All mechanical. Nothing to feel. Just run them.</text>
+  </g>
+
+  <!-- Stage 7 panel: the verifier verifies itself -->
+  <g>
+    <rect x="368" y="1194" width="312" height="92" rx="16" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+    <g>
+      <circle cx="390" cy="1218" r="12" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+      <text x="390" y="1218" font-size="12" font-weight="500" fill="#712B13" text-anchor="middle" dominant-baseline="central">7</text>
+    </g>
+    <text x="412" y="1218" font-size="13" font-weight="500" fill="#712B13" dominant-baseline="central">The verifier verifies itself</text>
+    <text x="412" y="1240" font-size="11.5" fill="#993C1D">&#8220;It builds&#8221; is too broad to prove a feature</text>
+    <text x="412" y="1258" font-size="11.5" fill="#993C1D">A clean build proves nothing about a task</text>
+    <text x="412" y="1276" font-size="10.5" fill="#5f5e5a" opacity="0.8">The rule is enforced by the script, not by memory.</text>
+  </g>
+
+</svg>
