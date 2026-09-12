@@ -1,0 +1,50 @@
+' Data pipeline: sourcing, processing, storage, consumption, heartbeat feedback,
+' and self-maintenance jobs.
+@startuml
+skinparam archimate {
+    roundCorner 8
+}
+skinparam defaultFontSize 13
+
+top to bottom direction
+
+package "SOURCING" as srcs {
+    rectangle "Telegram · social · papers · GitHub\nVS Code · Obsidian · emails · cron\nmanual · Apple Notes · PDFs · web" as ch <<application-component>>
+}
+
+package "PROCESSING" as proc {
+    rectangle "dedupe" as p1 <<process>>
+    rectangle "chunk" as p2 <<process>>
+    rectangle "embed (CPU)" as p3 <<process>>
+    rectangle "LLM extract\nentities + relations" as p4 <<application-service>>
+    p1 -right-> p2
+    p2 -right-> p3
+    p3 -right-> p4
+}
+
+package "STORAGE" as st {
+    rectangle "Qdrant (vectors) + Neo4j (graph)" as db <<data-store>> #E8F0FE
+}
+
+package "CONSUMPTION" as cons {
+    rectangle "agent session" as a1 <<application-component>>
+    rectangle "Mem0" as a2 <<application-service>>
+    rectangle "answer" as a3
+    a1 -right-> a2 : query
+    a2 -right-> a3
+}
+
+package "HEARTBEAT" as fb #FCE7F3
+package "SELF-MAINTENANCE" as jobs #F3E8FF
+
+srcs -down-> p1
+p4 -down-> db
+db -down-> a2
+
+a3 -down-> fb : outputs, corrections, decisions
+fb -down-> srcs : captured overnight
+
+jobs -[hidden]down- fb
+jobs .down.> db : maintain
+jobs .down.> srcs : schedule
+@enduml

@@ -1,0 +1,76 @@
+' System architecture: sourcing -> processing -> storage -> consumption,
+' with agents, scheduled jobs, and the heartbeat feedback loop.
+@startuml
+skinparam archimate {
+    roundCorner 8
+}
+skinparam defaultFontSize 13
+
+top to bottom direction
+
+package "Local Digital Twin — everything on a single home server" as twin {
+
+    package "SOURCING" as src {
+        rectangle "Telegram / social" as s1 <<application-component>>
+        rectangle "VS Code sessions" as s2 <<application-component>>
+        rectangle "research papers / github" as s3 <<application-component>>
+        rectangle "Obsidian / Apple Notes / emails / PDFs" as s4 <<application-component>>
+        rectangle "web content / research crons" as s5 <<application-component>>
+    }
+
+    package "PROCESSING" as proc {
+        rectangle "dedupe + chunk" as d1 <<process>>
+        rectangle "embeddings (CPU)" as d2 <<process>>
+        rectangle "custom GraphRAG extraction (LLM, batched)" as d3 <<application-service>>
+        d1 -right-> d2
+        d2 -down-> d3 : entities
+    }
+
+    package "STORAGE" as store {
+        rectangle "Qdrant — 344K chunks, hybrid search" as qd <<data-store>> #E8F0FE
+        rectangle "Neo4j — 18.5K entities, ~75K relationships" as n4j <<data-store>> #E8F0FE
+    }
+
+    package "CONSUMPTION — local LLM (GPU) + Mem0 adaptive layer" as cons {
+        rectangle "local LLM (GPU)" as llm <<technology-system-software>> #E8F0FE
+        rectangle "Mem0 adaptive layer" as m0 <<application-service>>
+        m0 -right-> llm
+    }
+}
+
+package "Agents — any session starts fresh" as agents {
+    rectangle "Telegram" as a1 <<application-component>>
+    rectangle "VS Code" as a2 <<application-component>>
+    rectangle "web console" as a3 <<application-component>>
+}
+
+package "SCHEDULED JOBS (autonomous)" as jobs {
+    rectangle "daily session ingest" as j1 <<process>>
+    rectangle "memory consolidation (weekly)" as j2 <<process>>
+    rectangle "disk space management" as j3 <<process>>
+    rectangle "graph backfill on new content" as j4 <<process>>
+}
+
+rectangle "THE HEARTBEAT — every conversation feeds back in" as hb #FCE7F3
+
+s1 -down-> d1
+s2 -down-> d1
+s3 -down-> d1
+s4 -down-> d1
+s5 -down-> d1
+d2 -down-> qd : semantic chunks
+d3 -down-> n4j : entities + relationships
+qd -down-> m0 : vector search
+n4j -down-> llm : graph traversal
+llm -down-> a1 : one synthesised answer
+a1 -[hidden]right- a2
+a2 -[hidden]right- a3
+
+a1 -down-> hb : agent outputs, corrections, decisions
+hb -down-> s1 : captured overnight
+
+j1 -down-> d1
+j4 -down-> d3
+j2 -down-> qd
+j3 -down-> qd
+@enduml

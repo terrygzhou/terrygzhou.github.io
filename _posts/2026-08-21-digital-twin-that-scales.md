@@ -19,6 +19,8 @@ Four iterations to build a digital twin — an AI mirror of who I am, what I kno
 
 ![The four-phase evolution: static snapshot, single-source memory, adaptive learning, graph understanding](/assets/2026-08-21-digital-twin-that-scales/evolution.png)
 
+PlantUML source: [`evolution.plantuml`](/assets/2026-08-21-digital-twin-that-scales/evolution.plantuml)
+
 ## Phase 1: Static Snapshot
 
 First version was a snapshot — a frozen capture of my knowledge. I cycled through **[AnythingLLM](https://github.com/Mintplex-Labs/anything-llm)**, **[OpenNotebook](https://github.com/lfnovo/open-notebook)**, and **[llm_wiki](https://github.com/nashsu/llm_wiki)**. All powerful, all with the same flaw: they demanded structure before delivering value.
@@ -77,6 +79,8 @@ The result: vector search for recall, graph traversal for context. 344,000 piece
 
 ![System architecture: sourcing channels, processing pipeline, Qdrant + Neo4j storage, local LLM + Mem0 consumption layer, and the heartbeat feedback loop](/assets/2026-08-21-digital-twin-that-scales/architecture.png)
 
+PlantUML source: [`architecture.plantuml`](/assets/2026-08-21-digital-twin-that-scales/architecture.plantuml)
+
 When I ask "How did I become an enterprise architect?" the twin searches for semantically relevant content, explores the graph for career milestones, certifications, organisations, and people, then weaves both into a single answer. The resume provides the skeleton, the graph provides the connections, memory fills in the details.
 
 ## The twin grows while I sleep
@@ -84,6 +88,8 @@ When I ask "How did I become an enterprise architect?" the twin searches for sem
 Three stages: sourcing, processing, consumption. Every conversation feeds back in.
 
 ![Data pipeline: sourcing, processing, storage, consumption, heartbeat feedback, and self-maintenance jobs](/assets/2026-08-21-digital-twin-that-scales/pipeline.png)
+
+PlantUML source: [`pipeline.plantuml`](/assets/2026-08-21-digital-twin-that-scales/pipeline.plantuml)
 
 **Sourcing.**  Channels: Telegram, social media, research papers, github, VS Code sessions, Obsidian notes, manual injections, automated research cron jobs, emails, Apple Notes, personal PDFs, working files, web content. Each source has its own ingestion script.
 
