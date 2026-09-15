@@ -133,6 +133,39 @@ function umamiBeforeSend(type, payload) {
   return payload;
 }
 </script>
+
+<!-- Matomo Analytics — self-hosted, cookieless (dual-run alongside Umami; see openspec/changes/add-matomo-analytics)
+     Reuses the first-party ew_reader_id cookie as the Matomo user id (stable, no PII),
+     keeps Matomo itself cookie-free via disableCookies, and lets matomo.js auto-track
+     outbound / download / content-link clicks with zero custom events. -->
+<script>
+(function () {
+  var TRACKER_BASE = 'https://matomo.eywalink.org/';
+  var SITE_ID = 2;
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['setSiteId', SITE_ID]);
+  _paq.push(['setTrackerUrl', TRACKER_BASE + 'matomo.php']);
+  _paq.push(['disableCookies']);         // Matomo sets no cookies
+  _paq.push(['enableLinkTracking']);    // in-site / outbound / download link clicks
+  _paq.push(['enableContentTracking']); // content block clicks (core, free)
+
+  // Mint the tracker once the first-party reader id is available, so setUserId
+  // is present even on a first-ever visit (ew_reader_id is created by the Umami block).
+  function initMatomo() {
+    var rid = _getCookie('ew_reader_id');
+    if (rid) _paq.push(['setUserId', rid]);
+    _paq.push(['trackPageView']);
+    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+    g.async = true; g.src = TRACKER_BASE + 'matomo.js';
+    s.parentNode.insertBefore(g, s);
+  }
+  var tries = 0;
+  (function waitReaderId() {
+    if (_getCookie('ew_reader_id') || ++tries > 20) { initMatomo(); return; }
+    setTimeout(waitReaderId, 50);
+  })();
+})();
+</script>
 <!-- Card grid styles for index page -->
 <style>
 /* Token layer — card grid */
@@ -309,4 +342,4 @@ function umamiBeforeSend(type, payload) {
   font-size: 0.9rem;
 }
 </style>
-<!-- build-force: 2026-09-14 09:00:27 -->
+<!-- build-force: 2026-09-15 18:23:08 -->

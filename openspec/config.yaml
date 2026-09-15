@@ -1,0 +1,12 @@
+schema: spec-driven
+
+context: |
+  Tech stack: Jekyll (remote theme pages-themes/architect) on GitHub Pages; custom
+  HTML/SCSS; posts in Markdown with frontmatter; assets as D2/PlantUML-generated
+  diagrams. Build runs in UTC; post dates authored locally (Australia/Melbourne).
+  Analytics: self-hosted Umami (umami.eywalink.org) is current; self-hosted Matomo
+  5.13.0 core (free features only) is deployed on the Pop!_OS home server
+  (matomo + matomo-mariadb containers, host port 3104, public via nginx gateway
+  :3080 as matomo.eywalink.org).
+  Conventions: keep the site cookieless (only first-party ew_reader_id cookie);
+  prefer free/core tooling, no paid add-ons; all infra local, no cloud.
