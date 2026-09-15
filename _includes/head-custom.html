@@ -147,7 +147,10 @@ function umamiBeforeSend(type, payload) {
   _paq.push(['setTrackerUrl', TRACKER_BASE + 'matomo.php']);
   _paq.push(['disableCookies']);         // Matomo sets no cookies
   _paq.push(['enableLinkTracking']);    // in-site / outbound / download link clicks
-  _paq.push(['enableContentTracking']); // content block clicks (core, free)
+  // Matomo 5 has no enableContentTracking toggle — the old line threw an
+  // uncaught TypeError that silently killed trackPageView below. Content
+  // tracking in Matomo 5 is per-element: tracker.trackContentImpression()
+  // and tracker.trackContentInteraction().
 
   // Mint the tracker once the first-party reader id is available, so setUserId
   // is present even on a first-ever visit (ew_reader_id is created by the Umami block).
