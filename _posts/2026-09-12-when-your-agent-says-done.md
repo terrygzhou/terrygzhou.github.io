@@ -2,6 +2,7 @@
 layout: post
 title: When Your Agent Says "Done"
 date: 2026-09-12
+description: "My verification script once marked a half-finished project complete. That ended the trust-based workflow. Now completion is an observable fact: a task queue, executable checks, a cron runner, and exit codes. This post traces the five-stage evolution from trust to evidence, and the meta-verification that keeps the verifier itself honest."
 tags:
   - AI-Agents
   - Agentic-Workflow
@@ -9,15 +10,12 @@ tags:
   - Open-Source
   - DevOps
 ---
-My own verification script marked a half-finished project complete. That ended the trust-based workflow. Now completion is an observable fact: a task queue, executable checks, a cron runner, exit codes.
-
-If you're running agents on multi-day work:
-
-- **Don't gate on self-reports.** Require an artifact, a test, an exit code.
-- **Make completion re-derivable.** Any session should be able to re-verify, cheaply.
-- **Verify the verifier.** Test your checks against the way the work could plausibly be skipped.
-- **Give fresh sessions a context file.** Memory on disk beats memory in the session.
-- **Cap the loop.** N zero-progress cycles → stop, report, escalate to a human.
+> **TL;DR**:  My own verification script marked a half-finished project complete. That ended the trust-based workflow. Now completion is an observable fact: a task queue, executable checks, a cron runner, exit codes.  If you're running agents on multi-day work: 
+> - **Don't gate on self-reports.** Require an artifact, a test, an exit code.
+> - **Make completion re-derivable.** Any session should be able to re-verify, cheaply.
+> - **Verify the verifier.** Test your checks against the way the work could plausibly be skipped.
+> - **Give fresh sessions a context file.** Memory on disk beats memory in the session.
+> - **Cap the loop.** N zero-progress cycles → stop, report, escalate to a human.
 
 Your agent is not lying when it says "all done." It's answering the question you asked. Ask it to show instead.
 

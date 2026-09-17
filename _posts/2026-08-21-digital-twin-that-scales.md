@@ -2,6 +2,7 @@
 layout: post
 title: How I Built a Digital Twin of Myself That Actually Scales
 date: 2026-08-21
+description: "Four iterations to build a digital twin that actually scales: static snapshot, single-source memory in Qdrant, adaptive learning with Mem0, and graph understanding with Neo4j. Each phase solved a real bottleneck from the previous one, resulting in a localised system where agents can query who I am, what I know, and how I think."
 tags:
   - digital-twin
   - Qdrant
@@ -14,8 +15,7 @@ tags:
   - graphrag
 summary: Four iterations of building a digital twin of myself — an AI mirror of who I am, what I know, and how I think — that compounds over time without exploding context windows or leaking data to the cloud.
 ---
-
-Four iterations to build a digital twin — an AI mirror of who I am, what I know, how I think. It captures everything I engage with: conversations, texts, music, videos, lessons. The end result: a localised system where my agents can query who I am on demand. Semantic search, graph relationships, adaptive memory. All on my hardware, nothing sent to the cloud. The only difference is that I make decisions, not my digital twin.
+> **TL;DR**: Four iterations to build a digital twin — an AI mirror of who I am, what I know, how I think. It captures everything I engage with: conversations, texts, music, videos, lessons. The end result: a localised system where my agents can query who I am on demand. Semantic search, graph relationships, adaptive memory. All on my hardware, nothing sent to the cloud. The only difference is that I make decisions, not my digital twin.
 
 ![The four-phase evolution: static snapshot, single-source memory, adaptive learning, graph understanding](/assets/2026-08-21-digital-twin-that-scales/evolution.png)
 

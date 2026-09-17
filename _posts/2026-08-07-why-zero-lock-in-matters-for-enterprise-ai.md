@@ -8,9 +8,9 @@ tags:
   - self-hosted
   - aiywalink
 date: 2026-08-07
+description: "Vendor lock-in in enterprise AI looks like proprietary APIs, data residency risks, and cost spirals. Zero lock-in means sovereignty: the ability to move workloads between providers, self-host when needed, and maintain full ownership of data and models. This post walks through the open-source stack — SGLang, Qdrant, LangGraph, MCP — that makes it real."
 ---
-
-Every CTO has heard the pitch. "Just use our managed AI platform — it's the easiest way to get started." They're right about the easy part. The trap comes six months later when your data is trapped in their API, your agents depend on their proprietary orchestration, and your monthly bill just tripled because token prices don't go down.
+> **TL;DR**: Every CTO has heard the pitch. "Just use our managed AI platform — it's the easiest way to get started." They're right about the easy part. The trap comes six months later when your data is trapped in their API, your agents depend on their proprietary orchestration, and your monthly bill just tripled because token prices don't go down.
 
 **Vendor lock-in in enterprise AI looks like three things:**
 

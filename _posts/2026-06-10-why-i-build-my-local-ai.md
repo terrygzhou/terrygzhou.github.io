@@ -7,8 +7,9 @@ tags:
   - AI-strategy
   - data-sovereignty
   - open-source
+description: "2026 is the year of agentic AI. I made a deliberate shift: instead of burning cash on monthly Claude and OpenAI subscriptions, I invested in a local workstation running open-source models. Six months and billions of tokens later, this is less cost-cutting and more a strategic pivot. Here's why — and why enterprises should consider it too."
 ---
-2026 is shaping up to be the year of Agentic AI. As open-source LLMs mature for local deployment, the line between model and harness is finally clear. I made a shift this year: Instead of burning cash on monthly Claude and OpenAI API subscriptions, I invested in a local workstation running open-source models, harness and apps.
+> **TL;DR**: 2026 is shaping up to be the year of Agentic AI. As open-source LLMs mature for local deployment, the line between model and harness is finally clear. I made a shift this year: Instead of burning cash on monthly Claude and OpenAI API subscriptions, I invested in a local workstation running open-source models, harness and apps.
 
 The economics are simple: less paying rent on intelligence, start owning it.
 Six months in, billions of tokens later, this feels less like cost-cutting and more like a strategic pivot. Why? here are the five reasons, and enterprise maybe should consider those too.

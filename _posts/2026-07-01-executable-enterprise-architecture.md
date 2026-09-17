@@ -6,8 +6,9 @@ tags:
   - agentic-togaf
   - ai-agents
 date: 2026-07-01
+description: "TOGAF ADM is the most widely adopted enterprise architecture framework, yet most teams can't operationalise it without a dedicated EA team. ArcKit's open-source update turns TOGAF ADM into agent-readable slash commands and build recipes, making architecture delivery executable, auditable, and repeatable — without a six-figure consulting budget."
 ---
-Are you an executive leader without an architecture background, frustrated by the disconnect between your business goals, operational realities, and technology landscape? You know transformation is critical, but you’re stuck: unclear on where to go, how to get there, and unwilling to spend millions on Big 4 consultants for a “strategy” that may never be executable. That’s exactly why **PR #626** was built. 
+> **TL;DR**: Are you an executive leader without an architecture background, frustrated by the disconnect between your business goals, operational realities, and technology landscape? You know transformation is critical, but you’re stuck: unclear on where to go, how to get there, and unwilling to spend millions on Big 4 consultants for a “strategy” that may never be executable. That’s exactly why **PR #626** was built. 
 
 Recently, I published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865). This update introduces AI-agentic, tool-agnostic support for the **TOGAF Architecture Development Method (ADM)**.
 

@@ -2,13 +2,13 @@
 layout: post
 title: Buy Over Build? Rethinking IT Strategy in the AI wave
 date: 2026-06-06
+description: "For two decades, 'buy over build' was enterprise IT's default. AI has broken that equation: AI-assisted coding and composable platforms have collapsed development timelines and marginal costs. This post replaces the buy/build binary with a strategic framework — buy, build, or compose — and a transition playbook for architects ready to move."
 tags:
   - IT-Strategy
   - buy-or-build
   - AI-Strategy
 ---
-
-For two decades, **_“buy over build”_** was enterprise IT’s default constitution. It was rational: dev talent was scarce, legacy maintenance was brutal, and vendors promised scale, security, and predictable roadmaps. Enterprises traded customisation for speed.
+> **TL;DR**: For two decades, **_“buy over build”_** was enterprise IT’s default constitution. It was rational: dev talent was scarce, legacy maintenance was brutal, and vendors promised scale, security, and predictable roadmaps. Enterprises traded customisation for speed.
 
 **AI has broken that equation.** AI-assisted coding, low-code accelerators, and composable platforms have collapsed development timelines and marginal costs. As demand for tailored experiences and deep customisation surges, the balance has shifted decisively toward build. Meanwhile, vendor AI is often generic, opaque, and slow to adapt. Buying no longer guarantees advantage—it increasingly guarantees strategic mediocrity.
 

@@ -2,12 +2,13 @@
 layout: post
 title: "The Impossible Triangle: Speed, Memory and Intelligence"
 date: 2026-06-03
+description: "LLMs face a fundamental trade-off: speed, memory, and intelligence pull in different directions. Tuning local models taught me that you can optimize two corners of this triangle but the third always suffers. This post maps the triangle, mirrors it against human cognition, and shows how to pick the right corner to optimize for your workload."
 tags:
   - llm
   - local-AI
   - ai-infra
 ---
-As AI shifts from rule-based logic to pattern-driven LLMs, knowledge is no longer stored as explicit rules—it’s compressed into statistical intuition across billions of parameters. But scale hits a physical wall. In my experience tuning local models, I’ve identified **the Impossible Triangle of LLM Tuning**: Context, Speed, and Knowledge. You can optimize two corners, but the third always suffers.
+> **TL;DR**: As AI shifts from rule-based logic to pattern-driven LLMs, knowledge is no longer stored as explicit rules—it’s compressed into statistical intuition across billions of parameters. But scale hits a physical wall. In my experience tuning local models, I’ve identified **the Impossible Triangle of LLM Tuning**: Context, Speed, and Knowledge. You can optimize two corners, but the third always suffers.
 
 ## The Impossible Triangle: Speed, Memory, Intelligence
  

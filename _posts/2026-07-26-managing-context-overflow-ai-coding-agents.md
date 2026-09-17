@@ -2,6 +2,7 @@
 layout: post
 title: Managing Context Overflow in AI Coding Agents
 date: 2026-07-26
+description: "Context overflow kills coding agent sessions mid-task. The fix isn't bigger context windows — it's architecture. This post covers handoff files, subagent delegation, task decomposition, and wiring it all into AGENTS.md so coding agents stay productive across session boundaries without losing work to context limits."
 tags:
   - AI-Agents
   - ACP
@@ -12,9 +13,7 @@ tags:
 draft: false
 summary: Context overflow is an architecture problem. When coding in a large project codebase, context windows kill agent sessions mid-task. Here's how I architect handoff files, subagent delegation, and task decomposition to keep coding agents productive across session boundaries.
 ---
-Context overflow is an architecture problem. When coding in a large project codebase, context windows kill agent sessions mid-task. Here's how I architect handoff files, subagent delegation, and task decomposition to keep coding agents productive across session boundaries.
-
-The session always dies. You're deep into a coding task — the agent is refactoring, testing, iterating — then the context window fills, the conversation stalls, and you're staring at half-finished work. Next session starts, the fresh agent spends 30 minutes re-familiarising itself with what already happened, and the cycle repeats.
+> **TL;DR**: Context overflow is an architecture problem. When coding in a large project codebase, context windows kill agent sessions mid-task. Here's how I architect handoff files, subagent delegation, and task decomposition to keep coding agents productive across session boundaries. The session always dies. You're deep into a coding task — the agent is refactoring, testing, iterating — then the context window fills, the conversation stalls, and you're staring at half-finished work. Next session starts, the fresh agent spends 30 minutes re-familiarising itself with what already happened, and the cycle repeats.
 
 One-million-token context windows are a temporary fix that burns through tokens faster. The real solution is not bigger models — it's better architecture around how agents persist state and delegate work.
 

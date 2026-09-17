@@ -7,9 +7,9 @@ tags:
   - architecture
   - multi-agent
 date: 2026-07-15
+description: "Autonomous AI agents are producing systems too complex for a single human to track. This post walks through a self-hosted observability stack — Prometheus, Grafana, Phoenix, Loki, and the OpenTelemetry Collector — that gives end-to-end visibility into agent systems, from LLM calls through workflow orchestration to the applications they produce."
 ---
-
-Autonomous AI agents are learning to write code, debug themselves, and orchestrate dozens of parallel workstreams. They're fast. They're tireless. And they're producing systems so complex that no single human can keep track of what's happening inside.
+> **TL;DR**: Autonomous AI agents are learning to write code, debug themselves, and orchestrate dozens of parallel workstreams. They're fast. They're tireless. And they're producing systems so complex that no single human can keep track of what's happening inside.
 
 **When agents are building agents, who watches the watchers?**
 

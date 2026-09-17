@@ -8,10 +8,9 @@ tags:
   - OpenHands
   - DevOps
 date: 2026-07-21
+description: "AI coding agents write features and merge PRs at speeds no human QA team can match, but they don't verify their own work. SuperWeb Testing closes the gap with a four-phase pipeline that connects source analysis, test data generation, browser automation, and server log correlation into a single traceable workflow."
 ---
-End-to-end testing is supposed to be the last line of defence before users hit broken features. In practice, it is often the first thing teams cut when deadlines tighten.
-
-The problem is worse now than it was two years ago. AI coding agents write features, merge PRs, and deploy at speeds no human QA team can match. The old model -- write code, hand it off to a tester, wait for a report -- simply cannot keep up with autonomous development loops.
+> **TL;DR**: End-to-end testing is supposed to be the last line of defence before users hit broken features. In practice, it is often the first thing teams cut when deadlines tighten. The problem is worse now than it was two years ago. AI coding agents write features, merge PRs, and deploy at speeds no human QA team can match. The old model -- write code, hand it off to a tester, wait for a report -- simply cannot keep up with autonomous development loops.
 
 I recently published [**SuperWeb Testing**](https://github.com/terrygzhou/superweb-testing), an open-source tool that closes the gap between source code, test data generation, browser automation, and server-side log correlation. This post explains why it exists, the gaps it fills, and how it works.
 
