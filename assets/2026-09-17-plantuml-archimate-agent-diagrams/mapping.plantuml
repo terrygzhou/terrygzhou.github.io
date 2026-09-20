@@ -1,0 +1,45 @@
+' Capability -> Application mapping (as-is), MarsEV BPCM-v2.0 x APP-v2.0
+' ArchiMate: Strategy layer capabilities, Application layer estate, Technology layer
+' Solid = as-is (nightly CSV/XML/FTP), dashed = planned APP-015 event-bus contracts
+@startuml
+left to right direction
+skinparam defaultFontSize 13
+skinparam roundCorner 8
+sprite $cap jar:archimate/strategy-capability
+sprite $app jar:archimate/application-component
+sprite $sys jar:archimate/technology-system-software
+
+title "MAG as-is: capability-to-application mapping (BPCM-v2.0 x APP-v2.0)"
+
+package "Business (L2 capabilities)" as biz #FFFFFF {
+    rectangle "4.2 Inventory visibility" as cap_inv <<$cap>> #Strategy
+    rectangle "1.1 Omnichannel engagement" as cap_cx <<$cap>> #Strategy
+    rectangle "5.3 Group dynamic pricing" as cap_price <<$cap>> #Strategy
+}
+
+package "Application estate (as-is)" as apps #FFFFFF {
+    rectangle "APP-002 DMS estate\n7 vendors / 12 versions" as a002 <<$app>> #Application
+    rectangle "APP-003 CRM estate\n4 CRMs, no customer SoR" as a003 <<$app>> #Application
+    rectangle "APP-005 F&I estate\n6 integrations (PCI)" as a005 <<$app>> #Application
+    rectangle "APP-001 MeridianCore monolith\n.NET 4.8 / SQL 2016, ~480 modules" as a001 <<$app>> #Application
+}
+
+package "Planned (OAA D6)" as target #FFFFFF {
+    rectangle "APP-015 Group Event Bus\n+ API Gateway" as a015 <<$sys>> #Technology
+}
+
+cap_inv .. a002 : realizes\nnightly CSV/XML/FTP
+cap_cx .. a003 : realizes\nfragmented, no SoR
+cap_price .. a005 : realizes\nmanual lender re-key
+
+a002 --> a001 : settlement + order data
+a003 --> a001 : customer records
+a005 --> a001 : funding + commissions
+
+a001 .> a015 : event contracts\n(planned)
+
+note bottom of a001
+  Gap: data 24-72h stale
+  (~AUD 9M/yr carrying cost)
+end note
+@enduml
