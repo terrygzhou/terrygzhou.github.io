@@ -187,8 +187,6 @@ flowchart TB
     end
 ```
 
-![Mermaid sample: TOGAF ADM cycle with OAA feedback loop](/assets/2026-09-21-plantuml-archimate-agent-diagrams/mermaid-sample.png)
-
 Source: [`mermaid-sample.mmd`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/mermaid-sample.mmd)
 
 Same pipeline, now drawn in D2. Vertical chain: one node per row, no subgroups; the data store faked as a `cylinder`. Still no ArchiMate shape set — the shapes are generic.
@@ -238,8 +236,6 @@ flowchart TB
     linkStyle 4 stroke-dasharray, stroke:#666
     linkStyle 5 stroke-dasharray, stroke:#666
 ```
-
-![The pipeline that works](/assets/2026-09-21-plantuml-archimate-agent-diagrams/pipeline-work.png)
 
 Source: [`pipeline-work.mmd`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/pipeline-work.mmd)
 
