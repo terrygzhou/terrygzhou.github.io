@@ -1,0 +1,10 @@
+flowchart TB
+    A["Agent writes ArchiMate model<br/><i>structured data or natural language</i>"] --> B["Agent emits .plantuml file<br/><i>ArchiMate stereotypes + relationship macros</i>"]
+    B --> C["java -jar plantuml.jar *.puml<br/><i>headless render</i>"]
+    C --> D["SVG / PNG lands in diagrams/<br/><i>committed alongside the .puml source</i>"]
+    B -.- E["Archi opens the underlying<br/>ArchiMate model for human review"]
+    B -.- F["Open Group XML export<br/>for tools that require it"]
+    E --- F
+    linkStyle 3 stroke-dasharray, stroke:#666
+    linkStyle 4 stroke-dasharray, stroke:#666
+    linkStyle 5 stroke-dasharray, stroke:#666

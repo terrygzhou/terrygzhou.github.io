@@ -1,0 +1,33 @@
+' Agent-driven ArchiMate rendering pipeline (the post's core claim)
+@startuml
+top to bottom direction
+skinparam defaultFontSize 13
+skinparam roundCorner 8
+sprite $app jar:archimate/application-component
+sprite $svc jar:archimate/application-service
+sprite $sys jar:archimate/technology-system-software
+sprite $gap jar:archimate/gap-filled
+
+title "Agent-driven diagram pipeline: text-in, standards-compliant diagram-out"
+
+rectangle "EA agent\n(TOGAF ADM / OAA phase)" as agent <<$app>> #Application
+rectangle "Emit .puml\nArchiMate stereotypes\n+ relationship macros" as emit <<$svc>> #Application
+rectangle "java -jar plantuml.jar\nheadless, no display, no GUI" as jar <<$sys>> #Technology
+rectangle ".puml source\n(diff-able, versioned,\nagent-parseable)" as src <<$svc>> #Technology
+rectangle "SVG / PNG\ncommitted to diagrams/" as out <<$svc>> #Technology
+
+agent --> emit : structured model
+emit --> jar : text
+jar --> out : renders
+
+note bottom of src
+  Two audiences, one artifact:
+  agents read the .puml,
+  architects review the PNG.
+  Neither is an afterthought.
+end note
+
+rectangle "Fails this pipeline:\nMermaid (no ArchiMate shapes)\nD2 (generic layout only)\nArchi (needs display + GUI)" as fail <<$gap>> #Application
+
+src .. fail : wrong tool
+@enduml

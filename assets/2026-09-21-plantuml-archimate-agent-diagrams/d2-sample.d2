@@ -1,0 +1,17 @@
+# MarsEV: the diagram pipeline as a generic system diagram (D2)
+# Deliberate vertical chain: no subgroups, one node per row.
+direction: down
+
+agent: "Agent (LLM)\nemits .puml / .d2 / .mmd"
+
+texts: "Text files (*.plantuml, *.d2, *.mmd)\ndiff-able, CI-friendly"
+
+render: "Headless renderers\njava -jar plantuml.jar\nd2 -o out.png in.d2\nmmdc -i in.mmd -o out.png"
+
+out: "diagrams/ + source in git" {
+  shape: cylinder
+}
+
+agent -> texts: "structured text"
+texts -> render: "CI step"
+render -> out: "commit both"

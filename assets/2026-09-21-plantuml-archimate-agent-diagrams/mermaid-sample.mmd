@@ -1,0 +1,11 @@
+flowchart TB
+    L["Continuous discovery"] --> M["Architecture as code"]
+    M -. "continuous evolution" .-> B
+    G -. "feedback" .-> L
+
+    subgraph ADM["TOGAF ADM cycle"]
+        direction LR
+        A["Vision"] --> B["Business"] --> C["Info Systems"] --> D["Technology"]
+        D --> E["Opp. & Solutions"] --> F["Migration Planning"] --> G["Impl. Governance"] --> H["Arch. Change Mgmt"]
+        H -. "feeds back to Vision" .-> A
+    end

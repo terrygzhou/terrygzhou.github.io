@@ -1,0 +1,16 @@
+' Sample: minimal ArchiMate capability->application mapping
+@startuml
+top to bottom direction
+skinparam defaultFontSize 13
+skinparam nodesep 25
+skinparam boxPadding 6
+skinparam roundCorner 8
+sprite $cap jar:archimate/strategy-capability
+sprite $app jar:archimate/application-component
+
+rectangle "Capability: Inventory visibility" as cap <<$cap>> #Strategy
+rectangle "APP-002 DMS estate (7 vendors)" as app <<$app>> #Application
+
+cap -[#green]down-> app : realizes
+note right of app : as-is nightly CSV/XML/FTP
+@enduml
