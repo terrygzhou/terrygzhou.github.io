@@ -131,45 +131,43 @@ cs --r-> mc : realizes
 @endarchimate
 ```
 
-![[sample.png|The minimal working example: one capability realizing one application estate]]
+![The minimal working example: one capability realizing one application estate](/assets/2026-09-21-plantuml-archimate-agent-diagrams/sample.png)
 
-PlantUML source: [`sample.plantuml`](sample.plantuml)
+PlantUML source: [`sample.plantuml`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/sample.plantuml)
 
-That minimal example is the unit. The three samples below are what a real agent-driven pipeline emits with it, all headless, all from `.puml` source.
+That minimal example is the unit. The two samples below are what a real agent-driven pipeline emits with it, all headless, all from `.puml` source.
 
 ### Sample 1 — Capability-to-application mapping
 
 The TOGAF Phase B artefact, mapped to Phase C. L2 capabilities (ArchiMate Strategy layer, native capability icons) realize as-is application estates, which push nightly CSV/XML/FTP into a 480-module monolith. Dashed edges are the planned event-bus contracts; the gap note carries the quantified leakage.
 
-![[mapping.png|Capability-to-application mapping: L2 capabilities realized by as-is application estates, with planned OAA target state]]
+![Capability-to-application mapping: L2 capabilities realized by as-is application estates, with planned OAA target state](/assets/2026-09-21-plantuml-archimate-agent-diagrams/mapping.png)
 
-PlantUML source: [`mapping.plantuml`](mapping.plantuml)
+PlantUML source: [`mapping.plantuml`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/mapping.plantuml)
 
 
 ### Sample 2 — Transition waves with governance gates
 
 The Phase F / OAA transition plan: three waves, each gated by an ARB + security checkpoint before the next wave progresses. Course-of-action icons per wave, implementation-event gates, and a gap-filled terminal state where the monolith is retired.
 
-![[roadmap.png|Transition roadmap: three waves with governance gates and terminal monolith retirement]]
+![Transition roadmap: three waves with governance gates and terminal monolith retirement](/assets/2026-09-21-plantuml-archimate-agent-diagrams/roadmap.png)
 
-PlantUML source: [`roadmap.plantuml`](roadmap.plantuml)
+PlantUML source: [`roadmap.plantuml`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/roadmap.plantuml)
 
 
 ### Sample 3 — The pipeline itself
 
 The full loop: agent emits `.puml`, the jar renders, both artifacts land in version control. The note is the thesis — one artifact, two audiences.
 
-![[pipeline.png|Agent-driven diagram pipeline: text-in, standards-compliant diagram-out]]
+![Agent-driven diagram pipeline: text-in, standards-compliant diagram-out](/assets/2026-09-21-plantuml-archimate-agent-diagrams/pipeline.png)
 
-PlantUML source: [`pipeline.plantuml`](pipeline.plantuml)
+PlantUML source: [`pipeline.plantuml`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/pipeline.plantuml)
 
 ---
 
 ### What the alternatives look like on the same content
 
-The samples above are the output of the pipeline. To make the "no ArchiMate" gap concrete, here is the same pipeline content drawn in Mermaid and D2 — the two tools I'd reach for if standards compliance weren't required.
-
-**Mermaid** — the TOGAF ADM cycle with an OAA feedback loop. Eight ADM phases in a left-to-right chain; OAA sits above, feeding back into Phase B. Clean layout, zero ArchiMate notation: every box is just a box.
+The TOGAF ADM cycle with an OAA feedback loop, drawn in Mermaid. Eight ADM phases in a left-to-right chain; OAA sits above, feeding back into Phase B. Clean layout, zero ArchiMate notation: every box is just a box.
 
 ```mermaid
 flowchart TB
@@ -185,33 +183,9 @@ flowchart TB
     end
 ```
 
-![[mermaid-sample.png|Mermaid sample: TOGAF ADM cycle with OAA feedback loop]]
+![Mermaid sample: TOGAF ADM cycle with OAA feedback loop](/assets/2026-09-21-plantuml-archimate-agent-diagrams/mermaid-sample.png)
 
-Source: [`mermaid-sample.mmd`](mermaid-sample.mmd)
-
-**D2** — the same diagram pipeline as a generic system diagram. `cylinder` doing a data-store's job by shape alone; no ArchiMate shape set anywhere.
-
-```d2
-direction: down
-
-agent: "Agent (LLM)\nemits .puml / .d2 / .mmd"
-
-texts: "Text files (*.plantuml, *.d2, *.mmd)\ndiff-able, CI-friendly"
-
-render: "Headless renderers\njava -jar plantuml.jar\nd2 -o out.png in.d2\nmmdc -i in.mmd -o out.png"
-
-out: "diagrams/ + source in git" {
-  shape: cylinder
-}
-
-agent -> texts: "structured text"
-texts -> render: "CI step"
-render -> out: "commit both"
-```
-
-![[d2-sample.png|D2 sample: the diagram pipeline as a generic system diagram]]
-
-Source: [`d2-sample.d2`](d2-sample.d2)
+Source: [`mermaid-sample.mmd`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/mermaid-sample.mmd)
 
 ---
 
@@ -230,9 +204,9 @@ flowchart TB
     linkStyle 5 stroke-dasharray, stroke:#666
 ```
 
-![[pipeline-work.png|The pipeline that works]]
+![The pipeline that works](/assets/2026-09-21-plantuml-archimate-agent-diagrams/pipeline-work.png)
 
-Source: [`pipeline-work.mmd`](pipeline-work.mmd)
+Source: [`pipeline-work.mmd`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/pipeline-work.mmd)
 
 The `.plantuml` file is the durable interchange format. It is text, it is diff-able, and it re-renders deterministically. Archi can open the underlying ArchiMate model for human review if needed. The Open Group XML export can be generated separately for tools that require it.
 
