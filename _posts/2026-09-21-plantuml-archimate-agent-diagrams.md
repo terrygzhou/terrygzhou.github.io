@@ -1,6 +1,6 @@
 ---
 layout: post
-title: PlantUML ArchiMate Is What Agents Need for Executable architecture
+title: Effective diagram tools for agentic enterprise architecture
 tags:
   - archimate
   - enterprise-architecture
@@ -154,7 +154,6 @@ The Phase F / OAA transition plan: three waves, each gated by an ARB + security 
 
 PlantUML source: [`roadmap.plantuml`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/roadmap.plantuml)
 
-
 ### Sample 3 — The pipeline itself
 
 The full loop: agent emits `.puml`, the jar renders, both artifacts land in version control. The note is the thesis — one artifact, two audiences.
@@ -186,6 +185,37 @@ flowchart TB
 ![Mermaid sample: TOGAF ADM cycle with OAA feedback loop](/assets/2026-09-21-plantuml-archimate-agent-diagrams/mermaid-sample.png)
 
 Source: [`mermaid-sample.mmd`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/mermaid-sample.mmd)
+
+Same pipeline, now drawn in D2. Vertical chain: one node per row, no subgroups; the data store faked as a `cylinder`. Still no ArchiMate shape set — the shapes are generic.
+
+```d2
+# MarsEV: the diagram pipeline as a generic system diagram (D2)
+# Deliberate vertical chain: no subgroups, one node per row.
+direction: down
+
+agent: "Agent (LLM)
+emits .puml / .d2 / .mmd"
+
+texts: "Text files (*.plantuml, *.d2, *.mmd)
+diff-able, CI-friendly"
+
+render: "Headless renderers
+java -jar plantuml.jar
+d2 -o out.png in.d2
+mmdc -i in.mmd -o out.png"
+
+out: "diagrams/ + source in git" {
+  shape: cylinder
+}
+
+agent -> texts: "structured text"
+texts -> render: "CI step"
+render -> out: "commit both"
+```
+
+![D2 sample: the diagram pipeline as a generic vertical system diagram](/assets/2026-09-21-plantuml-archimate-agent-diagrams/d2-sample.png)
+
+Source: [`d2-sample.d2`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/d2-sample.d2)
 
 ---
 
