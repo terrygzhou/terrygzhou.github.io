@@ -6,13 +6,13 @@ tags:
   - agentic-togaf
   - ai-agents
 date: 2026-07-01
-description: "TOGAF ADM is the most widely adopted enterprise architecture framework, yet most teams can't operationalise it without a dedicated EA team. ArcKit's open-source update turns TOGAF ADM into agent-readable slash commands and build recipes, making architecture delivery executable, auditable, and repeatable — without a six-figure consulting budget."
+description: "TOGAF ADM is the most widely adopted enterprise architecture framework, yet most teams can't operationalise it without a dedicated EA team. ArcKit's open-source update turns TOGAF ADM into agent-readable slash commands and build recipes, making architecture delivery executable, auditable, and repeatable, without a six-figure consulting budget."
 ---
 > **TL;DR**: Are you an executive leader without an architecture background, frustrated by the disconnect between your business goals, operational realities, and technology landscape? You know transformation is critical, but you’re stuck: unclear on where to go, how to get there, and unwilling to spend millions on Big 4 consultants for a “strategy” that may never be executable. That’s exactly why **PR #626** was built. 
 
 Recently, I published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865). This update introduces AI-agentic, tool-agnostic support for the **TOGAF Architecture Development Method (ADM)**.
 
-This release ( [Repo of the codebase:](https://github.com/terrygzhou/arc-kit)) bridges the gap between TOGAF’s iterative framework and real-world execution. It creates and translates architectural guidance into clear, actionable workflows—so you can define the right problems, structure pragmatic solution strategies, and drive progress through ADM cycles without needing a dedicated EA team or a six-figure consulting budget.
+This release ([Repo of the codebase:](https://github.com/terrygzhou/arc-kit)) bridges the gap between TOGAF’s iterative framework and real-world execution. It creates and translates architectural guidance into clear, actionable workflows, so you can define the right problems, structure pragmatic solution strategies, and drive progress through ADM cycles without needing a dedicated EA team or a six-figure consulting budget.
 
 
 ---
@@ -27,7 +27,7 @@ This work will be enabling **configurable, validated, and repeatable architectur
 
 ## 📦 What’s Inside PR #626?
 
-This contribution focuses on making ADM phases **Agent-readable, configurable, and actionable**. Key updates include introduction to `arckit-togaf-adm` that implements the **TOGAF ADM as structured, traceable slash commands and build recipes, and `arckit-agent-architecture` that provide architecture for managing agents in enterprise environment based on `arckit-togaf-adm`. It covers the full ADM cycle — Preliminary through Phase H — plus a cross-project Architecture Repository. 
+This contribution focuses on making ADM phases **Agent-readable, configurable, and actionable**. Key updates include introduction to `arckit-togaf-adm` that implements the **TOGAF ADM as structured, traceable slash commands and build recipes, and `arckit-agent-architecture` that provide architecture for managing agents in enterprise environment based on `arckit-togaf-adm`. It covers the full ADM cycle, Preliminary through Phase H, plus a cross-project Architecture Repository. 
 
 Note that this post focus on `arckit-togaf-adm` only, instead of `arckit-agent-architecture` (discussed in another post). 
 
@@ -36,13 +36,13 @@ Note that this post focus on `arckit-togaf-adm` only, instead of `arckit-agent-a
 | Command                               | TOGAF Phase                         | What It Produces                                                                   |
 | ------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------- |
 | `/arckit:adm-preliminary`             | Preliminary                         | Architecture vision, scope boundaries, drivers, constraints, success criteria      |
-| `/arckit:business-capability-map`     | Phase A — Business Architecture     | Capability hierarchy, value streams, maturity levels                               |
-| `/arckit:application-inventory`       | Phase C — Application               | Portfolio catalog with strategic fit scoring, dependencies, lifecycle status       |
-| `/arckit:application-rationalization` | Phase C — Application               | Keep/merge/replace/retire decisions per application                                |
-| `/arckit:gap-analysis`                | Phase E — Opportunities & Solutions | Capability matrix, gap severity scoring, workstream mapping                        |
-| `/arckit:transition-architecture`     | Phase F — Migration Planning        | Work packages, migration waves, resource plans, acceptance criteria                |
-| `/arckit:architecture-board`          | Phase G — Implementation Governance | Board charter, compliance scorecard, governance process                            |
-| `/arckit:architecture-change`         | Phase H — Change Management         | Change requests with impact assessment, ADM cycle re-entry                         |
+| `/arckit:business-capability-map`     | Phase A, Business Architecture     | Capability hierarchy, value streams, maturity levels                               |
+| `/arckit:application-inventory`       | Phase C, Application               | Portfolio catalog with strategic fit scoring, dependencies, lifecycle status       |
+| `/arckit:application-rationalization` | Phase C, Application               | Keep/merge/replace/retire decisions per application                                |
+| `/arckit:gap-analysis`                | Phase E, Opportunities & Solutions | Capability matrix, gap severity scoring, workstream mapping                        |
+| `/arckit:transition-architecture`     | Phase F, Migration Planning        | Work packages, migration waves, resource plans, acceptance criteria                |
+| `/arckit:architecture-board`          | Phase G, Implementation Governance | Board charter, compliance scorecard, governance process                            |
+| `/arckit:architecture-change`         | Phase H, Change Management         | Change requests with impact assessment, ADM cycle re-entry                         |
 | `/arckit:architecture-repository`     | Continuous                          | Patterns library, standards register, reusable building blocks across all projects |
 
 ---
@@ -53,7 +53,7 @@ Note that this post focus on `arckit-togaf-adm` only, instead of `arckit-agent-a
    ADM phases are no longer just slide decks. They’re now configurable and executable building blocks that integrate with CI/CD, artifact stores, and governance dashboards.
 
 2. **Consistency at Scale**  
-   Teams (of agents or humans) can enforce phase completion, artifact quality, and stakeholder sign-offs programmatically—reducing manual compliance overhead.
+   Teams (of agents or humans) can enforce phase completion, artifact quality, and stakeholder sign-offs programmatically, reducing manual compliance overhead.
 
 3. **Framework-Agnostic Flexibility**  
    While designed around TOGAF ADM, the schema is intentionally extensible. You can layer EA models, C4, or custom governance frameworks on top.
@@ -61,7 +61,7 @@ Note that this post focus on `arckit-togaf-adm` only, instead of `arckit-agent-a
 4. **Open Source Transparency**  
    No vendor lock-in. The rules, templates, and validation logic are fully auditable, forkable, and community-driven.
 
-5. **Composition with AI agent governance.** The `togaf-agent-full` recipe shows TOGAF ADM isn't a replacement — it's a sibling. Enterprise architecture and AI agent architecture run in parallel, feeding into the same gap analysis, transition planning, and governance review. One build, two domains. (see my another post to use this to manage many agents in an agent-architecture)
+5. **Composition with AI agent governance.** The `togaf-agent-full` recipe shows TOGAF ADM isn't a replacement; it's a sibling. Enterprise architecture and AI agent architecture run in parallel, feeding into the same gap analysis, transition planning, and governance review. One build, two domains. (see my another post to use this to manage many agents in an agent-architecture)
 
 ---
 
@@ -99,9 +99,9 @@ arckit init .
 arckit build --recipe togaf-adm-full
 
 # 4. Answer wave prompts (interactive):
-#    Wave 1 — NAME, DISC_SCOPE, REQ_SCOPE, STKE_SCOPE
-#    Wave 2 — P (project short ID, defaults "001")
-#    Wave 3 — phase overrides (optional, each P_<ID> independently)
+#    Wave 1: NAME, DISC_SCOPE, REQ_SCOPE, STKE_SCOPE
+#    Wave 2: P (project short ID, defaults "001")
+#    Wave 3: phase overrides (optional, each P_<ID> independently)
 
 # 5. Resume after interruption
 arckit build --recipe togaf-adm-full --resume
@@ -177,7 +177,7 @@ or,
 
 The command will:
 
-1. Ask if PRIN (architecture principles) exists — create it first if missing
+1. Ask if PRIN (architecture principles) exists; create it first if missing
 2. Ask max 2 rounds of questions about scope, drivers, constraints
 3. Generate `ARC-{P}-ADMP-v1.0.md` with architecture vision
 4. Suggest next steps (`/arckit:business-capability-map`, `/arckit:gap-analysis`)
@@ -185,7 +185,7 @@ The command will:
 
 ### An Example 
 
-Enterprise Architecture artefacts for **MagicDelivery's AgenticEA** AI transformation programme — generated using ArcKit TOGAF ADM and Agent Architecture plugins (see [Case study: MagicDelivery-AI-Transformation](https://github.com/terrygzhou/MagicDelivery)).
+Enterprise Architecture artefacts for **MagicDelivery's AgenticEA** AI transformation programme, generated using ArcKit TOGAF ADM and Agent Architecture plugins (see [Case study: MagicDelivery-AI-Transformation](https://github.com/terrygzhou/MagicDelivery)).
 `scope: Omnichannel AI agents across customer sales, service, shopping, and fulfillment`
 
 ---

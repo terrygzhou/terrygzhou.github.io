@@ -1,19 +1,19 @@
 ---
 layout: post
-title: Observability Stack — Architecture for multi-agent AI systems
+title: Observability Stack: Architecture for multi-agent AI systems
 tags:
   - observability
   - docker
   - architecture
   - multi-agent
 date: 2026-07-15
-description: "Autonomous AI agents are producing systems too complex for a single human to track. This post walks through a self-hosted observability stack — Prometheus, Grafana, Phoenix, Loki, and the OpenTelemetry Collector — that gives end-to-end visibility into agent systems, from LLM calls through workflow orchestration to the applications they produce."
+description: "Autonomous AI agents are producing systems too complex for a single human to track. This post walks through a self-hosted observability stack (Prometheus, Grafana, Phoenix, Loki, and the OpenTelemetry Collector) that gives end-to-end visibility into agent systems, from LLM calls through workflow orchestration to the applications they produce."
 ---
 > **TL;DR**: Autonomous AI agents are learning to write code, debug themselves, and orchestrate dozens of parallel workstreams. They're fast. They're tireless. And they're producing systems so complex that no single human can keep track of what's happening inside.
 
 **When agents are building agents, who watches the watchers?**
 
-The answer is **observability** — the discipline of making invisible systems visible so agents can code, debug themselves better. Just as you'd install cameras, alarms, and dashboards in a factory before turning the robots loose, you need telemetry, tracing, and alerting before you let AI agents run unsupervised.
+The answer is **observability**: the discipline of making invisible systems visible, so agents can debug themselves better. Just as you'd install cameras, alarms, and dashboards in a factory before turning the robots loose, you need telemetry, tracing, and alerting before you let AI agents run unsupervised.
 
 This post, based on my lessons learnt from building an [agent loop_engineering factory](https://github.com/terrygzhou/loop_engineering_factory), walks through a self-hosted observability stack that gives you end-to-end visibility into AI agent systems: from the language model generating tokens, through the workflow engine orchestrating tasks, down to the applications they produce. Built on Prometheus, Grafana, Phoenix, Loki, and the OpenTelemetry Collector. Deployed locally. Fully self-hosted. Zero cloud lock-in.
 
@@ -23,15 +23,15 @@ This post, based on my lessons learnt from building an [agent loop_engineering f
 
 An observability stack for AI agent systems needs to handle three telemetry signals: **traces** (what happened and in what order), **metrics** (how the system is performing), and **logs** (what went wrong). Here's the layering:
 
-**Tracing.** Arize Phoenix is the tracing backend, capturing every LLM call, tool invocation, and conditional branch with unique `run_id` propagation. Alternatives like LangSmith or LangFuse (OSS) serve the same purpose — Phoenix was chosen for its self-hosted, evaluation-focused design.
+**Tracing.** Arize Phoenix is the tracing backend, capturing every LLM call, tool invocation, and conditional branch with unique `run_id` propagation. Alternatives like LangSmith or LangFuse (OSS) serve the same purpose. Phoenix was chosen for its self-hosted, evaluation-focused design.
 
 **Telemetry Backbone.** OpenTelemetry (OTel) is the signal router. It ingests traces, metrics, and logs from any source and distributes them to the right storage backend. OTel is vendor-neutral, so your observability data isn't locked into one provider.
 
-**State & Checkpointing.** LangGraph's native checkpoint system persists state at every workflow node and HIL gate, scaling from SQLite in development to PostgreSQL in production. This enables rollback, resume, and diff-based reflection — critical for debugging agent behavior.
+**State & Checkpointing.** LangGraph's native checkpoint system persists state at every workflow node and HIL gate, scaling from SQLite in development to PostgreSQL in production. This enables rollback, resume, and diff-based reflection, which is critical for debugging agent behavior.
 
 **Structured Logging.** `loguru` or `structlog` replace raw `print()` calls with context-aware logs that auto-inject trace and run IDs. Every log line is queryable and correlated to a specific agent execution.
 
-**Metrics.** Prometheus scrapes numerical time-series data from application endpoints, while Grafana renders it into dashboards. Prometheus is pull-based (it asks targets for data), which simplifies the architecture — no push registry needed.
+**Metrics.** Prometheus scrapes numerical time-series data from application endpoints, while Grafana renders it into dashboards. Prometheus is pull-based (it asks targets for data), which simplifies the architecture: no push registry needed.
 
 **Error Wrappers.** Custom `SemanticError` middleware catches LLM and tool failures, extracts root cause, and formats them into structured repair prompts. Errors become first-class telemetry, not dead ends.
 
@@ -43,9 +43,9 @@ An observability stack for AI agent systems needs to handle three telemetry sign
 |---|---|---|---|
 | **Prometheus** | `prom/prometheus:latest` | `:9090` | Pull-based metrics collection |
 | **Grafana** | `grafana/grafana:latest` | `:3000` | Dashboard visualization (login: `admin/admin`) |
-| **Phoenix** | `arizephoenix/phoenix:latest` | `:6006` | AI/LLM tracing — evaluate generations, prompts, latency |
+| **Phoenix** | `arizephoenix/phoenix:latest` | `:6006` | AI/LLM tracing: evaluate generations, prompts, latency |
 | **Loki** | `grafana/loki:3.0.0` | `:3100` | Log aggregation (Grafana-native query via LogQL) |
-| **OTel Collector** | `otel/opentelemetry-collector-contrib:latest` | `:4317` (gRPC), `:4318` (HTTP), `:8889` (Prom exp) | Signal router — ingests OpenTelemetry, distributes traces → Phoenix, logs → Loki, metrics → Prometheus |
+| **OTel Collector** | `otel/opentelemetry-collector-contrib:latest` | `:4317` (gRPC), `:4318` (HTTP), `:8889` (Prom exp) | Signal router: ingests OpenTelemetry, distributes traces to Phoenix, logs to Loki, metrics to Prometheus |
 
 ### Persistence
 
@@ -60,7 +60,7 @@ Three Docker-managed volumes survive container restarts:
 
 ### The Concept
 
-All observability services live on a single **Docker bridge network** (`172.25.0.0/16`). Consumer projects (vLLM, Loop Factory) don't recreate this network — they declare it as **external** and plug into the existing L2 segment:
+All observability services live on a single **Docker bridge network** (`172.25.0.0/16`). Consumer projects (vLLM, Loop Factory) don't recreate this network; they declare it as **external** and plug into the existing L2 segment:
 
 ```yaml
 networks:
@@ -87,10 +87,10 @@ One line of YAML. No IP addresses. No port forwarding between projects. Any new 
 ### DNS Resolution
 
 Docker's embedded DNS resolves container names to IPs within the shared network. Services find each other by name:
-- `http://prometheus:9090` — Grafana datasource → Prometheus
-- `http://phoenix:6006` — OTel → Phoenix traces
-- `http://loki:3100` — OTel → Loki logs
-- `vllm-mtp:8000/metrics` — Prometheus scrape target
+- `http://prometheus:9090` (Grafana datasource to Prometheus)
+- `http://phoenix:6006` (OTel to Phoenix traces)
+- `http://loki:3100` (OTel to Loki logs)
+- `vllm-mtp:8000/metrics` (Prometheus scrape target)
 
 No `extra_hosts`, no hardcoded IPs. The network is the configuration.
 
@@ -98,7 +98,7 @@ No `extra_hosts`, no hardcoded IPs. The network is the configuration.
 
 ## 3. Data Flow Architecture
 
-### Metrics Path (Prometheus — Pull)
+### Metrics Path (Prometheus, pull-based)
 
 ![Prometheus pull-based metrics path: vllm-mtp and loop_factory scraped every 15s into Prometheus, rendered in Grafana](/assets/2026-07-15-observability/metrics-path.png)
 
@@ -110,7 +110,7 @@ No `extra_hosts`, no hardcoded IPs. The network is the configuration.
 | `loop-orchestrator` | `loop_factory-loop-1:8081` | 15s | `/metrics` |
 | `prometheus` | `localhost:9090` | 15s | (self) |
 
-### Traces, Logs, Metrics Path (OTel — Push)
+### Traces, Logs, Metrics Path (OTel, push-based)
 
 ![OTel push pipeline: ingestion routed through the collector and batch layer into Phoenix / Loki / Prometheus storage, then visualized](/assets/2026-07-15-observability/otel-pipeline.png)
 
@@ -129,7 +129,7 @@ No `extra_hosts`, no hardcoded IPs. The network is the configuration.
 
 ### Grafana Provisioning
 
-Grafana is configured entirely through the `provisioning/` directory — no manual UI setup needed.
+Grafana is configured entirely through the `provisioning/` directory: no manual UI setup needed.
 
 **Datasources** (`provisioning/datasources/prometheus.yml`):
 
@@ -169,9 +169,9 @@ Grafana auto-loads JSON dashboard files from `/var/lib/grafana/dashboards` on a 
 
 ### Key Observations
 
-- **Panel 11** (token distribution) spans full width — acts as a visual histogram of output lengths, revealing whether your agents produce short responses or deep reasoning chains
-- **Panels 6–7, 12** are stat panels with color thresholds (red → yellow → green at 1K/10K tokens; memory at 2GB/4GB)
-- Dashboard queries reference Prometheus UID `PBFA97CFB590B2093` — stable because provisioning creates a deterministic datasource ID
+- **Panel 11** (token distribution) spans full width, acting as a visual histogram of output lengths that reveals whether your agents produce short responses or deep reasoning chains
+- **Panels 6 to 7, 12** are stat panels with color thresholds (red to yellow to green at 1K/10K tokens; memory at 2GB/4GB)
+- Dashboard queries reference Prometheus UID `PBFA97CFB590B2093`, which is stable because provisioning creates a deterministic datasource ID
 
 ---
 
@@ -183,15 +183,15 @@ See the network topology diagram above in [§2: Shared Network Design](#2-shared
 
 **Mechanism:**
 1. `grafana-stack` creates `grafana-stack_observability` on `docker compose up`
-2. Consumer projects reference it by name — Docker finds it in the global network list
+2. Consumer projects reference it by name, and Docker finds it in the global network list
 3. All containers on the network reach each other by container name via embedded DNS
-4. No port mapping needed between projects — only host-bound ports (`:3000`, `:9090`, `:6006`) need firewall rules
+4. No port mapping needed between projects; only host-bound ports (`:3000`, `:9090`, `:6006`) need firewall rules
 
 ### Why This Design
 
 | Benefit | Explanation |
 |---|---|
-| **Single observability instance** | One Prometheus/Grafana/Loki serves all services — no redundant scraping |
+| **Single observability instance** | One Prometheus/Grafana/Loki serves all services: no redundant scraping |
 | **Compose-project isolation** | Each service project manages its own containers; only the network is shared |
 | **Zero config drift** | No IP addresses, no `extra_hosts` entries to maintain |
 | **Telemetry by default** | Any new project can join the network with one line of YAML |
@@ -243,7 +243,7 @@ docker compose down -v
 
 ### Adding a New Scrape Target
 
-1. Edit `prometheus/prometheus.yml` — add a `scrape_config` block
+1. Edit `prometheus/prometheus.yml` and add a `scrape_config` block
 2. Ensure the new service container joins the `grafana-stack_observability` network
 3. Reload: `docker compose exec prometheus curl -X POST http://localhost:9090/-/reload`
 

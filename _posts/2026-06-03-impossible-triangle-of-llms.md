@@ -8,27 +8,27 @@ tags:
   - local-AI
   - ai-infra
 ---
-> **TL;DR**: As AI shifts from rule-based logic to pattern-driven LLMs, knowledge is no longer stored as explicit rules—it’s compressed into statistical intuition across billions of parameters. But scale hits a physical wall. In my experience tuning local models, I’ve identified **the Impossible Triangle of LLM Tuning**: Context, Speed, and Knowledge. You can optimize two corners, but the third always suffers.
+> **TL;DR**: As AI shifts from rule-based logic to pattern-driven LLMs, knowledge is no longer stored as explicit rules; it’s compressed into statistical intuition across billions of parameters. But scale hits a physical wall. In my experience tuning local models, I’ve identified **the Impossible Triangle of LLM Tuning**: Context, Speed, and Knowledge. You can optimize two corners, but the third always suffers.
 
 ## The Impossible Triangle: Speed, Memory, Intelligence
  
  - **Speed (tokens/sec):** Bound by compute throughput and VRAM bandwidth. Pushing latency limits forces you to shrink the model, aggressively quantize, or truncate context.
 
-- **Memory (Context Window):** Lives in the KV cache during inference. Doubling context doesn’t just double memory—it scales superlinearly, choking bandwidth, spiking latency, or triggering OOM errors.
+- **Memory (Context Window):** Lives in the KV cache during inference. Doubling context doesn’t just double memory; it scales superlinearly, choking bandwidth, spiking latency, or triggering OOM errors.
 
 - **Intelligence (Knowledge Depth):** Baked into static weights post-training. More parameters mean sharper reasoning and broader coverage, but they consume VRAM, directly squeezing out context and slowing inference.
 
 
 ## Mirror to Human Intelligence
 
-Humans don’t run on silicon, but our cognitive architecture mirrors the same trade-offs—just with biological workarounds:
+Humans don’t run on silicon, but our cognitive architecture mirrors the same trade-offs, just with biological workarounds:
 
 | LLM Constraint | Human Equivalent                        | How Humans Bypass the Limit                                                                 |
 | -------------- | --------------------------------------- | ------------------------------------------------------------------------------------------- |
 | Speed          | Cognitive processing & reaction time    | We don’t optimize for raw throughput. We filter, prioritize, and deliberate.                |
-| Memory         | Working memory (~4–7 meaningful chunks) | We compress, select or offload to notes, or forget strategically.                           |
+| Memory         | Working memory (about 4 to 7 meaningful chunks) | We compress, select or offload to notes, or forget strategically.                           |
 | Intelligence   | Crystallized knowledge & experience     | We learn continuously, embed knowledge in habits, experience it, and update without resets. |
-Humans face the same trade-offs, but we bypass them biologically. We don’t brute-force speed; we filter and prioritize. We don’t expand working memory; we compress, offload, or forget strategically. And we update knowledge continuously through experience, not resets. Humans don’t fight the triangle with more VRAM—we use sleep, tools, collaboration, and neuroplasticity. Real intelligence isn’t a fixed benchmark score; it’s a flexible toolkit.
+Humans face the same trade-offs, but we bypass them biologically. We don’t brute-force speed; we filter and prioritize. We don’t expand working memory; we compress, offload, or forget strategically. And we update knowledge continuously through experience, not resets. Humans don’t fight the triangle with more VRAM; we use sleep, tools, collaboration, and neuroplasticity. Real intelligence isn’t a fixed benchmark score; it’s a flexible toolkit.
 
 ## Which Corner I attempt to optimise? 
 
@@ -42,7 +42,7 @@ There’s no “best” configuration. Only context-appropriate ones. Here’s h
 - 📖 **Optimise for Memory**  
     _When:_ Long documents, legal/medical records, multi-turn analysis, or large codebases.  
     _Trade-off:_ Slower generation, higher memory costs, potential coherence drift.  
-    _My setup:_ `Qwen3.6-MoE-3B` on vLLM, 250K context, 2–4 concurrent users, accepting minor VRAM/RAM sharing to compromise latency.
+    _My setup:_ `Qwen3.6-MoE-3B` on vLLM, 250K context, 2 to 4 concurrent users, accepting minor VRAM/RAM sharing to compromise latency.
     
 - 🧩 **Optimise for Intelligence**  
     _When:_ Vertical domains (finance, healthcare, engineering), complex reasoning, or agent foundations.  

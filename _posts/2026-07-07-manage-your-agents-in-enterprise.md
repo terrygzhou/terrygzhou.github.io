@@ -12,7 +12,7 @@ tags:
   - agentic-togaf
 status: published
 ---
-> **TL;DR**: Enterprises are deploying hundreds of AI agents across their operations — but most lack a systematic way to govern, secure, and orchestrate them. Recently I have published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865).  The ArcKit Agent Architecture overlay, implemented in this  [Arckit Agent-Architecture plugin](https://github.com/terrygzhou/arc-kit/tree/main/plugins/arckit-agent-architecture) brings Enterprise Architecture methodology to AI agent programmes, providing inventory, design, governance, security, and maturity assessment workflows.
+> **TL;DR**: Enterprises are deploying hundreds of AI agents across their operations, but most lack a systematic way to govern, secure, and orchestrate them. Recently I have published a milestone update to the **ArcKit** open-source project: [**PR #626**](https://github.com/tractorjuice/arc-kit/pull/626#event-27379874865).  The ArcKit Agent Architecture overlay, implemented in this  [Arckit Agent-Architecture plugin](https://github.com/terrygzhou/arc-kit/tree/main/plugins/arckit-agent-architecture) brings Enterprise Architecture methodology to AI agent programmes, providing inventory, design, governance, security, and maturity assessment workflows.
 
 ---
 
@@ -26,7 +26,7 @@ In 2026, AI agents have moved from experiment to production. Financial services 
 - **Scale**: Large enterprises typically run 50-200+ agents across their organisation
 - **Complexity**: Agents range from simple task automation to multi-agent swarms coordinating across business units
 
-The challenge is no longer *building* agents — it's **managing** them at scale.
+The challenge is no longer *building* agents; it's **managing** them at scale.
 
 ---
 
@@ -36,7 +36,7 @@ Here's what happens when organisations scale agents without a governance framewo
 
 | Symptom               | Root Cause                                          | Impact                                       |
 | --------------------- | --------------------------------------------------- | -------------------------------------------- |
-| **Agent Sprawl**      | Shadow AI agents — teams build agents independently | 100+ agents with no inventory, no visibility |
+| **Agent Sprawl**      | Shadow AI agents: teams build agents independently | 100+ agents with no inventory, no visibility |
 | **Duplicate Effort**  | Multiple teams solving the same problem             | Wasted investment, conflicting outputs       |
 | **Security Gaps**     | No standardised security review for agents          | Data exposure, compliance violations         |
 | **Integration Chaos** | Agents can't communicate or share context           | Siloed automation, missed opportunities      |
@@ -48,7 +48,7 @@ Here's what happens when organisations scale agents without a governance framewo
 
 ## Enterprise Architecture (EA)
 
-EA, leveraging established frameworks like TOGAF ADM, brings the necessary discipline to AI agent programs by enforcing structured planning, strategic traceability, clear governance, and full lifecycle management. However, because traditional EA wasn’t built for autonomous systems, it must be adapted with agent-specific approaches—including tailored design patterns, risk-calibrated oversight, seamless integration protocols, robust security against modern AI threats, and maturity models—to effectively govern and scale enterprise AI deployments.
+EA, leveraging established frameworks like TOGAF ADM, brings the necessary discipline to AI agent programs by enforcing structured planning, strategic traceability, clear governance, and full lifecycle management. However, because traditional EA wasn’t built for autonomous systems, it must be adapted with agent-specific approaches, including tailored design patterns, risk-calibrated oversight, seamless integration protocols, robust security against modern AI threats, and maturity models, to effectively govern and scale enterprise AI deployments.
 
 ---
 
@@ -61,10 +61,10 @@ The [**ArcKit Agent Architecture** plugin](https://github.com/terrygzhou/arc-kit
 | Command                     | Doc Type | Purpose                                                                                 |
 | --------------------------- | -------- | --------------------------------------------------------------------------------------- |
 | `/arckit:agent-inventory`   | `AAGI`   | Catalog all agents with capabilities, security classification, and oversight levels     |
-| `/arckit:agent-design`      | `AAGR`   | Design agent architecture — patterns, tool contracts, memory, orchestration, guardrails |
+| `/arckit:agent-design`      | `AAGR`   | Design agent architecture, patterns, tool contracts, memory, orchestration, guardrails |
 | `/arckit:agent-governance`  | `AAOV`   | Establish oversight models, approval workflows, audit requirements, compliance mapping  |
 | `/arckit:agent-integration` | `AAIN`   | Design agent-to-agent integration, tool contracts, and orchestration patterns           |
-| `/arckit:agent-security`    | `AASE`   | Harden agent security — sandboxing, permission models, threat assessment                |
+| `/arckit:agent-security`    | `AASE`   | Harden agent security, sandboxing, permission models, threat assessment                |
 | `/arckit:agent-maturity`    | `AAMT`   | Assess and track agent programme maturity with continuous improvement metrics           |
 
 ### Six-Phase Recipe
@@ -194,7 +194,7 @@ MagicDelivery needed to govern agents spanning:
 6. **Traceability matters**: Every agent decision links to business strategy and requirements
 
 
-> *"The difference between an agent programme that scales and one that collapses is not technology — it's architecture."*
+> *"The difference between an agent programme that scales and one that collapses is not technology; it's architecture."*
 
 ---
 

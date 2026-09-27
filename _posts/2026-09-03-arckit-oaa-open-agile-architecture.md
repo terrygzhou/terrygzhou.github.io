@@ -8,12 +8,12 @@ tags:
   - opengroup-c208
   - ai-agents
 date: 2026-09-03
-description: "ArcKit OAA turns the Open Group's agile C208 standard into machine-executable architecture sprints — TOGAF for the baseline, O-AA for the velocity. Five commands and one build recipe deliver sprint-based, product-driven architecture work, with structured intake interviews that keep hallucination out by construction."
+description: "ArcKit OAA turns the Open Group's agile C208 standard into machine-executable architecture sprints: TOGAF for the baseline, O-AA for the velocity. Five commands and one build recipe deliver sprint-based, product-driven architecture work, with structured intake interviews that keep hallucination out by construction."
 status: published
 ---
-> **TL;DR**: Two months ago, I published [Executable Enterprise Architecture — Agentic-TOGAF-ADM](https://terrygzhou.github.io/2026/07/01/executable-enterprise-architecture.html), where I showed how the **ArcKit** open-source project turned the TOGAF ADM into agent-readable slash commands and build recipes. The core insight: architecture frameworks stop being slide decks and become executable, auditable, repeatable workflows.
+> **TL;DR**: Two months ago, I published [Executable Enterprise Architecture, Agentic-TOGAF-ADM](https://terrygzhou.github.io/2026/07/01/executable-enterprise-architecture.html), where I showed how the **ArcKit** open-source project turned the TOGAF ADM into agent-readable slash commands and build recipes. The core insight: architecture frameworks stop being slide decks and become executable, auditable, repeatable workflows.
 
-Today, I'm shipping a new ArcKit plugin that pushes this thesis one step further: **ArcKit OAA — the Open Agile Architecture (O-AA, [Open Group C208](https://pubs.opengroup.org/architecture/o-aa-standard/)) overlay.** It's a standalone plugin with 5 commands and the `oaa-full` build recipe for sprint-based, product-driven architecture delivery. And it raises a question worth answering directly: **when do you actually need TOGAF ADM, and when does agile O-AA do the job better?**
+Today, I'm shipping a new ArcKit plugin that pushes this thesis one step further: **ArcKit OAA, the Open Agile Architecture (O-AA, [Open Group C208](https://pubs.opengroup.org/architecture/o-aa-standard/)) overlay.** It's a standalone plugin with 5 commands and the `oaa-full` build recipe for sprint-based, product-driven architecture delivery. And it raises a question worth answering directly: **when do you actually need TOGAF ADM, and when does agile O-AA do the job better?**
 
 ---
 
@@ -21,11 +21,11 @@ Today, I'm shipping a new ArcKit plugin that pushes this thesis one step further
 
 TOGAF ADM is a stage-gate machine. It works when you need a defensible, enterprise-wide baseline: regulatory audits, 50-stakeholder architecture boards, long multi-year migration programmes. But it's also *heavy*. If your deadline is 8 weeks and you have a cross-functional product team, a 200-page deliverable cycle is the wrong tool.
 
-**[Open Agile Architecture](https://pubs.opengroup.org/architecture/o-aa-standard/) (C208)** — published by The Open Group in 2021 — addresses that gap. It takes the same axiomatic structure TOGAF started (16 axioms total, C208 extends axioms 11–16) but re-frames the delivery around **product teams, sprints, and value streams**. Instead of "Architecture Board meets quarterly," the governance unit becomes "sprint review panel." Instead of "Phase G transition architecture," you get "architecture items as first-class backlog entries."
+**[Open Agile Architecture](https://pubs.opengroup.org/architecture/o-aa-standard/) (C208)**, published by The Open Group in 2021, addresses that gap. It takes the same axiomatic structure TOGAF started (16 axioms total, C208 extends axioms 11 to 16) but re-frames the delivery around **product teams, sprints, and value streams**. Instead of "Architecture Board meets quarterly," the governance unit becomes "sprint review panel." Instead of "Phase G transition architecture," you get "architecture items as first-class backlog entries."
 
 In one sentence: **TOGAF ADM = enterprise baseline. O-AA C208 = sprint execution engine for the same baseline.**
 
-> **The Executive View.** Your enterprise architecture is a 200-page PDF, and it's six months behind the roadmap that produced it. **The problem is rarely the strategy — it's the machinery that turns it into work.** ArcKit OAA closes that gap: it takes the Open Group's agile standard (C208), turns it into machine-executable workflows, and lets a cross-functional product team ship a complete architecture sprint in under a day instead of a quarter. And because every artefact is generated through a **structured intake interview** that runs the Open Group template's field schema before the AI agent writes a single line, **hallucination is out by construction — incomplete fields fail, they don't quietly get invented.** The result is not a slide deck. It's a **repeatable, auditable delivery engine** that keeps enterprise architecture in step with the product velocity that defines the roadmap.
+> **The Executive View.** Your enterprise architecture is a 200-page PDF, and it's six months behind the roadmap that produced it. **The problem is rarely the strategy. It's the machinery that turns it into work.** ArcKit OAA closes that gap: it takes the Open Group's agile standard (C208), turns it into machine-executable workflows, and lets a cross-functional product team ship a complete architecture sprint in under a day instead of a quarter. And because every artefact is generated through a **structured intake interview** that runs the Open Group template's field schema before the AI agent writes a single line, **hallucination is out by construction: incomplete fields fail, they don't quietly get invented.** The result is not a slide deck. It's a **repeatable, auditable delivery engine** that keeps enterprise architecture in step with the product velocity that defines the roadmap.
 
 ---
 
@@ -33,9 +33,9 @@ In one sentence: **TOGAF ADM = enterprise baseline. O-AA C208 = sprint execution
 
 | Command | Doc Type | What it produces |
 |---------|----------|------------------|
-| `/arckit-oaa:oaa-adm-lite` | `OAAL` | Maps the ADM cycle to 2–4 week sprints (Sprint 0 vision → Sprint 4+ governance gates) |
+| `/arckit-oaa:oaa-adm-lite` | `OAAL` | Maps the ADM cycle to 2 to 4 week sprints (Sprint 0 vision, then Sprint 4+ governance gates) |
 | `/arckit-oaa:product-architecture` | `OAPR` | Product-centric architecture: team composition, outcomes KPI, backlog items, value stream |
-| `/arckit-oaa:agile-strategy` | `OASTR` | Dual transformation canvas — legacy modernization + greenfield innovation, operating model shift |
+| `/arckit-oaa:agile-strategy` | `OASTR` | Dual transformation canvas: legacy modernization + greenfield innovation, operating model shift |
 | `/arckit-oaa:agile-security` | `OASEC` | Security embedded in sprint rhythm: threat model per sprint, compliance-as-code, AI bias checks |
 | `/arckit-oaa:agile-governance` | `OAGOV` | Lightweight governance: pre/post-sprint checklists, architecture debt register, quarterly health score |
 
@@ -47,7 +47,7 @@ Recipe: `oaa-full` (5 phases: strategy → product → ADM Lite, plus optional s
 PRIN → REQ/STKE → OASTR/OAPR → OAAL → OASEC → OAGOV
 ```
 
-Foundation commands (`arckit:principles`, `arckit:requirements`, `arckit:stakeholders`) must run first — same pattern as `arckit-togaf-adm`.
+Foundation commands (`arckit:principles`, `arckit:requirements`, `arckit:stakeholders`) must run first, same pattern as `arckit-togaf-adm`.
 
 ---
 
@@ -57,8 +57,8 @@ Foundation commands (`arckit:principles`, `arckit:requirements`, `arckit:stakeho
 |-----------|--------------------|--------------|
 | Standard | TOGAF ADM (traditional) | O-AA C208 (agile) |
 | Commands | 9 (Preliminary → Phase H + Repository) | 5 (ADM Lite, Product, Strategy, Security, Governance) |
-| Cadence | Quarterly architecture boards | 2–4 week sprint windows |
-| Artefacts | 200-page deliverables | 1–2 page canvases, max 2/sprint |
+| Cadence | Quarterly architecture boards | 2 to 4 week sprint windows |
+| Artefacts | 200-page deliverables | 1 to 2 page canvases, max 2 per sprint |
 | Delivery | Stage-gate (Preliminary → A → H) | Backlog-driven, iterative |
 | Organisation | Enterprise-wide, component-focused | Product-centric, cross-functional teams |
 | Security | Dedicated phase/gate | Backlog item per sprint |
@@ -69,7 +69,7 @@ Foundation commands (`arckit:principles`, `arckit:requirements`, `arckit:stakeho
 
 ---
 
-## When to Use Which — A Quick Decision
+## When to Use Which: A Quick Decision
 
 1. **Regulatory / audit-driven enterprise programme, 50+ stakeholders, multi-year horizon** → `togaf-adm`. You need the formal traceability and stage gates.
 2. **Product team, hard 8-week deadline, agile culture, cross-functional** → `oaa`. You need sprint cadence and lightweight evidence, not a quarterly board.
@@ -80,14 +80,14 @@ Foundation commands (`arckit:principles`, `arckit:requirements`, `arckit:stakeho
 ## Why This Matters
 
 1. **Agile isn't just for development teams.** Enterprise architecture has been stuck in stage-gate mode while the organisations it serves moved to product teams and quarterly OKRs. O-AA C208 is the Open Group's formal answer to that gap.
-2. **Frameworks only matter when they ship.** Both overlays are open source, auditable, and community-driven. The rules, templates, and validation logic are forkable — no vendor lock-in.
-3. **AI agents change the math — and the trust problem.** A 200-page TOGAF deliverable is a consultant's week of work. With an agentic toolkit, it's an overnight batch run. O-AA's 1–2 page canvases fit in a single sprint. But there's a second, subtler shift: *the agent is the author now, not the EA.* That's where the repo's structure matters.
-4. **Guided control via opengroup standard-driven intake.** The [arc-kit codebase](https://github.com/terrygzhou/arc-kit) inserts a control layer between the AI agent and its output: a structured intake interview runs against each template's field schema (required sections, enum choices, cross-references) *before* the agent writes a single artefact line. The interview is the gate, the template is the guardrail, the agent fills the blanks — which is what keeps hallucinated content out of the generated documents.
+2. **Frameworks only matter when they ship.** Both overlays are open source, auditable, and community-driven. The rules, templates, and validation logic are forkable, with no vendor lock-in.
+3. **AI agents change the math, and the trust problem.** A 200-page TOGAF deliverable is a consultant's week of work. With an agentic toolkit, it's an overnight batch run. O-AA's 1 to 2 page canvases fit in a single sprint. But there's a second, subtler shift: *the agent is the author now, not the EA.* That's where the repo's structure matters.
+4. **Guided control via opengroup standard-driven intake.** The [arc-kit codebase](https://github.com/terrygzhou/arc-kit) inserts a control layer between the AI agent and its output: a structured intake interview runs against each template's field schema (required sections, enum choices, cross-references) *before* the agent writes a single artefact line. The interview is the gate, the template is the guardrail, the agent fills the blanks, which is what keeps hallucinated content out of the generated documents.
 
    On top of that, three layers stack:
-   - **Recipes** — `oaa-full`, `togaf-adm` etc. encode the required phase order and the dependencies (foundation commands must run before overlay commands). The agent can't skip a stage.
-   - **Schema-validated templates** — each artefact (`OASTR`, `OAPR`, `OAAL`, …) has a strict shape. The intake interview ensures completeness *before* rendering; the schema validation catches it *after*. Incomplete fields fail validation, not quietly get invented.
-   - **Per-phase validation gates** — every phase ships its own completeness checks (required sections, cross-references, consistency with the previous phase's output). The gate is the control; the agent is the worker.
+   - **Recipes**: `oaa-full`, `togaf-adm` etc. encode the required phase order and the dependencies (foundation commands must run before overlay commands). The agent can't skip a stage.
+   - **Schema-validated templates**: each artefact (`OASTR`, `OAPR`, `OAAL`, ...) has a strict shape. The intake interview ensures completeness *before* rendering; the schema validation catches it *after*. Incomplete fields fail validation, they don't quietly get invented.
+   - **Per-phase validation gates**: every phase ships its own completeness checks (required sections, cross-references, consistency with the previous phase's output). The gate is the control; the agent is the worker.
 
    The upshot: AI accelerates the drafting, but the *architecture of the artefact* is still governed by the standard (C208, TOGAF) and enforced by the toolkit. The agent can make it faster; it can't make it structurally wrong. That's the property that makes "executable framework" more than a slogan.
 
@@ -97,7 +97,7 @@ Foundation commands (`arckit:principles`, `arckit:requirements`, `arckit:stakeho
 
 ## Quick Start
 
-Three ways to run ArcKit — pick the one that fits your workflow:
+Three ways to run ArcKit, pick the one that fits your workflow:
 
 ### 1. Claude Code plugin (premier experience)
 
@@ -123,7 +123,7 @@ Updates are automatic via the marketplace.
 
 ### 2. Codex CLI
 
-Two install paths — plugin or full scaffold:
+Two install paths, plugin or full scaffold:
 
 **Codex plugin (no Python, no scaffolding):**
 
@@ -147,7 +147,7 @@ pip install git+https://github.com/terrygzhou/arc-kit.git
 arckit init payment-modernization --ai codex
 ```
 
-All artifacts land as versioned Markdown (`ARC-NNN-TYPE-vN.N.md`) under `projects/` — just commit regularly.
+All artifacts land as versioned Markdown (`ARC-NNN-TYPE-vN.N.md`) under `projects/`, so just commit regularly.
 
 ### 3. Bring Your Own LLM
 
@@ -172,4 +172,4 @@ See [Platform Support](#platform-support) for what runs where.
 
 If you work with agile enterprise architecture or open-source EA tooling, please star the repo ([arc-kit](https://github.com/terrygzhou/arc-kit)), comment on the PR, or open an issue with your use case.
 
-Frameworks stop being theoretical when they're executable. Both overlays do exactly that — TOGAF for the baseline, O-AA for the velocity.
+Frameworks stop being theoretical when they're executable. Both overlays do exactly that, TOGAF for the baseline, O-AA for the velocity.

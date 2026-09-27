@@ -8,29 +8,29 @@ tags:
   - self-hosted
   - aiywalink
 date: 2026-08-07
-description: "Vendor lock-in in enterprise AI looks like proprietary APIs, data residency risks, and cost spirals. Zero lock-in means sovereignty: the ability to move workloads between providers, self-host when needed, and maintain full ownership of data and models. This post walks through the open-source stack — SGLang, Qdrant, LangGraph, MCP — that makes it real."
+description: "Vendor lock-in in enterprise AI looks like proprietary APIs, data residency risks, and cost spirals. Zero lock-in means sovereignty: the ability to move workloads between providers, self-host when needed, and maintain full ownership of data and models. This post walks through the open-source stack (SGLang, Qdrant, LangGraph, MCP) that makes it real."
 ---
-> **TL;DR**: Every CTO has heard the pitch. "Just use our managed AI platform — it's the easiest way to get started." They're right about the easy part. The trap comes six months later when your data is trapped in their API, your agents depend on their proprietary orchestration, and your monthly bill just tripled because token prices don't go down.
+> **TL;DR**: Every CTO has heard the pitch. "Just use our managed AI platform; it's the easiest way to get started." They're right about the easy part. The trap comes six months later when your data is trapped in their API, your agents depend on their proprietary orchestration, and your monthly bill just tripled because token prices don't go down.
 
 **Vendor lock-in in enterprise AI looks like three things:**
 
-- **Proprietary APIs** — your agents only work with one provider's SDK. Switch means rewriting everything.
-- **Data residency** — your training data and customer conversations live on someone else's servers, in someone else's jurisdiction, under someone else's compliance framework.
-- **Cost spirals** — what started as $500/month in API calls becomes $50,000/month at scale. You've built your business on a rental engine.
+- **Proprietary APIs**: your agents only work with one provider's SDK. Switch means rewriting everything.
+- **Data residency**: your training data and customer conversations live on someone else's servers, in someone else's jurisdiction, under someone else's compliance framework.
+- **Cost spirals**: what started as $500/month in API calls becomes $50,000/month at scale. You've built your business on a rental engine.
 
 I've seen this pattern repeat across every major technology shift. Database vendors, cloud providers, SaaS platforms. The story is always the same: easy onboarding, expensive exit.
 
-Enterprise AI is different because the stakes are higher. You're not just processing transactions — you're encoding your company's decision-making logic, your customer relationships, and your competitive advantage into systems that learn and adapt. When those systems run on infrastructure you don't control, you don't own your future.
+Enterprise AI is different because the stakes are higher. You're not just processing transactions; you're encoding your company's decision-making logic, your customer relationships, and your competitive advantage into systems that learn and adapt. When those systems run on infrastructure you don't control, you don't own your future.
 
 ## What Zero Lock-In Actually Means
 
-Zero lock-in isn't about refusing to use managed services. It's about **sovereignty** — the ability to move your AI workload between providers, self-host when needed, and maintain full ownership of your data and models.
+Zero lock-in isn't about refusing to use managed services. It's about **sovereignty**: the ability to move your AI workload between providers, self-host when needed, and maintain full ownership of your data and models.
 
 For EyWALink, this means every solution we deliver follows three principles:
 
-1. **Open-source stack** — no proprietary runtimes, no closed models behind paywalls. Everything is auditable, forkable, and self-hostable.
-2. **Standard interfaces** — our agents communicate through MCP (Model Context Protocol), not vendor-specific SDKs. You can swap the model provider without touching the agent logic.
-3. **Infrastructure parity** — what runs in your dev environment runs the same way in production. No cloud-specific features baked into your architecture.
+1. **Open-source stack**: no proprietary runtimes, no closed models behind paywalls. Everything is auditable, forkable, and self-hostable.
+2. **Standard interfaces**: our agents communicate through MCP (Model Context Protocol), not vendor-specific SDKs. You can swap the model provider without touching the agent logic.
+3. **Infrastructure parity**: what runs in your dev environment runs the same way in production. No cloud-specific features baked into your architecture.
 
 This isn't idealism. It's insurance against the day when your preferred provider changes pricing, updates terms, or simply becomes too expensive for the value delivered.
 
@@ -38,32 +38,32 @@ This isn't idealism. It's insurance against the day when your preferred provider
 
 Let me walk through our actual infrastructure. Not a diagram, but the real tools running in production today.
 
-### SGLang — Self-Hosted Inference That Scales
+### SGLang: Self-Hosted Inference That Scales
 
 SGLang is our inference engine for local LLM serving. Why not just use OpenAI's API?
 
-Because at enterprise scale, every token you send to a third party is a token you can't audit, can't control latency for, and can't optimize. With SGLang running on your own GPU infrastructure — we use RTX 5090s for development, scale to datacenter GPUs for production — you control:
+Because at enterprise scale, every token you send to a third party is a token you can't audit, can't control latency for, and can't optimize. With SGLang running on your own GPU infrastructure (we use RTX 5090s for development, scale to datacenter GPUs for production) you control:
 
-- **Model selection** — switch between Qwen, Llama, or any open-weight model without API changes
-- **Latency** — sub-50ms first-token response when the model is local
-- **Cost** — amortized GPU cost beats per-token pricing at volume
-- **Compliance** — data never leaves your network boundary
+- **Model selection**: switch between Qwen, Llama, or any open-weight model without API changes
+- **Latency**: sub-50ms first-token response when the model is local
+- **Cost**: amortized GPU cost beats per-token pricing at volume
+- **Compliance**: data never leaves your network boundary
 
 SGLang supports advanced decoding strategies (RadixAttention, Continuous Batching) that outperform many managed offerings. You get better performance while maintaining full data sovereignty.
 
-### Qdrant — Vector Search You Own
+### Qdrant: Vector Search You Own
 
 Vector databases are the memory layer for AI agents. They store embeddings that enable semantic search, retrieval-augmented generation, and long-term agent memory.
 
 We chose Qdrant because it's self-hosted, performant, and doesn't require you to ship your embeddings to a managed service. Your knowledge base lives on your infrastructure. Your agent retrieves from it with single-digit millisecond latency.
 
 Qdrant handles:
-- **Hybrid search** — combine dense vector similarity with sparse keyword matching
-- **Filtering** — metadata-aware queries without post-processing
-- **Scalability** — distributed deployment when single-node isn't enough
-- **Export** — your vector index is backed by files you control, not an opaque managed store
+- **Hybrid search**: combine dense vector similarity with sparse keyword matching
+- **Filtering**: metadata-aware queries without post-processing
+- **Scalability**: distributed deployment when single-node isn't enough
+- **Export**: your vector index is backed by files you control, not an opaque managed store
 
-### LangGraph — Agent Orchestration Without Proprietary Runtime
+### LangGraph: Agent Orchestration Without Proprietary Runtime
 
 LangGraph is our workflow engine for multi-agent systems. Every enterprise AI deployment we build uses it to coordinate agent handoffs, implement human-in-the-loop checkpoints, and maintain audit trails.
 
@@ -72,10 +72,10 @@ Why LangGraph over commercial alternatives like LangSmith or proprietary agent p
 Because LangGraph is **state-machine based**. Your workflow logic is explicit code, not configuration locked into someone's visual builder. When you need to modify agent behavior, you edit Python code, not navigate a vendor's UI.
 
 Key capabilities:
-- **Checkpoint-driven execution** — pause, inspect, and resume agent workflows at any node
-- **Human-in-the-loop** — built-in interruption points for approval gates
-- **Streaming** — real-time token streaming to UIs without polling
-- **Standard persistence** — SQLite for development, PostgreSQL for production
+- **Checkpoint-driven execution**: pause, inspect, and resume agent workflows at any node
+- **Human-in-the-loop**: built-in interruption points for approval gates
+- **Streaming**: real-time token streaming to UIs without polling
+- **Standard persistence**: SQLite for development, PostgreSQL for production
 
 The agents you build with LangGraph are portable. They don't depend on a specific provider's hosting environment.
 

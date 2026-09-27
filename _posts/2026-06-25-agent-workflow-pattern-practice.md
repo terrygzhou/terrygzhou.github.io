@@ -7,7 +7,7 @@ tags:
   - LangGraph
   - Agentic-Architecture
 date: 2026-06-25
-description: "Building software with AI agents means running iterative, self-improving loops instead of writing prompts by hand. This post distils three dominant LangGraph orchestration patterns — central orchestrator, LangGraph-as-orchestrator, and hierarchical subgraphs — compares their trade-offs, and shows how to bake human-in-the-loop and self-improvement into the design."
+description: "Building software with AI agents means running iterative, self-improving loops instead of writing prompts by hand. This post distils three dominant LangGraph orchestration patterns: central orchestrator, LangGraph-as-orchestrator, and hierarchical subgraphs, compares their trade-offs, and shows how to bake human-in-the-loop and self-improvement into the design."
 ---
 > **TL;DR**: Building software with AI agents involves an iterative, feedback-driven looping process, instead of writing prompts manually. In my open-source project [`loop_engineering_factory`](https://github.com/terrygzhou/loop_engineering_factory), I’ve been developing an **AI agent-driven loop-engineering factories** that produce working software with minimal human intervention. 
 
@@ -300,7 +300,7 @@ Only use **Pattern 1 (External Manager)** if you’re tying into existing enterp
 
 Building AI workflows that improve over time isn’t about crafting the perfect prompt. It’s about designing **flows that remember, reflect, validate, and know when to ask for help**. The right architecture turns chaotic trial-and-error into a predictable, auditable production line.
 
-In [`loop_engineering_factory`](https://github.com/terrygzhou/loop_engineering_factory), I’m actively evolving from a single unified flow into nested, modular loops. The aim isn’t full autonomy—it’s **reliable, transparent, and continuously improving AI-assisted development**.
+In [`loop_engineering_factory`](https://github.com/terrygzhou/loop_engineering_factory), I’m actively evolving from a single unified flow into nested, modular loops. The aim isn’t full autonomy; it’s **reliable, transparent, and continuously improving AI-assisted development**.
   
 If you’re experimenting with agent loops, I’d love to see how you structure your checkpoints, feedback cycles, and human review steps. Drop a link in the comments or open a discussion on the repo.
 

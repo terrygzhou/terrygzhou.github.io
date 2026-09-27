@@ -19,15 +19,15 @@ tags:
 
 Your agent is not lying when it says "all done." It's answering the question you asked. Ask it to show instead.
 
-![From trust to evidence: seven stages — the five-step evolution of an evidence-based workflow, plus two properties of the finished system](/assets/2026-09-12-when-your-agent-says-done/phases.svg)
+![From trust to evidence: seven stages: the five-step evolution of an evidence-based workflow, plus two properties of the finished system](/assets/2026-09-12-when-your-agent-says-done/phases.svg)
 
-## "All done" — the most expensive claim in agentic engineering
+## "All done": the most expensive claim in agentic engineering
 
 I was refactoring **Digital Twins**, my local AI wiki app, from a Tauri desktop application into a web server. Five phases, multi-day effort, a multi-agent pipeline: an orchestrator dispatches subagents for each work item; subagents write Rust and TypeScript.
 
 Phase three finished, and the agent reported: **"All done."**
 
-No proof. No build output, no test results, no list of touched files. Just a claim. At the time, that was the entire workflow — agent self-reports, I believe it. Completion was trust.
+No proof. No build output, no test results, no list of touched files. Just a claim. At the time, that was the entire workflow: agent self-reports, I believe it. Completion was trust.
 
 The problem is not that agents lie. It's that **"all done" is the cheapest sentence in the language.** Implementing an endpoint costs tokens and time; asserting it's finished costs nothing. Unless the environment distinguishes the two, every optimizer in the loop finds the cheap path first. So I stopped asking "did you do it?" and started asking for something I can check myself.
 
@@ -55,9 +55,9 @@ if os.path.exists(filepath) and "NOT_IMPLEMENTED" not in content:
     mark_done()  # FALSE POSITIVE
 ```
 
-The check passed because *the file existed*. Stub files from an earlier generation step already did. Within one run, everything marked itself done — and I had designed that verification. The agent's handler wiring "existed" as a file while remaining completely unwired; the frontend still called `invoke()` in 12 places. My verifier had become a lie detector with the wires swapped.
+The check passed because *the file existed*. Stub files from an earlier generation step already did. Within one run, everything marked itself done; and I had designed that verification. The agent's handler wiring "existed" as a file while remaining completely unwired; the frontend still called `invoke()` in 12 places. My verifier had become a lie detector with the wires swapped.
 
-That cost me a day, and it set the direction for everything after: **verification logic is itself a product, and it can be wrong in the worst possible way — confidently.**
+That cost me a day, and it set the direction for everything after: **verification logic is itself a product, and it can be wrong in the worst possible way, confidently.**
 
 ## Stage 3: completion as an executable fact
 
@@ -76,9 +76,9 @@ grep -q 'wiki_server::agent' src-wiki-server/src/main.rs \
 command -v cargo && cargo check --manifest-path src-wiki-server/Cargo.toml
 ```
 
-`wiki_resume.py` runs each check with `bash -c`, captures the exit code and the first 500 characters of output, and reports gaps. No more "the file is there" — now it's "grep finds the symbol, and the build passes." Two properties matter:
+`wiki_resume.py` runs each check with `bash -c`, captures the exit code and the first 500 characters of output, and reports gaps. No more "the file is there." Now it's "grep finds the symbol, and the build passes." Two properties matter:
 
-1. **A check must be able to fail visibly.** If a check can't fail for the way the work might actually be missing, it's not a check — it's a rubber stamp.
+1. **A check must be able to fail visibly.** If a check can't fail for the way the work might actually be missing, it's not a check; it's a rubber stamp.
 2. **A check must be re-derivable.** Any future session, any agent, can re-run the same command and get the same fact. Exit codes are the universal interface: `0` means proven, anything else means not proven. The full JSON report gets logged for debugging, but the decision logic only ever reads exit codes.
 
 I deliberately kept the checks in shell rather than rich Python assertions. They're readable, a human can edit them without touching code, and adding a new verification step means editing JSON, not deploying a script.
@@ -101,7 +101,7 @@ Every two hours: the script runs. Gaps found → exit `1` → the cron agent dis
 
 One catch: each cron run spawns a **fresh agent session** with no session memory. It doesn't know the project's architecture, the migration rules, or the queue workflow.
 
-The answer was a single self-contained file — `.state/wiki_context.md` — that onboards any fresh session:
+The answer was a single self-contained file, `.state/wiki_context.md`, that onboards any fresh session:
 
 - project architecture (services, ports, Docker stack)
 - migration rules (no Tauri calls, use the API client)
@@ -112,7 +112,7 @@ The verification script now prints the context file's path, so the cron agent's 
 
 ## Stage 6: "done" gets five concrete conditions
 
-With the loop running, I made completion explicit — five conditions, all mechanically checkable:
+With the loop running, I made completion explicit: five conditions, all mechanically checkable:
 
 | # | Condition | Check |
 |---|-----------|-------|
@@ -124,34 +124,34 @@ With the loop running, I made completion explicit — five conditions, all mecha
 
 Two more behaviors keep the system honest under real-world conditions:
 
-- **New work appends itself.** Subagents that discover additional work — a missing dependency, a build failure, a new endpoint — append it to the backlog with its own check command instead of silently absorbing it.
+- **New work appends itself.** Subagents that discover additional work (a missing dependency, a build failure, a new endpoint) append it to the backlog with its own check command instead of silently absorbing it.
 - **Blocks get detected.** Five consecutive cycles with zero progress → the loop stops and reports BLOCKED, instead of spinning forever on a gap that needs a human.
 
 Queue-driven beats linear-phase here: items can be reordered, dispatched in parallel, appended dynamically. Linear phase plans can't absorb discovery.
 
 ## Stage 7: the verifier itself gets verified
 
-A late-stage bug added one more layer I think about more than the rest. At some point a queue item's check was just `cargo check` — the build compiles, so mark done. But a clean build proves *nothing* about whether a specific endpoint exists. The script now keeps a list of checks that are **too broad to be sufficient on their own** and rejects them:
+A late-stage bug added one more layer I think about more than the rest. At some point a queue item's check was just `cargo check`: the build compiles, so mark done. But a clean build proves *nothing* about whether a specific endpoint exists. The script now keeps a list of checks that are **too broad to be sufficient on their own** and rejects them:
 
 ```
-BROAD_CHECK_REJECTED: 'cargo check ...' — must grep for endpoint-specific code
+BROAD_CHECK_REJECTED: 'cargo check ...' : must grep for endpoint-specific code
 ```
 
-The pattern is general: the first verification you write is usually weaker than you think, and it fails *while making you feel safe*. The same defect from stage 2 (existence ≈ implementation) resurfaced in a new form (compiles ≈ exists), and only an explicit policy against it — enforced by the script, not by memory — caught it.
+The pattern is general: the first verification you write is usually weaker than you think, and it fails *while making you feel safe*. The same defect from stage 2 (existence ≈ implementation) resurfaced in a new form (compiles ≈ exists), and only an explicit policy against it, enforced by the script rather than by memory, caught it.
 
 ## What this is, in one paragraph
 
 An agent's self-report is a claim. A check command's exit code is a fact. Everything above is the machinery that converts claims into facts:
 
-1. **Queue** — explicit state in JSON; any session can see what's pending
-2. **Checks** — executable, file-specific, able to fail visibly
-3. **Loop** — cron re-runs verification; gaps spawn work; termination is evidence
-4. **Context file** — fresh sessions onboard from disk, not from memory
-5. **Completion criteria** — five conditions, all mechanical
-6. **Meta-verification** — the verifier's rules are enforced by the script itself
+1. **Queue**: explicit state in JSON; any session can see what's pending
+2. **Checks**: executable, file-specific, able to fail visibly
+3. **Loop**: cron re-runs verification; gaps spawn work; termination is evidence
+4. **Context file**: fresh sessions onboard from disk, not from memory
+5. **Completion criteria**: five conditions, all mechanical
+6. **Meta-verification**: the verifier's rules are enforced by the script itself
 
-I've since run the same loop in two more projects. The same `.state/` layout — queue JSON, context file, check commands — is now my standard operating procedure. It's not glamorous. It's also the reason I can open any project on any machine, run one command, and know exactly what's true.
+I've since run the same loop in two more projects. The same `.state/` layout (queue JSON, context file, check commands) is now my standard operating procedure. It's not glamorous. It's also the reason I can open any project on any machine, run one command, and know exactly what's true.
 
 ## Why this matters
 
-This is the same discipline that separates a governed agent programme from a demo. My [executable enterprise architecture](2026-07-01-executable-enterprise-architecture.md) work is built on the identical idea: a policy written in prose is a claim, and a policy you can *run* is a control. "The agent should verify its work" in a governance document is worth nothing until something — a check command, a CI gate, an exit code — enforces it.
+This is the same discipline that separates a governed agent programme from a demo. My [executable enterprise architecture](2026-07-01-executable-enterprise-architecture.md) work is built on the identical idea: a policy written in prose is a claim, and a policy you can *run* is a control. "The agent should verify its work" in a governance document is worth nothing until something (a check command, a CI gate, an exit code) enforces it.
