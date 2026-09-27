@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Observability Stack: Architecture for multi-agent AI systems
+title: "Observability Stack: Architecture for multi-agent AI systems"
 tags:
   - observability
   - docker

@@ -2,7 +2,7 @@
 layout: post
 title: Private AI Must be part of the Enterprise AI Strategy
 date: 2026-08-06
-description: "The real strategic question isn't 'which LLM vendor?" It's 'who owns your AI intelligence?' Exclusive cloud AI creates compliance exposure and fragments organisational learning. A private-core, cloud-edge architecture delivers data sovereignty, predictable economics, and a compounding competitive moat. Here's the case for making private AI a core strategic pillar."
+description: "The real strategic question isn't 'which LLM vendor?' It's 'who owns your AI intelligence?' Exclusive cloud AI creates compliance exposure and fragments organisational learning. A private-core, cloud-edge architecture delivers data sovereignty, predictable economics, and a compounding competitive moat. Here's the case for making private AI a core strategic pillar."
 tags:
   - AI-Strategy
   - Private-AI

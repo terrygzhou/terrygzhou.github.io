@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 """Pre-commit validator for blog posts.
 
-Catches two table rendering bugs:
+Catches three classes of defects:
   1. Invisible characters (NBSP, ZWS, etc.) that break CommonMark pipe alignment
   2. Tables touching headings/fences without a blank line separator
+  3. Broken or incomplete front matter — Jekyll silently drops the whole block
+     on a YAML parse error (losing layout/title/date, which on GitHub Pages
+     makes the post URL fall back to the build-time mtime)
 """
 import re, sys, os, pathlib
 
 POSTS = pathlib.Path(__file__).parent / "_posts"
+try:
+    import yaml
+except ImportError:
+    yaml = None
 INVISIBLE_RE = re.compile(
     r"[\u00a0\u200b\u202b\u202c\u202d\u202e\u2060\ufeff]"
 )
@@ -54,6 +61,32 @@ for md in sorted(POSTS.glob("*.md")):
                     errors += 1
                     print(f"  {md.name}: table row {i+1} directly before fence line {j+1} (no blank line)")
             break
+
+# ── 3. Front matter sanity ───────────────────────────────────────────
+if yaml is None:
+    print("  note: PyYAML not available — front-matter YAML check skipped")
+else:
+    FM_RE = re.compile(r"^---\n(.*?)\n---\n", re.S)
+    for md in sorted(POSTS.glob("*.md")):
+        m = FM_RE.match(md.read_text())
+        if not m:
+            errors += 1
+            print(f"  {md.name}: missing front matter block")
+            continue
+        try:
+            data = yaml.safe_load(m.group(1))
+            if not isinstance(data, dict):
+                errors += 1
+                print(f"  {md.name}: front matter is not a mapping")
+                continue
+            for key in ("title", "date"):
+                if key not in data:
+                    errors += 1
+                    print(f"  {md.name}: front matter missing required key '{key}' "
+                          f"(Jekyll falls back to mtime/dateless URL)")
+        except yaml.YAMLError as e:
+            errors += 1
+            print(f"  {md.name}: front matter YAML parse error: {str(e).splitlines()[0]}")
 
 if errors:
     sys.exit(1)
