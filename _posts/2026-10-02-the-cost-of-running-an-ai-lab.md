@@ -100,7 +100,7 @@ Running five tenants and twenty-plus projects, the GPU sees 8–12 in-flight age
 
 The trade is honest: SGLang's single-request TPOT is lower (60 vs 150). For a company, that's the wrong metric to optimise. What you optimise is **stable per-tenant delivery** and **queue time under load**. A predictable 60 tok/s for every tenant, every hour, with a near-zero queue, beats an unpredictable 150 that spikes queue time and starves tenant three while tenant two's long conversation hogs the KV pool.
 
-![SGLang throughput dashboard](../assets/sglang-metric.png)
+![SGLang throughput dashboard](/assets/sglang-metric.png)
 
 ---
 
