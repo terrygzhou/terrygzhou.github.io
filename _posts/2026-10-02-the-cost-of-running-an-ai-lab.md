@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The Cost of Running an AI Lab in local AI
+title: The Cost of Running an AI Lab in locally
 date: 2026-10-02
 tags:
   - agentic-ai
@@ -13,10 +13,10 @@ tags:
   - open-source
   - ai-infrastructure
   - performance
-description: "Eight months running an AI lab on local AI: the GPU-as-capex cost model, the engine path from vLLM to SGLang, and why prefix caching — not raw speed — is what made five tenants and twenty projects affordable on one box before shipping to clients."
+description: "Eight months running an AI lab locally: the GPU-as-capex cost model, the engine path from vLLM to SGLang, and why prefix caching — not raw speed — is what made five tenants and twenty projects affordable on one box before shipping to clients."
 ---
 
-Running Eywalink, an AI lab is cheap at the model layer and expensive everywhere else. Over eight months, one server of RTX 5090 (32GB) carried every inference workload for a 5-tenant, 20+ projects development before shipment. The cost equation is dominated by four budgets you can actually control — and the serving engine you pick decides whether those budgets stay in range.
+Running Eywalink, an AI lab, is cheap at the model layer and expensive everywhere else. Over eight months, one Mac and a server of RTX 5090 (32GB) carried every inference workload for a 5-tenant, 20+ projects development before shipment. The cost equation is dominated by four budgets you can actually control — and the serving engine you pick decides whether those budgets stay in range.
 
 The engine path was: Ollama for the playground, llama.cpp for client demos, vLLM for testing and dev, then SGLang for production. Each stage was a capability decision, not a preference. Below is the cost model, the four-stage engine path, and the vLLM-vs-SGLang numbers that matter when you're not running one chat — you're running a company.
 
@@ -24,16 +24,16 @@ The engine path was: Ollama for the playground, llama.cpp for client demos, vLLM
 
 ## The cost model: GPU-as-capex, not LLM-as-bill
 
-Eywalink's financial model is simple: **treat the GPU as a one-time capital expense, keep every software layer open-source, and eliminate the per-token line.** The recurring costs that remain are electricity, a cloud API fallback for research and edge reasoning, and a slice of host ops. Everything else — the model (Qwen), the engine (SGLang), the router (LiteLLM), the vector layer (Qdrant) — is free at the license level.
+Eywalink's financial model is simple: **treat the GPU as a one-time capital expense, keep every software layer open-source, and eliminate the per-token line.** The recurring costs that remain are electricity, a cloud API fallback for research and edge reasoning, and a slice of host ops. Everything else — the model (Qwen), the engine (SGLang), the router (LiteLLM), the knowledge layer (Qdrant + Neo4J) — is free at the license level.
 
-That structure is what makes a one-person company viable at all. The offering is productised: a repeatable AI Centre setup ($5–15K AUD), application development ($10–30K), and a managed-AI retainer ($2–5K/month). Each tier is delivered from the same box. Because the marginal compute cost of tenant six and project twenty-one is near-zero — they share the GPU and the shared-prefix cache — volume scales without the revenue-to-cost curve that kills per-token SaaS margins.
+That structure is what makes a one-person company viable at all. The offering is productised: a repeatable AI Centre setup, FDE development, and a managed-AI retainer. Each tier is delivered from the same box. Because the marginal compute cost of tenant six and project twenty-one is near-zero — they share the hardware and the shared-prefix cache — volume scales without the revenue-to-cost curve that kills per-token SaaS margins.
 
 | Cost element                                                            | Model               | 8-month behaviour                                  |
 | ----------------------------------------------------------------------- | ------------------- | -------------------------------------------------- |
 | GPU (RTX 5090, 32 GB) + Mac                                             | CapEx, one-time     | Fixed; amortised across all tenants                |
-| Model weights (Qwen-27B NVFP4)                                          | Free (open weights) | Swap 3.6 → 3.8 in place, no re-buy                 |
-| LLM APIs (openai, claude, deepseek, openroute)                          | various             | Small; used on clients' specific demands           |
-| Serving engine (SGLang)                                                 | Free (open source)  | No per-token, no license                           |
+| Model weights (Qwen-27B NVFP4)                                          | Free (open weights) | Swap 3.5 → 3.8 in place, no re-buy                 |
+| LLM APIs (openai, claude, deepseek, openroute)                          | various             | Used on clients' specific demands                  |
+| Serving engine (SGLang) with concurrency 4-8                            | Free (open source)  | No per-token, no license                           |
 | AI gateway (LiteLLM)                                                    | Free                | Cost-aware fallback, unified API                   |
 | Knowledge (Qdrant + Neo4J, ~900K points)                                | Free                | Grows with data, not with requests, storage needed |
 | Control panel and harness(Pi, hermes, Paperclip, Codex, Opencode, DSH ) | Free (open source)  | grows demanding another 4TB storage                |
