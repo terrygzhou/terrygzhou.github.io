@@ -373,27 +373,20 @@ function umamiBeforeSend(type, payload) {
 }
 </style>
 
-<!-- Blog views counter — Matomo live per-post visit counts (eye icon) -->
+<!-- Blog views counter — all-time per-post visit counts (eye icon).
+     Data source: assets/views-data.json, generated hourly on the VPS from
+     the Matomo database (this Matomo instance's public API plugin is
+     unavailable, so we read the DB directly). Same-origin fetch, no token.
+     Graceful: if the JSON is missing/stale, chips stay "…". -->
 <script>
 (function () {
-  // Matomo (self-hosted at matomo.eywalink.org), site id 2, cookieless.
-  // Pulls today's per-URL visit counts and fills [data-views-count] elements.
-  // Graceful: if the API is unreachable or needs a token, chips stay "…".
-  var SITE_ID = 2;
-  var API = 'https://matomo.eywalink.org/index.php?module=api&format=json&recursive=1&ids=' + SITE_ID + '&date=today&period=day&showTimerangefilter=false';
+  var SRC = 'https://terrygzhou.github.io/assets/views-data.json';
   function fmtLabel(n) {
     n = n | 0;
     return n + (n >= 2 ? ' views' : ' view');
   }
-  function updateAll(rows) {
-    var counts = {};
-    for (var i = 0; i < rows.length; i++) {
-      var row = rows[i];
-      var name = row['url_name'] || '';
-      if (!name || name === '-' || name === 'index.php') continue;
-      var key = String(name).replace(/^\//, '');
-      counts[key] = (counts[key] || 0) + (parseInt(row['nb_visits'], 10) || 0);
-    }
+  function updateAll(data) {
+    var counts = data.views || {};
     var els = document.querySelectorAll('[data-views-count]');
     for (var j = 0; j < els.length; j++) {
       var el = els[j];
@@ -405,7 +398,7 @@ function umamiBeforeSend(type, payload) {
     }
   }
   function load() {
-    fetch(API)
+    fetch(SRC)
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
       .then(updateAll)
       .catch(function () { /* keep "…" placeholder on any error */ });
