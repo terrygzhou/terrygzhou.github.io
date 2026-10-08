@@ -414,18 +414,49 @@ function umamiBeforeSend(type, payload) {
 </script>
 
 <style>
-/* Footer EyWALink link icon */
-.footer-links__eywa {
+/* EYW-484: header EyWALink link replaces theme "Follow me on GitHub" button */
+.header-eywa {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1rem;
   font-weight: 500;
+  padding: 0;
+  cursor: pointer;
 }
-.footer-links__eywa-icon {
+.header-eywa-icon {
   width: 20px;
   height: 20px;
   border-radius: 4px;
   vertical-align: middle;
 }
-</style>
+
+<script>
+(function () {
+  function replace() {
+    var header = document.querySelector('header .inner');
+    if (!header) return;
+    var btn = header.querySelector('a.button');
+    if (btn && /github/i.test(btn.getAttribute('href') || '')) {
+      var a = document.createElement('a');
+      a.href = 'https://www.eywalink.org';
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.className = 'header-eywa';
+      a.innerHTML = '<img src="/assets/eywalink-logo-simple.svg" alt="EyWALink" width="20" height="20" class="header-eywa-icon" aria-hidden="true"><small>Follow us at</small> EyWALink';
+      btn.replaceWith(a);
+      return;
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', replace);
+  } else {
+    replace();
+  }
+})();
+</script>
 <!-- build-force: 2026-10-09 09:34:49 -->
