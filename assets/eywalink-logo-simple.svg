@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- dark rounded square container -->
+  <rect x="32" y="32" width="960" height="960" rx="200" fill="#0F172A"/>
+
+  <!-- minimalist eye: single almond outline, gradient stroke -->
+  <path d="M 232 512 C 340 372, 684 372, 792 512 C 684 652, 340 652, 232 512 Z"
+        fill="none" stroke="url(#g)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- single iris dot, centered -->
+  <circle cx="512" cy="512" r="56" fill="#14B8A6"/>
+
+  <!-- 4 link nodes with connection lines to the eye (network / link) -->
+  <g stroke="#5EEAD4" stroke-width="5" opacity="0.8">
+    <line x1="512" y1="182" x2="512" y2="444"/>
+    <line x1="842" y1="512" x2="580" y2="512"/>
+    <line x1="182" y1="512" x2="444" y2="512"/>
+    <line x1="512" y1="842" x2="512" y2="580"/>
+  </g>
+  <g fill="#5EEAD4">
+    <circle cx="512" cy="182" r="24"/>
+    <circle cx="842" cy="512" r="24"/>
+    <circle cx="182" cy="512" r="24"/>
+    <circle cx="512" cy="842" r="24"/>
+  </g>
+</svg>
