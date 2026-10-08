@@ -383,7 +383,7 @@ function umamiBeforeSend(type, payload) {
   var SRC = 'https://terrygzhou.github.io/assets/views-data.json';
   function fmtLabel(n) {
     n = n | 0;
-    return n + (n >= 2 ? ' views' : ' view');
+    return String(n);
   }
   function updateAll(data) {
     var counts = data.views || {};

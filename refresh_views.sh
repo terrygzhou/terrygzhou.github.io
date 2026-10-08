@@ -18,14 +18,11 @@ OUT="$BLOG/assets/views-data.json"
 cd "$BLOG"
 
 # 1. Generate the JSON (PHP runs inside the matomo container, PHP 8.2).
+docker cp "$BLOG/views_feed.php" matomo:/tmp/views_feed.php
 json="$(docker exec --env-file "$MCOMPOSE_DIR/.env" matomo \
-  php -r 'require "/tmp/views_feed.php";' 2>/dev/null)" || {
-  # fallback: copy the script in first
-  docker cp "$BLOG/views_feed.php" matomo:/tmp/views_feed.php
-  json="$(docker exec --env-file "$MCOMPOSE_DIR/.env" matomo \
-    php -r 'require "/tmp/views_feed.php";')"
-}
-printf '%s' "$json" | php -r 'json_decode(stream_get_contents(STDIN), true, 512, JSON_THROW_ON_ERROR);' \
+  php -r 'require "/tmp/views_feed.php";')" \
+  || { echo "views refresh: PHP generation failed" >&2; exit 1; }
+printf '%s' "$json" | python3 -c 'import json,sys; json.load(sys.stdin)' \
   || { echo "views refresh: generated JSON is invalid, aborting" >&2; exit 1; }
 
 # 2. Write atomically; only commit if content changed.
