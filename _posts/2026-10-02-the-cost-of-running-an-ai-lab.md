@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The Cost of Running an AI Lab in locally
+title: The Cost of Running an AI Lab in Local AI
 date: 2026-10-02
 tags:
   - agentic-ai
