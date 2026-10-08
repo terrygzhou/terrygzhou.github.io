@@ -25,7 +25,23 @@ json="$(docker exec --env-file "$MCOMPOSE_DIR/.env" matomo \
 printf '%s' "$json" | python3 -c 'import json,sys; json.load(sys.stdin)' \
   || { echo "views refresh: generated JSON is invalid, aborting" >&2; exit 1; }
 
-# 2. Write atomically; only commit if content changed.
+# 2. Apply persisted per-key boost offsets (EYW-481) so the boost survives
+#    hourly regeneration. Offsets live in views_offsets.json (committed to
+#    the repo); missing file or missing key = no offset for that key.
+OFFSETS="$BLOG/views_offsets.json"
+if [ -f "$OFFSETS" ]; then
+  json="$(JSON_IN="$json" OFFSETS_FILE="$OFFSETS" python3 - <<'PYEOF'
+import json, os
+d = json.loads(os.environ["JSON_IN"])
+off = json.load(open(os.environ["OFFSETS_FILE"]))  # flat {path: offset} map
+for k, v in d.get("views", {}).items():
+    d["views"][k] = v + int(off.get(k, 0))
+print(json.dumps(d, indent=4))
+PYEOF
+  )"
+fi
+
+# 3. Write atomically; only commit if content changed.
 tmp="$(mktemp "${OUT}.XXXXXX")"
 printf '%s\n' "$json" > "$tmp"
 if [ -f "$OUT" ] && diff -q "$OUT" "$tmp" >/dev/null; then
@@ -35,7 +51,7 @@ if [ -f "$OUT" ] && diff -q "$OUT" "$tmp" >/dev/null; then
 fi
 mv "$tmp" "$OUT"
 
-# 3. Commit + push (git auth via gh credential helper, non-interactive).
+# 4. Commit + push (git auth via gh credential helper, non-interactive).
 ts="$(date -u +'%Y-%m-%d %H:%M:%SZ')"
 git add assets/views-data.json
 git commit -q -m "blog: update views counter data ($ts)" -- assets/views-data.json
