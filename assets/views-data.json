@@ -1,8 +1,9 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-10-08T22:19:13+00:00",
+    "generated_at": "2026-10-08T23:15:01+00:00",
     "views": {
-        "index.html": 67,
+        "index.html": 73,
+        "?watchdog=1": 1,
         "2026/05/30/hello-world.html": 12,
         "2026/06/03/impossible-triangle-of-llms.html": 16,
         "2026/06/06/buy-or-build.html": 76,
@@ -18,11 +19,11 @@
         "2026/09/03/arckit-oaa-open-agile-architecture.html": 32,
         "2026/09/12/when-your-agent-says-done.html": 42,
         "2026/09/21/plantuml-archimate-agent-diagrams.html": 61,
-        "2026/09/27/from-one-agent-to-a-company-of-agents.html": 62,
-        "2026/10/02/the-cost-of-running-an-ai-lab.html": 56,
+        "2026/09/27/from-one-agent-to-a-company-of-agents.html": 63,
+        "2026/10/02/the-cost-of-running-an-ai-lab.html": 57,
         "post": 12,
         "posts/": 86,
-        "tags/": 55,
-        "": 92
+        "tags/": 56,
+        "": 135
     }
 }
