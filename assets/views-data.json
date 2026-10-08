@@ -1,10 +1,10 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-10-08T11:51:24+00:00",
+    "generated_at": "2026-10-08T12:15:02+00:00",
     "views": {
-        "index.html": 38,
+        "index.html": 39,
         "2026/05/30/hello-world.html": 1,
-        "2026/06/03/impossible-triangle-of-llms.html": 1,
+        "2026/06/03/impossible-triangle-of-llms.html": 2,
         "2026/06/06/buy-or-build.html": 1,
         "2026/06/25/agent-workflow-pattern-practice.html": 1,
         "2026/07/01/executable-enterprise-architecture.html": 5,
@@ -23,6 +23,6 @@
         "post": 1,
         "posts/": 2,
         "tags/": 2,
-        "": 38
+        "": 39
     }
 }
