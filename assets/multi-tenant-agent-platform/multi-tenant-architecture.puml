@@ -1,0 +1,145 @@
+@startuml
+' ArchiMate-styled view of the EyWALink multi-tenant agent platform.
+' One shared control plane hosts many companies; each company has its own
+' org tree of agents, and each agent binds its own harness + LLM + skills.
+' Agents are assigned to tasks against the projects that belong to their
+' company. Render: java -jar /home/terry/tools/plantuml.jar -charset UTF-8
+' file.puml
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 8
+skinparam nodesep 40
+skinparam ranksep 38
+skinparam ArrowColor #5a6b7b
+skinparam linetype ortho2
+skinparam archimate {
+    roundCorner 0
+    FontSize 12
+}
+skinparam package {
+  BackgroundColor #f4f8fc
+  BorderColor #9fb6c9
+  FontSize 14
+  FontStyle bold
+}
+
+title <size:18><b>EyWALink multi-tenant agent platform <i>(ArchiMate view)</i></b></size>
+
+' ----------------------------------------------------------------------
+' Human board — spans all tenants, sees a consolidated P&L + spend view
+' ----------------------------------------------------------------------
+archimate #Strategy "Human Board\\ncross-tenant P&L · spend · delivery\\n(budget override · termination)" as BOARD
+
+' ----------------------------------------------------------------------
+' Shared control plane (the platform). Built over Paperclip, multi-harness.
+' Every tenant is isolated here: own org tree, queue, budget envelope.
+' ----------------------------------------------------------------------
+package "Shared control plane — EyWALink agentic platform (over Paperclip)" as PLATFORM {
+  archimate #Application "Tenancy boundary\\nper-tenant org tree · queue · budget · lines" as TENB
+  archimate #Application "Issue queue\\ndemands + tasks, per tenant" as QUEUE
+  archimate #Application "Heartbeat scheduler\\nresume-not-restart wakes" as HBT
+  archimate #Application "Budget engine\\nenvelopes · auto-pause on overrun" as BUDG
+  archimate #Application "Org-tree registry\\nstrict tree · single mgr · escalation" as TREE
+  ' two compact rows:
+  TENB -[hidden]right-> QUEUE
+  QUEUE -[hidden]right-> HBT
+  HBT -[hidden]down-> BUDG
+  BUDG -[hidden]right-> TREE
+}
+
+' ----------------------------------------------------------------------
+' Company A — a deep 3-tier org, engaged on a fintech client
+' ----------------------------------------------------------------------
+package "Company A — fintech client engagement (3-tier org)" as TANA {
+  archimate #Application "CEO agent\\nharness: Hermes\\nLLM: Qwen3.8-27B (local)\\nskills: triage · delegate · merge" as A_CEO
+  archimate #Application "Proposal Engineer\\nharness: Pi code\\nLLM: Qwen3.8-27B (local)\\nskills: catalogue grounding · cost table" as A_PROP
+  archimate #Application "QA agent\\nharness: OpenCode\\nLLM: Qwen3.8-27B (local)\\nskills: review · verify deliverable" as A_QA
+  archimate #Application "Content agent\\nharness: DSH\\nLLM: Qwen3.8-27B (local)\\nskills: draft · channel · publish" as A_CONT
+  A_CEO -down-> A_PROP : reports to
+  A_CEO -down-> A_QA : reports to
+  A_CEO -down-> A_CONT : reports to
+
+  archimate #Strategy "Project A-1\\ncommercial proposal —\\nClient X API integration" as A_P1
+  archimate #Strategy "Project A-2\\nsupport onboarding\\n+ SLA review" as A_P2
+  A_P1 -[hidden]right-> A_P2
+}
+
+' ----------------------------------------------------------------------
+' Company B — a flat 2-tier org, a government department
+' ----------------------------------------------------------------------
+package "Company B — government department (flat 2-tier org)" as TANB {
+  archimate #Application "CEO agent\\nharness: Codex\\nLLM: Qwen3.8-27B (local)\\nskills: triage · delegate" as B_CEO
+  archimate #Application "Delivery agent\\nharness: DSH\\nLLM: Qwen3.8-27B (local)\\nskills: docs · compliance · delivery" as B_DEL
+  B_CEO -down-> B_DEL : reports to
+
+  archimate #Strategy "Project B-1\\ncompliance review\\n+ public-asset audit" as B_P1
+}
+
+' ----------------------------------------------------------------------
+' More tenants — same platform, different shapes
+' ----------------------------------------------------------------------
+package "Company C … N\\n(same control plane,\\nper-client structures)" as TANC #eef3f8
+
+' ----------------------------------------------------------------------
+' Technology layer — shared harness + LLM pool each agent binds into
+' ----------------------------------------------------------------------
+package "Shared harness & model layer" as TECH {
+  archimate #Technology "Pi code" as H_PI
+  archimate #Technology "Codex" as H_CDX
+  archimate #Technology "Hermes" as H_HM
+  archimate #Technology "OpenCode" as H_OC
+  archimate #Technology "DSH" as H_DSH
+  archimate #Technology "Local LLMs\\nQwen3.8-27B · SGLang (owned, no cloud)" as LLM
+  ' two compact rows:
+  H_PI -[hidden]right-> H_CDX
+  H_CDX -[hidden]right-> H_HM
+  H_HM -[hidden]down-> H_OC
+  H_OC -[hidden]right-> H_DSH
+  H_DSH -[hidden]down-> LLM
+}
+
+' ----------------------------------------------------------------------
+' Board ↔ platform : consolidated roll-up
+' ----------------------------------------------------------------------
+BOARD -down-> PLATFORM : consolidated P&L + spend
+
+' ----------------------------------------------------------------------
+' Platform isolation: each tenant's queue/org/budget is fenced off.
+' ----------------------------------------------------------------------
+PLATFORM -down-> TANA : tenant fence
+PLATFORM -down-> TANB : tenant fence
+PLATFORM -down-> TANC : tenant fence
+
+' ----------------------------------------------------------------------
+' Assignment: agents work tasks against their company's projects.
+' CEO decomposes project into issues in the queue, assigns to workers.
+' ----------------------------------------------------------------------
+A_CEO -down-> A_P1 : decomposes into issues
+A_CEO -down-> A_P2 : decomposes into issues
+A_PROP ..> A_P1 : assigned · EYW-412
+A_CONT ..> A_P2 : assigned
+B_CEO -down-> B_P1 : decomposes into issues
+B_DEL ..> B_P1 : assigned
+
+' ----------------------------------------------------------------------
+' Runtime binding: representative agent -> harness -> LLM.
+' (Each agent binds its own harness + LLM from the shared pool.)
+' ----------------------------------------------------------------------
+A_CEO -down-> H_HM : runs on
+A_PROP -down-> H_PI : runs on
+A_CONT -down-> H_DSH : runs on
+B_CEO -down-> H_CDX : runs on
+B_DEL -down-> H_DSH : runs on
+' all harnesses share the owned local-model pool (no per-agent cloud key)
+H_HM -down-> LLM : shared model pool
+
+' ----------------------------------------------------------------------
+' Heartbeat + budget reach every tenant's agents (platform-level control)
+' ----------------------------------------------------------------------
+HBT .down.> TANA : wakes
+HBT .down.> TANB : wakes
+BUDG .down.> TANA : bounds spend
+BUDG .down.> TANB : bounds spend
+
+@enduml

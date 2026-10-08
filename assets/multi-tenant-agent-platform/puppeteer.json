@@ -1,0 +1,4 @@
+{
+  "executablePath": "/home/terry/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome",
+  "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+}

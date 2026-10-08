@@ -1,0 +1,84 @@
+%%{init: {'flowchart': {'nodeSpacing': 15, 'rankSpacing': 25, 'diagramPadding': 8}}}%%
+flowchart LR
+
+  %% ================= COLUMN 1: Human board =================
+  BOARD["<b>Human Board</b><br/>cross-tenant P&L · spend<br/>budget override · termination"]
+
+  %% ================= COLUMN 2: Shared control plane =================
+  subgraph PLATFORM["<b>Shared control plane<br/>EyWALink agentic platform (over Paperclip)</b>"]
+    direction TB
+    TENB["<b>Tenancy boundary</b><br/>per-tenant tree · queue · budget"]
+    QUEUE["<b>Issue queue</b><br/>demands + tasks, per tenant"]
+    HBT["<b>Heartbeat</b><br/>resume-not-restart wakes"]
+    BUDG["<b>Budget engine</b><br/>envelopes · auto-pause on overrun"]
+    TREE["<b>Org-tree registry</b><br/>single mgr · escalation"]
+  end
+
+  %% ================= COLUMN 3: Tenants =================
+  subgraph TENANTS["<b>Tenants — per-client structures, same control plane</b>"]
+    direction TB
+    subgraph TANA["<b>Company A — fintech (3-tier)</b>"]
+      direction TB
+      A_CEO["<b>CEO agent</b><br/>Hermes · triage · delegate"]
+      A_PROP["<b>Proposal Eng.</b><br/>Pi code · catalogue · cost"]
+      A_QA["<b>QA agent</b><br/>OpenCode · review · verify"]
+      A_CONT["<b>Content agent</b><br/>DSH · draft · publish"]
+      A_P1["<i>Project A-1</i><br/>Client X API integration"]
+      A_P2["<i>Project A-2</i><br/>support onboarding · SLA"]
+    end
+    subgraph TANB["<b>Company B — government (flat 2-tier)</b>"]
+      direction TB
+      B_CEO["<b>CEO agent</b><br/>Codex · triage · delegate"]
+      B_DEL["<b>Delivery agent</b><br/>DSH · docs · compliance"]
+      B_P1["<i>Project B-1</i><br/>compliance · asset audit"]
+    end
+    TANC["<b>Company C … N</b><br/>same control plane<br/>per-client structures"]
+  end
+
+  %% ================= COLUMN 4: Shared harness layer =================
+  subgraph TECH["<b>Shared harness layer</b>"]
+    direction TB
+    H_PI["Pi code"]
+    H_CDX["Codex"]
+    H_HM["Hermes"]
+    H_OC["OpenCode"]
+    H_DSH["DSH"]
+  end
+
+  %% ================= COLUMN 5: LiteLLM AI gateway =================
+  GWY["<b>LiteLLM AI gateway</b><br/>model routing · fallback<br/>per-tenant key + spend metering"]
+
+  %% ================= COLUMN 6: LLM layer =================
+  subgraph MODELS["<b>LLM layer</b>"]
+    direction TB
+    M_QWEN["Qwen3.8-27B<br/>local owned · SGLang"]
+    M_GPT["GPT (cloud)"]
+    M_OTHER["… other models"]
+  end
+
+  %% ================= Intra-tenant edges =================
+  A_PROP -- reports to --> A_CEO
+  A_QA -- reports to --> A_CEO
+  A_CONT -- reports to --> A_CEO
+  A_CEO -- decomposes --> A_P1
+  A_CEO -- decomposes --> A_P2
+  A_PROP -. assigned · EYW-412 .-> A_P1
+  A_CONT -. assigned .-> A_P2
+  B_DEL -- reports to --> B_CEO
+  B_CEO -- decomposes --> B_P1
+  B_DEL -. assigned .-> B_P1
+
+  %% ================= Cross-band edges (all forward L->R) =================
+  BOARD -- consolidated P&L + spend --> PLATFORM
+  PLATFORM -- tenant fence --> TENANTS
+  HBT -. wakes .-> TENANTS
+  BUDG -. bounds spend .-> TENANTS
+  A_CEO -- runs on --> H_HM
+  A_PROP -- runs on --> H_PI
+  A_CONT -- runs on --> H_DSH
+  B_CEO -- runs on --> H_CDX
+  B_DEL -- runs on --> H_DSH
+  TECH -- routed --> GWY
+  GWY -- resolves --> M_QWEN
+  GWY -- resolves --> M_GPT
+  GWY -- resolves --> M_OTHER
