@@ -67,8 +67,10 @@ try {
 // optional trailing slash. The bare index (/blog/) yields an empty slug and
 // is dropped below (per-post counters only).
 //
-// Site 2 (mirror) — dated post paths terrygzhou.github.io/YYYY/MM/DD/<slug>.html
-// (a 4-segment date-path ending in .html). Slug = last segment minus .html.
+// Site 2 (mirror) — dated post paths. Canonical shape since the EYW-523
+// cutover: terrygzhou.github.io/YYYY-MM-DD/<slug>.html (2-segment /:date/:title.html);
+// legacy 4-segment terrygzhou.github.io/YYYY/MM/DD/<slug>.html URLs match too,
+// so pre-cutover history still counts. Slug = last segment minus .html.
 //
 // We match each site's URL shape with LIKE (no regex → no backslash escaping
 // pain) and sum pageviews per slug, then merge the two per-slug maps.
@@ -92,7 +94,10 @@ s2 AS (
     FROM log_link_visit_action l
     JOIN log_action a ON a.idaction = l.idaction_url
     WHERE l.idsite = 2 AND a.type = 1 AND l.idaction_url > 0
-      AND a.name LIKE 'terrygzhou.github.io/%/%/%/%.html'
+      AND (
+        a.name LIKE 'terrygzhou.github.io/%/%/%/%.html'      -- legacy 4-seg (pre-cutover history)
+     OR a.name LIKE 'terrygzhou.github.io/%/%.html'           -- 2-seg /:date/:title.html
+      )
     GROUP BY 1
 )
 SELECT COALESCE(s1.slug, s2.slug) AS slug,
