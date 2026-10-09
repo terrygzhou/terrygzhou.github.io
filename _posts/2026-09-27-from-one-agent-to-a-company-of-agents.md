@@ -77,13 +77,13 @@ Each tenant gets its own isolated org tree, issue queue, budget envelopes, and r
 
 In practice: different org shapes per tenant (flat two-tier for one, deep three-tier for another); the platform enforces *strictness* — single reporting line, named escalation — within whatever tree you define. Per-tenant harness selection: a compliance-heavy tenant pins agents to Hermes for audit trail; a fast-iteration tenant runs the same issue types on Codex or Pi for speed. Budget isolation with roll-up: a runaway agent in one tenant can't drain another's envelope.
 
-![EyWALink multi-tenant agent platform — ArchiMate view](../assets/multi-tenant-agent-platform/multi-tenant-architecture.png)
+![EyWALink multi-tenant agent platform — ArchiMate view](/assets/multi-tenant-agent-platform/multi-tenant-architecture.png)
 
 One shared mission control instance hosts every company. Each company owns its own org tree, issue queue, and budget envelope. Every agent binds its own harness (Pi code, Codex, Hermes, OpenCode, DSH) and its LLM from the shared, locally-owned model pool, and is assigned to tasks against the projects that belong to *its* company. The human board sits above all of it, reading a consolidated P&L.
 
 **EyWALink workflow platform** is the per-tenant execution plane: it connects to mission control and runs the actual multi-step workflows — the tool-calling sequences that turn an issue into a deliverable. Mission control handles *who, what, how much*; workflow platform handles *how*. Each tenant's workflows run in isolation, so one tenant's long-running pipeline can't starve another's.
 
-![EyWALink multi-tenant workflow platform — Mission Control provisions per-tenant Workflow Platform instances; both request LLM calls through the AI Gateway (LiteLLM) to the model layer](../assets/multi-tenant-agent-platform/multi-tenant-workflow.png)
+![EyWALink multi-tenant workflow platform — Mission Control provisions per-tenant Workflow Platform instances; both request LLM calls through the AI Gateway (LiteLLM) to the model layer](/assets/multi-tenant-agent-platform/multi-tenant-workflow.png)
 
 ---
 
@@ -117,7 +117,7 @@ EyWALink receives a demand: *"Prepare a contract proposal for Emfinestudio's new
 
 Everything inspectable, budgeted, attributable.
 
-![EYW-412 heartbeat flow, issue to board view](../assets/multi-tenant-agent-platform/eyw-412-heartbeat.png)
+![EYW-412 heartbeat flow, issue to board view](/assets/multi-tenant-agent-platform/eyw-412-heartbeat.png)
 
 A **work record**, not a chat: who did what, to what spec, at what cost, what's still open.
 
