@@ -387,20 +387,29 @@ function umamiBeforeSend(type, payload) {
     n = n | 0;
     return String(n);
   }
+  // Map a page's data-path ("/2026-10-02/some-post.html" or "/some-post.html")
+  // to the blog SLUG the combined JSON is keyed by: the last path segment with
+  // any .html extension stripped. This matches how views_feed.php keys counts,
+  // so the mirror shows the SAME combined site1+site2 total as eywalink.org.
+  function pathToSlug(dataPath) {
+    var p = (dataPath || '').replace(/^\//, '');
+    var seg = p.split('/').filter(Boolean).pop() || '';
+    return seg.replace(/\.html$/, '');
+  }
   function updateAll(data) {
     var counts = data.views || {};
     var els = document.querySelectorAll('[data-views-count]');
     for (var j = 0; j < els.length; j++) {
       var el = els[j];
-      var p = (el.getAttribute('data-path') || '').replace(/^\//, '');
-      var v = (counts[p] !== undefined) ? counts[p] : 0;
+      var slug = pathToSlug(el.getAttribute('data-path'));
+      var v = (counts[slug] !== undefined) ? counts[slug] : 0;
       el.textContent = fmtLabel(v);
       var chip = el.closest('[class*="views"]');
       if (chip) chip.setAttribute('aria-label', fmtLabel(v));
     }
   }
   function load() {
-    fetch(SRC)
+    fetch(SRC, { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
       .then(updateAll)
       .catch(function () { /* keep "…" placeholder on any error */ });
