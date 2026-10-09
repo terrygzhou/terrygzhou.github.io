@@ -414,25 +414,40 @@ function umamiBeforeSend(type, payload) {
 </script>
 
 <style>
-/* EYW-484: header EyWALink link replaces theme "Follow me on GitHub" button */
+/* EYW-492: header EyWALink link — larger icon, right-aligned beside Terry Zhou */
+header .inner {
+  position: relative;
+}
 .header-eywa {
+  position: absolute;
+  top: 48px;
+  right: 0;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: transparent;
   border: none;
   text-decoration: none;
-  color: inherit;
-  font-size: 1rem;
+  color: #fff;
+  font-size: 1.15rem;
   font-weight: 500;
   padding: 0;
   cursor: pointer;
 }
+.header-eywa:hover { color: #9ddcff; }
 .header-eywa-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
   vertical-align: middle;
+}
+/* Below 1024px the lede's first line (up to 30px at 768-959px) would run
+   under the absolute-positioned link, so flow it in normal flow instead. */
+@media only screen and (max-width: 1023px) {
+  .header-eywa {
+    position: static;
+    margin-top: 15px;
+  }
 }
 </style>
 
@@ -448,7 +463,7 @@ function umamiBeforeSend(type, payload) {
       a.target = '_blank';
       a.rel = 'noopener';
       a.className = 'header-eywa';
-      a.innerHTML = '<img src="/assets/eywalink-logo-simple.svg" alt="EyWALink" width="20" height="20" class="header-eywa-icon" aria-hidden="true">EyWALink';
+      a.innerHTML = '<img src="/assets/eywalink-logo-simple.svg" alt="EyWALink" width="44" height="44" class="header-eywa-icon" aria-hidden="true">EyWALink';
       btn.replaceWith(a);
       return;
     }
@@ -460,4 +475,4 @@ function umamiBeforeSend(type, payload) {
   }
 })();
 </script>
-<!-- build-force: 2026-10-09 09:34:49 -->
+<!-- build-force: 2026-10-09 11:59:42 -->
