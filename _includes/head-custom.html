@@ -383,9 +383,12 @@ function umamiBeforeSend(type, payload) {
 <script>
 (function () {
   var SRC = 'https://terrygzhou.github.io/assets/views-data.json';
+  // VIEWS_FLOOR: posts below N real views show 'New' (display-only floor).
+  // Single constant, trivial to tune; the JSON stays the real combined total.
+  var VIEWS_FLOOR = 10;
   function fmtLabel(n) {
     n = n | 0;
-    return String(n);
+    return n < VIEWS_FLOOR ? 'New' : String(n);
   }
   // Map a page's data-path ("/2026-10-02/some-post.html" or "/some-post.html")
   // to the blog SLUG the combined JSON is keyed by: the last path segment with
