@@ -1,8 +1,8 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-10-09T09:15:01+00:00",
+    "generated_at": "2026-10-09T10:15:01+00:00",
     "views": {
-        "index.html": 82,
+        "index.html": 83,
         "?watchdog=1": 1,
         "2026/05/30/hello-world.html": 12,
         "2026/06/03/impossible-triangle-of-llms.html": 16,
@@ -24,6 +24,6 @@
         "post": 12,
         "posts/": 86,
         "tags/": 56,
-        "": 144
+        "": 145
     }
 }
