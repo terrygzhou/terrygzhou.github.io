@@ -1,0 +1,48 @@
+%%{init: {'flowchart': {'nodeSpacing': 12, 'rankSpacing': 40, 'diagramPadding': 8}}}%%
+flowchart LR
+
+  %% ================= LEFT: Mission control plane =================
+  subgraph MC["<b>EyWALink mission control plane<br/>multi-tenant · who / what / how much</b>"]
+    direction TB
+    subgraph MC_T["Tenancy boundary — one box per tenant"]
+      direction TB
+      MTA["<b>Tenant A</b><br/>Emfinestudio · legal"]
+      MTB["<b>Tenant B</b><br/>fintech"]
+      MTC["<b>Tenant C …</b><br/>gov / other"]
+    end
+  end
+
+  %% ================= MID-LEFT: Workflow platform (per-tenant instances) =================
+  subgraph WP["<b>EyWALink workflow platform<br/>per-tenant execution plane · how</b>"]
+    direction TB
+    subgraph WPA["<b>Instance A — Emfinestudio</b>"]
+      direction TB
+      RTA1["<i>WF runtime · legal-review pipeline</i>"]
+      RTA2["<i>WF runtime · contract redline</i>"]
+    end
+    subgraph WPB["<b>Instance B — fintech</b>"]
+      direction TB
+      RTB1["<i>WF runtime · KYC / onboarding</i>"]
+      RTB2["<i>WF runtime · disclosure drafts</i>"]
+    end
+    WPC["<b>Instance C …</b> same platform · per-tenant isolation"]
+  end
+
+  %% ================= MID-RIGHT: AI Gateway (LiteLLM) =================
+  GWY["<b>LiteLLM AI gateway</b><br/>model routing · fallback<br/>per-tenant key + spend metering"]
+
+  %% ================= RIGHT: LLM layer =================
+  subgraph MODELS["<b>LLM layer</b>"]
+    direction TB
+    M_QWEN["Qwen3.8-27B<br/>local owned · SGLang"]
+    M_GPT["GPT (cloud)"]
+    M_OTHER["… other models"]
+  end
+
+  %% ================= Left → right edges =================
+  MC -- provisions tenant instances --> WP
+  MC -- requests model calls --> GWY
+  WP -- requests model calls --> GWY
+  GWY -- resolves --> M_QWEN
+  GWY -- resolves --> M_GPT
+  GWY -- resolves --> M_OTHER
