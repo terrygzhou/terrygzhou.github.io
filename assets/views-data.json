@@ -1,8 +1,8 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-10-09T04:15:01+00:00",
+    "generated_at": "2026-10-09T05:15:01+00:00",
     "views": {
-        "index.html": 81,
+        "index.html": 82,
         "?watchdog=1": 1,
         "2026/05/30/hello-world.html": 12,
         "2026/06/03/impossible-triangle-of-llms.html": 16,
@@ -20,10 +20,10 @@
         "2026/09/12/when-your-agent-says-done.html": 42,
         "2026/09/21/plantuml-archimate-agent-diagrams.html": 61,
         "2026/09/27/from-one-agent-to-a-company-of-agents.html": 63,
-        "2026/10/02/the-cost-of-running-an-ai-lab.html": 57,
+        "2026/10/02/the-cost-of-running-an-ai-lab.html": 58,
         "post": 12,
         "posts/": 86,
         "tags/": 56,
-        "": 143
+        "": 144
     }
 }
