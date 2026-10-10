@@ -28,6 +28,7 @@ Humans don’t run on silicon, but our cognitive architecture mirrors the same t
 | Speed          | Cognitive processing & reaction time    | We don’t optimize for raw throughput. We filter, prioritize, and deliberate.                |
 | Memory         | Working memory (about 4 to 7 meaningful chunks) | We compress, select or offload to notes, or forget strategically.                           |
 | Intelligence   | Crystallized knowledge & experience     | We learn continuously, embed knowledge in habits, experience it, and update without resets. |
+
 Humans face the same trade-offs, but we bypass them biologically. We don’t brute-force speed; we filter and prioritize. We don’t expand working memory; we compress, offload, or forget strategically. And we update knowledge continuously through experience, not resets. Humans don’t fight the triangle with more VRAM; we use sleep, tools, collaboration, and neuroplasticity. Real intelligence isn’t a fixed benchmark score; it’s a flexible toolkit.
 
 ## Which Corner I attempt to optimise? 
