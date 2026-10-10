@@ -152,13 +152,13 @@ If your organisation is thinking about an "AI workforce", the honest question is
 
 ---
 
-## The honest limits
+## The limits
 
 This is one person running two companies of agents, not a Fortune 500. What I *haven't* solved:
 - **Cost attribution to outcomes.** I can tell you what a heartbeat cost. I can't yet tell you what a *project* delivered, per dollar, in a way a board would accept. The P&L for an agent company is still hand-rolled.
-- **Cross-company coordination.** Two companies on one instance is fine. More, and the org trees start to need a federation story.
+- **Cross-company coordination.** Five companies on one instance is fine. More, and the org trees start to need a federation story.
 - **The human is still the board.** I'm the board of both companies. The moment I'm not, every one of these mechanisms, escalation, budget override, termination, needs a human behind it, and that human's attention is the scarcest resource in the whole system.
-- **Multi-tenant isolation at scale.** The tenancy boundary works for my two companies. I haven't stress-tested it against, say, twelve tenants with different security postures and regulatory requirements.
+- **Multi-tenant isolation at scale.** The tenancy boundary works for my five tenants. I haven't stress-tested it against, say, twelve tenants with different security postures and regulatory requirements.
 
 That's where the work is going. What's above mission control is a board that can read a P&L, an org that can run without me, and a platform that serves a dozen different client structures without configuration drift. That's what makes this a company instead of a hobby.
 

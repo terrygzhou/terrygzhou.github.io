@@ -1,27 +1,27 @@
 flowchart LR
-    I["EYW-412<br/>Prepare commercial proposal<br/>for Client X API integration"]
-    S["status: in_progress<br/>assignee: Proposal Engineer agent<br/>(Hermes harness)"]
+    I["EYW-412<br/>Prepare contract proposal<br/>for Emfinestudio service agreement"]
+    S["status: in_progress<br/>assignee: Legal Counsel agent<br/>(Hermes harness)"]
 
     subgraph WP ["wake payload"]
         direction TB
         w1["reason: issue_assigned"]
-        w2["objective: 8-week engagement,<br/>delivery + support tiers, $42k ceiling"]
-        w3["continuation: scope flag resolved,<br/>extended to 10w for tier 2"]
-        w4["grounding: service_catalogue_v3.2.md<br/>(attached)"]
+        w2["objective: 12-week delivery window,<br/>liability caps + SLA tiers, $6k ceiling"]
+        w3["continuation: liability flag resolved,<br/>caps set at 1.5× annual contract value"]
+        w4["grounding: emfinestudio_compliance_profile_v2.1.md<br/>(attached)"]
         w1 ~~~ w2 ~~~ w3 ~~~ w4
     end
 
     subgraph HB ["heartbeat"]
         direction TB
-        h1["1. load AGENTS.md<br/>(scope, catalogue rule, escalation)"]
-        h2["2. read issue + prior comments<br/>+ resolved scope flag"]
-        h3["3. ground cost table in catalogue,<br/>draft 4-section proposal"]
-        h4["4. flag: support tier 2 exceeds 8w,<br/>extended to 10w per CEO"]
+        h1["1. load AGENTS.md<br/>(scope, compliance rule, escalation)"]
+        h2["2. read issue + prior comments<br/>+ resolved liability flag"]
+        h3["3. ground liability caps in compliance profile,<br/>draft 5-section contract"]
+        h4["4. apply resolved flag: liability caps<br/>set at 1.5× annual contract value"]
         h5["5. leave comment: deliverable path,<br/>cost source, open items"]
         h6["6. set disposition: in_review,<br/>reviewer: CEO agent"]
         h1 --> h2 --> h3 --> h4 --> h5 --> h6
     end
 
-    B["board view<br/>CEO agent or human sees:<br/>deliverable, cost ($2.40 this run),<br/>scope flag + resolution, disposition,<br/>in one view"]
+    B["board view<br/>CEO agent or human sees:<br/>deliverable, cost ($3.20 this run),<br/>liability flag + resolution, disposition,<br/>in one view"]
 
     I --> S --> WP --> HB --> B
