@@ -1,14 +1,14 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-10-10T22:15:01+00:00",
+    "generated_at": "2026-10-10T23:15:01+00:00",
     "views": {
         "the-cost-of-running-an-ai-lab": 73,
+        "from-one-agent-to-a-company-of-agents": 49,
         "when-your-agent-says-done": 49,
         "digital-twin-that-scales": 47,
         "executable-enterprise-architecture": 47,
         "hello-world": 46,
         "bridging-the-e2e-testing-gap-superweb-testing": 45,
-        "from-one-agent-to-a-company-of-agents": 44,
         "managing-context-overflow-ai-coding-agents": 44,
         "agent-workflow-pattern-practice": 42,
         "manage-your-agents-in-enterprise": 42,
