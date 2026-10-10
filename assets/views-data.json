@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-10-10T01:29:45+00:00",
+    "generated_at": "2026-10-10T02:15:01+00:00",
     "views": {
         "the-cost-of-running-an-ai-lab": 73,
         "when-your-agent-says-done": 49,
@@ -14,7 +14,7 @@
         "manage-your-agents-in-enterprise": 42,
         "private-ai-must-be-in-your-ai-strategy": 39,
         "buy-or-build": 35,
-        "impossible-triangle-of-llms": 33,
+        "impossible-triangle-of-llms": 34,
         "why-zero-lock-in-matters-for-enterprise-ai": 33,
         "observability-architecture-for-agents": 32,
         "arckit-oaa-open-agile-architecture": 32,
