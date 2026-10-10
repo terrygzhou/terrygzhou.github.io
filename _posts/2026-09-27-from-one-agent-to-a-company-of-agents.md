@@ -2,6 +2,7 @@
 layout: post
 title: From One Agent to a Company of Agents
 date: 2026-09-27
+permalink: /2026-09-27/from-one-agent-to-a-company-of-agents
 tags:
   - ai-agents
   - agentic-architecture

@@ -2,6 +2,7 @@
 layout: post
 title: The Cost of Running an AI Lab in Local AI
 date: 2026-10-02
+permalink: /2026-10-02/the-cost-of-running-an-ai-lab
 tags:
   - agentic-ai
   - llm-runtime

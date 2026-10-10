@@ -2,6 +2,7 @@
 layout: post
 title: Manage Your AI Agents at Enterprise Scale
 date: 2026-07-07
+permalink: /2026-07-07/manage-your-agents-in-enterprise
 description: "Enterprises are deploying hundreds of AI agents but most lack a systematic way to govern, secure, and orchestrate them. The ArcKit Agent Architecture plugin brings Enterprise Architecture methodology to agent programmes, providing inventory, design, governance, security, and maturity workflows through six slash commands and a six-phase build recipe."
 tags:
   - AI-Agents

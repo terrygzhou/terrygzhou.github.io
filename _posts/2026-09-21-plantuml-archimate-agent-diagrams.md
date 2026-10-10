@@ -7,6 +7,7 @@ tags:
   - ai-agents
   - plantuml
 date: 2026-09-21
+permalink: /2026-09-21/plantuml-archimate-agent-diagrams
 description: "AI agents generate enterprise architecture content at a rate no diagram toolchain can keep up with. In Agentic Executable EA, agents produce capability maps, application landscapes, data-flow diagrams, and transition waves across TOGAF ADM phases and Open Agile Architecture. The bottleneck was never the modeling language. It was to maintain the balance to serve two audiences, humans and agents: a human architect who needs to review, challenge, and present the result, and an agent that must parse the structured source to generate scaffolding and execution plans."
 ---
 AI agents generate enterprise architecture content at a rate no diagram toolchain can keep up with. In [Agentic Executable EA](https://www.eywalink.org/resources/arckit-ea-whitepaper/), agents produce capability maps, application landscapes, data-flow diagrams, and transition waves across TOGAF ADM phases and OAA and OMG's UML. The bottleneck was never the diagram models. It was serving two audiences, humans and agents: a human architect who needs to review, challenge, and present the result, and an agent that must parse the structured source to generate scaffolding and execution plans.

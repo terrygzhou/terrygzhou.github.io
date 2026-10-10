@@ -7,6 +7,7 @@ tags:
   - LangGraph
   - Agentic-Architecture
 date: 2026-06-25
+permalink: /2026-06-25/agent-workflow-pattern-practice
 description: "Building software with AI agents means running iterative, self-improving loops instead of writing prompts by hand. This post distils three dominant LangGraph orchestration patterns: central orchestrator, LangGraph-as-orchestrator, and hierarchical subgraphs, compares their trade-offs, and shows how to bake human-in-the-loop and self-improvement into the design."
 ---
 > **TL;DR**: Building software with AI agents involves an iterative, feedback-driven looping process, instead of writing prompts manually. In my open-source project [`loop_engineering_factory`](https://github.com/terrygzhou/loop_engineering_factory), I’ve been developing an **AI agent-driven loop-engineering factories** that produce working software with minimal human intervention. 
