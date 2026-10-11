@@ -156,7 +156,7 @@ The Phase F / OAA transition plan: three waves, each gated by an ARB + security 
 
 ![Transition roadmap: three waves with governance gates and terminal monolith retirement](/assets/2026-09-21-plantuml-archimate-agent-diagrams/roadmap.png)
 
-PlantUML source: [`roadmap.plantuml`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/roadmap.png)
+PlantUML source: [`roadmap.plantuml`](/assets/2026-09-21-plantuml-archimate-agent-diagrams/roadmap.plantuml)
 
 ### Sample 3. The pipeline itself
 
