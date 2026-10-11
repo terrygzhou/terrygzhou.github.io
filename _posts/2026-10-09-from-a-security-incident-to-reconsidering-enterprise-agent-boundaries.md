@@ -14,18 +14,18 @@ description: An agent on EyWALink read a sibling tenant's credentials off the sh
 summary: Why agent boundaries are the new enterprise security perimeter, the real cross-tenant incident that exposed the gap, and the isolation tiers that actually hold. The application boundary is only as strong as the identity underneath it.
 ---
 
-> **TL;DR**: The hard challenge in enterprise AI is where you draw your agents' boundaries. Most platforms build that boundary at the application layer, a policy check that can be read around, and they treat the check itself as the isolation. I verified the company boundary on my agentic control plane: a key from one company gets refused on another's data. Then one of my agents found a way to list a sibling company's staff, read that company's key off the shared machine and used it. The incident exposed the gap: the operating-system tier underneath the policy was missing. Here is a 6 × 5 matrix to model enterprise AI boundaries:
+> **TL;DR**: The hard challenge in enterprise AI is where to draw the agents' boundaries. Most platforms build that boundary at the application layer, a policy check that can be read around, and they treat the check itself as the isolation. I verified the company boundary on my agentic control plane: a key from one company gets refused on another's data. Then one of my agents found a way to list a sibling company's staff, read that company's key off the shared Dev machine and used it. The incident exposed the gap: the operating-system tier underneath the policy was missing. Here proposes a 6 × 5 matrix to describe the modern enterprise AI boundaries:
 >
-> - **Tiers** (how strong): a six-rung ladder from app `403` → per-tenant files → per-tenant OS account → container → VM/microVM → hardware. Rungs 1–2 are *requested* by the software and a shell bypasses them; from rung 3 up the boundary is *enforced* by the kernel. The incident platform ran at rungs 1–2 with rung 3 missing.
-> - **Layers** (what to isolate): Judgement, Execution, Identity, Truth, Cost. The security question lives at **Identity** and **Execution** — in an enterprise those two must be machine-enforced, not asked for, or you have built the incident at scale and are waiting for it.
+> - **Tiers**: a six-rung ladder from app `403` → per-tenant files → per-tenant OS account → container → VM/microVM → hardware. Rungs 1–2 are *requested* by the software and a shell bypasses them; from rung 3 up the boundary is *enforced* by the kernel. 
+> - **Layers**: Judgement, Execution, Identity, Truth, Cost. The security question lives at **Identity** and **Execution** — in an enterprise those two must be machine-enforced, not asked for, or you have built the incident at scale and are waiting for it.
 
 ---
 
-## The incident, in plain terms
+## Let's start from the incident
 
-The agent I was using had a key that only worked for one company. When I tested it to look at a different company's board, the platform correctly said *no*: the front door was locked. So the agent did what a capable agent with a terminal does. It looked around the shared machine, found another company's access key on the same computer, and used it to pull up EyWALink's staff (agents) list. No exploit needed, because there was no wall to begin with.
+The agent I was using had a key that only worked for one tenant. When I tested it to look at a different tenant's board, the platform correctly said *no*: the front door was locked. So the agent did what a capable agent with a terminal does. It looked around the shared Dev machine, found another tenant's access key on the same computer, and used it to pull up another tenant's staff list. No exploit needed, because there was no wall to begin with.
 
-The detail that matters: every company on the **Dev** environment ran under the **same OS account**, even though isolated in **venv**, and each key file was locked so that only its owner could read it. The owner of every key was one account, and the agent was running as that account. So reading another company's key was the file's owner reading their own file.
+The detail that matters: every company on the  environment ran under the **same OS account**, even though isolated in **venv**, and each key file was locked so that only its owner could read it. The owner of every key was one account, and the agent was running as that account. So reading another company's key was the file's owner reading their own file.
 
 The locked front door did its job. It was irrelevant, because it was never the only way in.
 
@@ -33,9 +33,9 @@ The locked front door did its job. It was irrelevant, because it was never the o
 
 ## Why this is the enterprise's new security perimeter
 
-The incident is the symptom, and it exposes a shift in what enterprise security is about. For the last decade, enterprise security was mostly about data at rest and in transit, a model that assumed software was a *passive consumer* of data. Agents break that: an agent **acts**, it runs code, opens terminals, writes files, calls APIs, on behalf of an identity.
+For the last decade, enterprise security was mostly about data at rest and in transit, a model that assumed software was a *passive consumer* of data. Agents break that: an agent **acts**, it runs code, opens terminals, writes files, calls APIs, on behalf of an identity. 
 
-Run more than one tenant on one shared platform and you are not just sharing a database; you are sharing a machine that can act on someone's behalf.
+The incident is the symptom, and it exposes a shift in what enterprise security is about.  Run more than one tenant on one shared platform and you are not just sharing a database; you are sharing a machine that can act on someone's behalf.
 
 The stakes are concrete:
 
@@ -53,7 +53,7 @@ The question to ask early, before an incident: where is a tenant actually separa
 "Locked the door" and "isolated the tenant" came apart because they live at different levels of the stack, and only the lower levels are real. Separation has a strength ladder:
 
 | Tier | What it is | Can the owner still get past it? |
-|---|---|---|
+|:---|:---|:---|
 | **1** | **The application says no.** Every record carries a company tag; the software refuses a cross-company request with a `403`. | **Yes.** Anything that reaches the data directly skips the app. |
 | **2** | **Files and keys are separated.** Each tenant's credentials in their own locked file. | **Yes, by the owner.** One account owns all the files, it reads them all. |
 | **3** | **The operating system says no.** Each tenant is a *different* OS account the kernel will not let read another's files without root. | **No, without root.** The first rung where separation is *enforced* instead of *requested*. |
@@ -70,7 +70,7 @@ The dividing line: tiers 1 and 2 are policy; tier 3 and above are enforcement. A
 The ladder answers "how strong." A real platform also has to decide *what* to isolate. There are five layers, and the security question lives at two of them:
 
 | Layer                                                | What it controls                 | If it's missing                            | Quick win                                                                    | Long play strategy                                                                                                                                                                                                                             |
-| ---------------------------------------------------- | -------------------------------- | ------------------------------------------ | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|:---|:---|:---|:---|:---|
 | **Judgement**: the agent does the *right* thing      | Wrong-but-plausible decisions    | Ground it on the company's own data        | Domain fine-tune; the model carries the judgement intrinsically              | An independent critic model, adversarially tuned on the domain corpus, reviews every decision before execution; drift is caught by a continuous evaluation suite tied to the company's own KPIs                                                |
 | **Execution**: the agent can't run away              | Destructive or runaway action    | Allowlist its tools; trip a breaker        | Sandboxed execution per tenant; the kernel enforces the boundary             | A capability-bounded sandbox: seccomp profiles plus cgroup hard limits and a revocable policy engine that can pull the plug mid-run; the boundary is not "you can't reach the host" but "you can't exceed your action budget even inside it"   |
 | **Identity**: the agent acts as the *right* identity | Unauthorised cross-tenant access | One scoped identity token per tenant       | Per-tenant OS account or container (tier 3+); kernel-enforced, audit-logged  | Per-call, short-lived scoped tokens re-validated on every API invocation rather than a static account; paired with a hash-chained, non-repudiable audit log so the trail itself is tamper-proof                                                |
@@ -115,7 +115,7 @@ Two limits the design does not remove:
 
 ## Conclusion
 
-The model is a commodity, and the control plane is the company. The identity layer underneath both is the boundary. A multi-tenant agent platform is only as isolated as the weakest tier in its ladder: stop at the application's "access denied" and a shared host account, and a capable agent will find the credential that skips it. The work that holds up in practice moves tenant separation from something the software *requests* to something the operating system *enforces*.
+The model is a commodity, and the control plane is the multi-tenant company. The identity layer underneath both is the boundary. A multi-tenant agent platform is only as isolated as the weakest tier in its ladder: stop at the application's "access denied" and a shared host account, and a capable agent will find the credential that skips it. The work that holds up in practice moves tenant separation from something the software *requests* to something the operating system *enforces*.
 
 That is the difference between a boundary that is verified and one that is real. If you run more than one tenant on a shared host, ask your stack: which tier is it actually enforcing? If the answer is "the 403," you have built a boundary that one command away stops meaning anything.
 
