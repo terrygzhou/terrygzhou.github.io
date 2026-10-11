@@ -124,9 +124,13 @@ That is the difference between a boundary that is verified and one that is real.
 
 ## References
 
-- **Isolation tiers:** Linux `user_namespaces(7)` (a process is uid 0 inside its namespace, unprivileged outside); cgroups; Firecracker / gVisor / Kata for container-vs-microVM isolation.
-- **Data-scope boundary:** OWASP Broken Object Level Authorization (BOLA), the API vulnerability class the 403 defends and the agent sidestepped; NIST SP 800-53 Rev 5 `SC-7` / `AC-3` / `AC-6` / `SC-28` (tenant separation); NIST SP 800-145 (multi-tenancy as logical isolation = the weakest tier).
-- **Agent-specific framing:** arXiv, [Isolation as a First-Class Principle for LLM-Agent System Safety](https://scholar.google.com/scholar?q=%22Isolation+as+a+First-Class+Principle+for+LLM-Agent+System+Safety%22) — prompt injection, tool misuse, and memory poisoning share one structural cause; backs the security-perimeter section; Cyber.gov.au, "Careful adoption of agentic AI services" (agents acting under spoofed or foreign credentials evading audit); Snyk, "AI coding agents writing broken access control."
-- **Isolation rungs 4–5:** [Firecracker](https://scholar.google.com/scholar?q=%22Firecracker%3A+Lightweight+Virtualization+for+Serverless+Applications%22) (NSDI'20) — the microVM per-tenant unit; [gVisor](https://scholar.google.com/scholar?q=%22The+True+Cost+of+Containing%3A+A+gVisor+Case+Study%22) — sandboxed user-space kernel; backs the tier ladder.
-- **Truth and Cost layers:** [Reflexion](https://scholar.google.com/scholar?q=%22Reflexion%3A+Language+Agents+with+Verbal+Reinforcement+Learning%22) — a model reflecting on its own output and retrying beats one-shot; backs the Truth long play; [RouteLLM](https://scholar.google.com/scholar?q=%22RouteLLM%3A+Learning+to+Route+LLMs+with+Preference+Data%22) — route easy tasks to a small model, escalate otherwise, ~2x cost savings; backs the Cost layer.
-- **Platform:** [Paperclip](https://github.com/paperclipai/paperclip) (MIT) · [Hermes Agent](https://github.com/NousResearch/Hermes) · [Terry's Paperclip fork](https://github.com/terrygzhou/paperclip)
+- **Data-scope boundary:** OWASP Broken Object Level Authorization (BOLA), the API vulnerability class the 403 defends and the agent sidestepped; 
+- [NIST SP 800-53 Rev 5](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final) (tenant separation); 
+- [NIST SP 800-145](https://csrc.nist.gov/pubs/sp/800/145/final) (multi-tenancy as logical isolation = the weakest tier).
+- **Agent-specific framing:** arXiv, [Isolation as a First-Class Principle for LLM-Agent System Safety](https://scholar.google.com/scholar?q=%22Isolation+as+a+First-Class+Principle+for+LLM-Agent+System+Safety%22) — prompt injection, tool misuse, and memory poisoning share one structural cause; backs the security-perimeter section; 
+- [Cyber.gov.au, "Careful adoption of agentic AI services"](https://www.cyber.gov.au/publication/careful-adoption-of-agentic-ai-services) (agents acting under spoofed or foreign credentials evading audit); 
+- [Snyk, "AI coding agents writing broken access control"](https://snyk.io/blog/ai-coding-agents-broken-access-control/).
+- **Isolation rungs 4–5:** [Firecracker](https://scholar.google.com/scholar?q=%22Firecracker%3A+Lightweight+Virtualization+for+Serverless+Applications%22) (NSDI'20) — the microVM per-tenant unit; 
+- [gVisor](https://scholar.google.com/scholar?q=%22The+True+Cost+of+Containing%3A+A+gVisor+Case+Study%22) — sandboxed user-space kernel; backs the tier ladder.
+- **Truth and Cost layers:** [Reflexion](https://scholar.google.com/scholar?q=%22Reflexion%3A+Language+Agents+with+Verbal+Reinforcement+Learning%22) — a model reflecting on its own output and retrying beats one-shot; backs the Truth long play; 
+- [RouteLLM](https://scholar.google.com/scholar?q=%22RouteLLM%3A+Learning+to+Route+LLMs+with+Preference+Data%22) — route easy tasks to a small model, escalate otherwise, ~2x cost savings; backs the Cost layer.
