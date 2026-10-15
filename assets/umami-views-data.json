@@ -1,0 +1,30 @@
+{
+  "site": "terrygzhou.github.io",
+  "generated_at": "2026-10-15T09:17:01.227346+00:00",
+  "views": {
+    "digital-twin-that-scales": 34,
+    "from-one-agent-to-a-company-of-agents": 33,
+    "the-cost-of-running-an-ai-lab": 29,
+    "when-your-agent-says-done": 29,
+    "arckit-oaa-open-agile-architecture": 23,
+    "from-a-security-incident-to-reconsidering-enterprise-agent-boundaries": 23,
+    "managing-context-in-vibe-coding": 20,
+    "impossible-triangle-of-llms": 19,
+    "managing-context-overflow-ai-coding-agents": 18,
+    "plantuml-archimate-agent-diagrams": 16,
+    "executable-enterprise-architecture": 14,
+    "why-i-build-my-local-ai": 14,
+    "observability-architecture-for-agents": 13,
+    "bridging-the-e2e-testing-gap-superweb-testing": 10,
+    "buy-or-build": 9,
+    "hello-world": 7,
+    "private-ai-must-be-in-your-ai-strategy": 7,
+    "manage-your-agents-in-enterprise": 6,
+    "agent-workflow-pattern-practice": 5,
+    "why-zero-lock-in-matters-for-enterprise-ai": 5,
+    "testing-vs-evaluation-for-ai-agents": 1,
+    "switching-from-vllm-to-sglang": 1,
+    "2026-07-08-manage-your-agents-in-enterprise": 1,
+    "2026-07-07-manage-your-agents-in-enterprise": 1
+  }
+}
