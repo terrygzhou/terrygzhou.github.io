@@ -1,82 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 800 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="pl-title pl-desc"><style type="text/css">svg text{font-family: system-ui, "Helvetica Neue", Arial, sans-serif;}svg .ev-sub, svg .ev-soft, svg .ev-legend, svg .ev-callout, svg .arch-sub, svg .arch-note, svg .arch-loop, svg .arch-legend, svg .pl-sub, svg .pl-note, svg .pl-loop, svg .pl-legend{font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;}svg .ev-eyebrow, svg .ev-eyebrow-ac, svg .arch-eyebrow, svg .arch-eyebrow-ac, svg .pl-eyebrow, svg .pl-eyebrow-ac{font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;}svg .ev-callout, svg .arch-note, svg .pl-note{font-family: Georgia, "Times New Roman", serif; font-style: italic;}svg .arch-legend, svg .ev-legend, svg .pl-legend{font-size:8px; letter-spacing:0.06em;}</style>
+<svg viewBox="0 0 800 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="pl-title pl-desc" id="pipeline-root">
         <title id="pl-title">The digital twin pipeline</title>
         <desc id="pl-desc">A vertical data flow through four stages: sourcing, processing, storage, and consumption. A feedback row below runs a heartbeat that re-sources overnight and self-maintenance jobs that keep the stores healthy.</desc>
         <defs>
-          <marker id="p-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"></polygon></marker>
-          <marker id="p-arrow-ac" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bf4520"></polygon></marker>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
+      #pipeline-root { --color-paper: #f5f5f5;
+      --color-ink:   #2d3142;
+      --color-muted: #4f5d75;
+      --color-soft:  #5a6580;
+      --color-accent:#bf4520;
+      --font-sans:  'Geist', system-ui, sans-serif;
+      --font-serif: 'Instrument Serif', 'Noto Serif', serif;
+      --font-mono:  'Geist Mono', ui-monospace, monospace; }
+      #pipeline-root { font-family: var(--font-sans); color: var(--color-ink); }
+      #pipeline-root .diagram-container { width: 100%; overflow-x: auto; }
+      #pipeline-root .diagram-container { overflow-x: visible; }
+      #pipeline-root text { font-family: 'Geist', system-ui, sans-serif; }
+      #pipeline-root .pl-eyebrow { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 9px; font-weight: 600; letter-spacing: 0.14em; fill: #5a6580; }
+      #pipeline-root .pl-eyebrow-ac { fill: #bf4520; }
+      #pipeline-root .pl-name { font-size: 13px; font-weight: 600; fill: #2d3142; }
+      #pipeline-root .pl-sub { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 9px; fill: #4f5d75; }
+      #pipeline-root .pl-edge { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 8px; letter-spacing: 0.04em; fill: #5a6580; }
+      #pipeline-root .pl-loop { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 9px; letter-spacing: 0.08em; fill: #bf4520; }
+      #pipeline-root .pl-legend { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 8px; letter-spacing: 0.06em; fill: #5a6580; }</style>
+          <marker id="pipeline-p-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+          <marker id="pipeline-p-arrow-ac" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bf4520"/></marker>
         </defs>
 
-        <rect width="100%" height="100%" fill="#f5f5f5"></rect>
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
 
-        <!-- ===== forward spine (vertical, between stages) ===== -->
-        <line x1="350" y1="150" x2="350" y2="198" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p-arrow)"></line>
-        <line x1="350" y1="318" x2="350" y2="348" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p-arrow)"></line>
-        <line x1="350" y1="458" x2="350" y2="488" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p-arrow)"></line>
+        <!-- ===== CONNECTORS (drawn before boxes) ===== -->
+        <!-- forward spine (straight verticals between full-width stages) -->
+        <line x1="350" y1="150" x2="350" y2="200" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#pipeline-p-arrow)"/>
+        <line x1="350" y1="318" x2="350" y2="350" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#pipeline-p-arrow)"/>
+        <line x1="350" y1="458" x2="350" y2="490" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#pipeline-p-arrow)"/>
 
-        <!-- ===== STAGE 1 : SOURCING (input treatment) ===== -->
-        <rect x="90" y="40" width="520" height="110" rx="6" fill="rgba(79,93,117,0.10)" stroke="#5a6580" stroke-width="1"></rect>
+        <!-- consumption -> HEARTBEAT (straight vertical, feedback) -->
+        <line x1="210" y1="600" x2="210" y2="650" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#pipeline-p-arrow)"/>
+        <rect x="222" y="616" width="72" height="14" fill="#f5f5f5"/>
+        <text class="pl-edge" x="228" y="626">FEEDBACK</text>
+
+        <!-- HEARTBEAT -> SOURCING overnight loop (dashed accent, up the left margin) -->
+        <path d="M 90 677 L 60 677 L 60 95 L 90 95" fill="none" stroke="#bf4520" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#pipeline-p-arrow-ac)"/>
+        <g transform="rotate(-90 14 390)">
+          <rect x="-45" y="-7" width="118" height="14" fill="#f5f5f5"/>
+          <text class="pl-loop" x="14" y="4" text-anchor="middle">grows while I sleep</text>
+        </g>
+
+        <!-- SELF-MAINTENANCE -> STORAGE (dashed, up the right margin) -->
+        <path d="M 610 677 L 648 677 L 648 448 L 610 448" fill="none" stroke="#5a6580" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#pipeline-p-arrow)"/>
+        <rect x="650" y="546" width="60" height="14" fill="#f5f5f5"/>
+        <text class="pl-edge" x="654" y="556">MAINTAIN</text>
+
+        <!-- processing internal (ingest -> llm extract) -->
+        <line x1="342" y1="272" x2="368" y2="272" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#pipeline-p-arrow)"/>
+        <!-- consumption internal (agent -> mem0 -> answer) -->
+        <line x1="262" y1="558" x2="275" y2="558" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#pipeline-p-arrow)"/>
+        <line x1="425" y1="558" x2="438" y2="558" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#pipeline-p-arrow)"/>
+
+        <!-- ===== STAGE 1 : SOURCING ===== -->
+        <rect x="90" y="40" width="520" height="110" rx="6" fill="#4f5d75" fill-opacity="0.10" stroke="#5a6580" stroke-width="1"/>
         <text class="pl-eyebrow" x="112" y="64">STAGE 1 · SOURCING</text>
-        <rect x="112" y="78" width="150" height="54" rx="4" fill="#ffffff" stroke="#4f5d75" stroke-width="1"></rect>
+        <rect x="112" y="78" width="150" height="54" rx="4" fill="#ffffff" stroke="#4f5d75" stroke-width="1"/>
         <text class="pl-name" x="187" y="100" text-anchor="middle">Telegram</text>
         <text class="pl-sub" x="187" y="118" text-anchor="middle">social · papers</text>
-        <rect x="275" y="78" width="150" height="54" rx="4" fill="#ffffff" stroke="#4f5d75" stroke-width="1"></rect>
+        <rect x="275" y="78" width="150" height="54" rx="4" fill="#ffffff" stroke="#4f5d75" stroke-width="1"/>
         <text class="pl-name" x="350" y="100" text-anchor="middle">GitHub</text>
         <text class="pl-sub" x="350" y="118" text-anchor="middle">VS Code · Obsidian</text>
-        <rect x="438" y="78" width="150" height="54" rx="4" fill="#ffffff" stroke="#4f5d75" stroke-width="1"></rect>
+        <rect x="438" y="78" width="150" height="54" rx="4" fill="#ffffff" stroke="#4f5d75" stroke-width="1"/>
         <text class="pl-name" x="513" y="100" text-anchor="middle">Manual</text>
         <text class="pl-sub" x="513" y="118" text-anchor="middle">notes · PDFs · web</text>
 
-        <!-- ===== STAGE 2 : PROCESSING (work) ===== -->
-        <rect x="90" y="200" width="520" height="118" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"></rect>
+        <!-- ===== STAGE 2 : PROCESSING ===== -->
+        <rect x="90" y="200" width="520" height="118" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
         <text class="pl-eyebrow" x="112" y="224">STAGE 2 · PROCESSING</text>
-        <rect x="112" y="240" width="230" height="64" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"></rect>
+        <rect x="112" y="240" width="230" height="64" rx="4" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
         <text class="pl-name" x="227" y="264" text-anchor="middle">Ingest pipeline</text>
         <text class="pl-sub" x="227" y="284" text-anchor="middle">dedupe · chunk · embed (CPU)</text>
-        <rect x="368" y="240" width="230" height="64" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"></rect>
+        <rect x="368" y="240" width="230" height="64" rx="4" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
         <text class="pl-name" x="483" y="264" text-anchor="middle">LLM extract</text>
         <text class="pl-sub" x="483" y="284" text-anchor="middle">entities + relations (GraphRAG)</text>
-        <line x1="342" y1="272" x2="368" y2="272" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#p-arrow)"></line>
 
-        <!-- ===== STAGE 3 : STORAGE (store) ===== -->
-        <rect x="90" y="350" width="520" height="108" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"></rect>
+        <!-- ===== STAGE 3 : STORAGE ===== -->
+        <rect x="90" y="350" width="520" height="108" rx="6" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
         <text class="pl-eyebrow" x="112" y="374">STAGE 3 · STORAGE</text>
-        <rect x="140" y="390" width="190" height="56" rx="4" fill="rgba(79,93,117,0.10)" stroke="#5a6580" stroke-width="1"></rect>
+        <rect x="140" y="390" width="190" height="56" rx="4" fill="#4f5d75" fill-opacity="0.10" stroke="#5a6580" stroke-width="1"/>
         <text class="pl-name" x="235" y="414" text-anchor="middle">Qdrant</text>
         <text class="pl-sub" x="235" y="432" text-anchor="middle">vectors · hybrid search</text>
-        <rect x="370" y="390" width="190" height="56" rx="4" fill="rgba(79,93,117,0.10)" stroke="#5a6580" stroke-width="1"></rect>
+        <rect x="370" y="390" width="190" height="56" rx="4" fill="#4f5d75" fill-opacity="0.10" stroke="#5a6580" stroke-width="1"/>
         <text class="pl-name" x="465" y="414" text-anchor="middle">Neo4j</text>
         <text class="pl-sub" x="465" y="432" text-anchor="middle">graph · entities + rels</text>
 
         <!-- ===== STAGE 4 : CONSUMPTION (focal) ===== -->
-        <rect x="90" y="490" width="520" height="110" rx="6" fill="rgba(191,69,32,0.06)" stroke="#bf4520" stroke-width="1.2"></rect>
+        <rect x="90" y="490" width="520" height="110" rx="6" fill="#bf4520" fill-opacity="0.06" stroke="#bf4520" stroke-width="1.2"/>
         <text class="pl-eyebrow pl-eyebrow-ac" x="112" y="514">STAGE 4 · CONSUMPTION</text>
-        <rect x="112" y="530" width="150" height="56" rx="4" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1"></rect>
+        <rect x="112" y="530" width="150" height="56" rx="4" fill="#bf4520" fill-opacity="0.08" stroke="#bf4520" stroke-width="1"/>
         <text class="pl-name" x="187" y="554" text-anchor="middle">agent</text>
         <text class="pl-sub" x="187" y="572" text-anchor="middle">fresh session</text>
-        <rect x="275" y="530" width="150" height="56" rx="4" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1"></rect>
+        <rect x="275" y="530" width="150" height="56" rx="4" fill="#bf4520" fill-opacity="0.08" stroke="#bf4520" stroke-width="1"/>
         <text class="pl-name" x="350" y="554" text-anchor="middle">Mem0</text>
         <text class="pl-sub" x="350" y="572" text-anchor="middle">query</text>
-        <rect x="438" y="530" width="150" height="56" rx="4" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1"></rect>
+        <rect x="438" y="530" width="150" height="56" rx="4" fill="#bf4520" fill-opacity="0.08" stroke="#bf4520" stroke-width="1"/>
         <text class="pl-name" x="513" y="554" text-anchor="middle">answer</text>
         <text class="pl-sub" x="513" y="572" text-anchor="middle">synthesised</text>
-        <line x1="262" y1="558" x2="275" y2="558" stroke="#bf4520" stroke-width="1.2" marker-end="url(#p-arrow-ac)"></line>
-        <line x1="425" y1="558" x2="438" y2="558" stroke="#bf4520" stroke-width="1.2" marker-end="url(#p-arrow-ac)"></line>
 
-        <!-- ===== feedback row (below main flow, side by side) ===== -->
-        <!-- answer -> heartbeat (dashed accent) -->
-        <line x1="513" y1="600" x2="300" y2="648" stroke="#bf4520" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#p-arrow-ac)"></line>
-        <rect x="90" y="650" width="240" height="54" rx="4" fill="rgba(191,69,32,0.08)" stroke="#bf4520" stroke-width="1.2"></rect>
+        <!-- ===== feedback row (HEARTBEAT + SELF-MAINTENANCE) ===== -->
+        <rect x="90"  y="650" width="240" height="54" rx="4" fill="#bf4520" fill-opacity="0.08" stroke="#bf4520" stroke-width="1.2"/>
         <text class="pl-name" x="210" y="674" text-anchor="middle">HEARTBEAT</text>
         <text class="pl-loop" x="210" y="692" text-anchor="middle">outputs · corrections · decisions</text>
-        <rect x="350" y="650" width="260" height="54" rx="4" fill="rgba(79,93,117,0.08)" stroke="#5a6580" stroke-width="1"></rect>
+        <rect x="350" y="650" width="260" height="54" rx="4" fill="#4f5d75" fill-opacity="0.08" stroke="#5a6580" stroke-width="1"/>
         <text class="pl-name" x="480" y="674" text-anchor="middle">SELF-MAINTENANCE</text>
         <text class="pl-sub" x="480" y="692" text-anchor="middle">ingest · consolidate · prune · backfill</text>
 
-        <!-- heartbeat -> SOURCING (overnight re-source, dashed accent, up the left margin) -->
-        <path d="M 90 677 L 60 677 L 60 95 L 90 95" fill="none" stroke="#bf4520" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#p-arrow-ac)"></path>
-        <text class="pl-loop" x="46" y="390" text-anchor="middle" transform="rotate(-90 46 390)">grows while I sleep</text>
-
-        <!-- self-maintenance -> storage (dashed, quiet) -->
-        <path d="M 480 650 L 380 466" fill="none" stroke="#5a6580" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#p-arrow)"></path>
+        <!-- ===== legend strip ===== -->
+        <line x1="8" y1="730" x2="792" y2="730" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <rect x="24"  y="742" width="12" height="12" rx="2" fill="#4f5d75" fill-opacity="0.10" stroke="#5a6580" stroke-width="1"/>
+        <text class="pl-legend" x="44"  y="752">SOURCE</text>
+        <rect x="120" y="742" width="12" height="12" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text class="pl-legend" x="140" y="752">WORK</text>
+        <rect x="200" y="742" width="12" height="12" rx="2" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+        <text class="pl-legend" x="220" y="752">STORE</text>
+        <rect x="292" y="742" width="12" height="12" rx="2" fill="#bf4520" fill-opacity="0.08" stroke="#bf4520" stroke-width="1"/>
+        <text class="pl-legend" x="312" y="752">BRAIN</text>
+        <line x1="392" y1="748" x2="416" y2="748" stroke="#bf4520" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#pipeline-p-arrow-ac)"/>
+        <text class="pl-legend" x="426" y="752">OVERNIGHT LOOP</text>
       </svg>
