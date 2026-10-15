@@ -15,7 +15,7 @@ tags:
   - graphrag
 summary: Four iterations of building a digital twin of myself, an AI mirror of who I am, what I know, and how I think. It compounds over time without exploding context windows or leaking data to the cloud.
 ---
-> **TL;DR**: Four iterations to build a digital twin, an AI mirror of who I am, what I know, how I think. It captures everything I engage with: conversations, texts, music, videos, lessons. The end result: a localised system where my agents can query who I am on demand. Semantic search, graph relationships, adaptive memory. All on my hardware, nothing sent to the cloud. The only difference is that I make decisions, not my digital twin.
+> **TL;DR**: Four iterations to build a digital twin, an AI mirror of who I am, what I know, how I think. It captures everything I engage with: conversations, texts, music, videos, lessons. The end result: a localised system where my agents can query who I am on demand. Semantic search, graph relationships, adaptive memory. It completed 75% of the survey requested by Australia Census 2026, with over 60% of the answers correct.  All on my hardware, nothing sent to the cloud. The only difference is that I make decisions, not my digital twin.
 
 ![The four-phase evolution: static snapshot, single-source memory, adaptive learning, graph understanding](/assets/2026-08-21-digital-twin-that-scales/evolution.png)
 
@@ -23,7 +23,7 @@ Diagram source: [`evolution.html`](/assets/2026-08-21-digital-twin-that-scales/e
 
 ## Phase 1: Static Snapshot
 
-First version was a snapshot: a frozen capture of my knowledge. I cycled through **[AnythingLLM](https://github.com/Mintplex-Labs/anything-llm)**, **[OpenNotebook](https://github.com/lfnovo/open-notebook)**, and **[llm_wiki](https://github.com/nashsu/llm_wiki)**. All powerful, all with the same flaw: they demanded structure before delivering value.
+First version was a snapshot: a frozen capture of my knowledge. I cycled through **[AnythingLLM](https://github.com/Mintplex-Labs/anything-llm)**, **[OpenNotebook](https://github.com/lfnovo/open-notebook)**, and **[llm_wiki](https://github.com/nashsu/llm_wiki)**. Each worked, and each had the same flaw: it demanded structure before it delivered value.
 
 - **[AnythingLLM](https://github.com/Mintplex-Labs/anything-llm)**: solid document ingestion, multiple workspaces, but cross-project queries were painfully slow
 - **[OpenNotebook](https://github.com/lfnovo/open-notebook)**: NotebookLM reimplementation. Source-grounded chat, audio overviews, web research. The wrong shape for my use case: I wanted to ask a question and get an answer, not build a research session.
@@ -58,9 +58,9 @@ Three things flat search can't do:
 2. **Adaptive learning**: remembers patterns across sessions. Repeated corrections, preferences, decisions get stored and retrieved automatically
 3. **Complementary layer**: sits alongside the agent's built-in memory files and fills the gap. Those files are static. Mem0 is dynamic, scoped to the conversation
 
-I wired it to a separate collection on Qdrant. The compounding effect is real: my agents get measurably better at my domain without touching a cloud API. A mid-tier local model with a strong adaptive knowledge base outperforms a naked frontier model every time.
+I wired it to a separate collection on Qdrant. The compounding effect is real: my agents get noticeably better at my domain without touching a cloud API. A mid-tier local model backed by a strong adaptive knowledge base outperforms a naked frontier model more often than not.
 
-But Mem0 still thinks in isolated chunks. If I have a doc about an AI project, another about the team that built it, and a third about the client who funded it, the twin can find each one individually but can't tell me how they relate. It knows the pieces but not the story.
+But Mem0 still thinks in isolated chunks. If I have a doc about an AI project, another about the team that built it, and a third about the client who funded it, the twin can find each one individually but can't tell me how they relate.
 
 ## Phase 4: Understanding: GraphRAG
 
@@ -81,7 +81,7 @@ The result: vector search for recall, graph traversal for context. 344,000 piece
 
 Diagram source: [`architecture.html`](/assets/2026-08-21-digital-twin-that-scales/architecture.html)
 
-When I ask "How did I become an enterprise architect?" the twin searches for semantically relevant content, explores the graph for career milestones, certifications, organisations, and people, then weaves both into a single answer. The resume provides the skeleton, the graph provides the connections, memory fills in the details.
+When I ask "How did I become an enterprise architect?" the twin searches for semantically relevant content, explores the graph for career milestones, certifications, organisations, and people, then weaves both into a single answer. The resume is the skeleton, the graph is the connections, and memory fills in the details.
 
 ## The twin grows while I sleep
 
@@ -106,7 +106,7 @@ The twin maintains itself through scheduled jobs:
 - **Disk space management**: old data pruned when it stops serving a purpose
 - **Graph backfill**: new content triggers entity extraction that enriches the graph
 
-These run autonomously. The twin grows while I sleep.
+These run autonomously.
 
 ## Trade-offs
 
@@ -117,8 +117,6 @@ These run autonomously. The twin grows while I sleep.
 
 ## Why This Matters
 
-The digital twin pattern generalises. Every team building AI agents hits the same wall: static context injection doesn't scale. Bigger codebase, heavier knowledge requirement, faster context window burn-through.
+The digital twin pattern generalises. Every team building AI agents hits the same wall: static context injection doesn't scale. As codebases and knowledge grow, context windows fill faster and the old approach breaks.
 
-The four-phase evolution: snapshot, memory, learning, understanding. It is one concrete answer. Each phase solved a real bottleneck from the previous one. All running on a local model. No cloud API token tax.
-
-Your data stays yours. Your costs scale with compute, not tokens. The twin gets smarter without ever phoning home.
+The four phases are one answer to that wall, each solving a real bottleneck from the last, and everything runs on a local model. The data stays local, costs scale with compute rather than tokens, and the twin gets smarter without ever phoning home.
