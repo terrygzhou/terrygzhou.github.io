@@ -67,10 +67,16 @@ try {
 // optional trailing slash. The bare index (/blog/) yields an empty slug and
 // is dropped below (per-post counters only).
 //
-// Site 2 (mirror) — dated post paths. Canonical shape since the EYW-523
-// cutover: terrygzhou.github.io/YYYY-MM-DD/<slug>.html (2-segment /:date/:title.html);
-// legacy 4-segment terrygzhou.github.io/YYYY/MM/DD/<slug>.html URLs match too,
-// so pre-cutover history still counts. Slug = last segment minus .html.
+// Site 2 (mirror) — dated post paths. Since the EYW-523 cutover the blog
+// serves EXTENSIONLESS clean URLs terrygzhou.github.io/YYYY-MM-DD/<slug>
+// (2-segment /:date/:slug, no .html); the .html generation
+// terrygzhou.github.io/YYYY-MM-DD/<slug>.html is matched too, and legacy
+// 4-segment terrygzhou.github.io/YYYY/MM/DD/<slug>.html URLs still count, so
+// pre-cutover history is preserved. Slug = last path segment with any .html
+// stripped, so both URL generations key to the same slug. The extensionless
+// 2-seg shape is matched with a REGEXP (anchored, exactly two path segments,
+// non-empty) which deliberately excludes non-post segments such as /tags/,
+// /posts/, /search/ and the host-less index.
 //
 // We match each site's URL shape with LIKE (no regex → no backslash escaping
 // pain) and sum pageviews per slug, then merge the two per-slug maps.
@@ -95,8 +101,9 @@ s2 AS (
     JOIN log_action a ON a.idaction = l.idaction_url
     WHERE l.idsite = 2 AND a.type = 1 AND l.idaction_url > 0
       AND (
-        a.name LIKE 'terrygzhou.github.io/%/%/%/%.html'      -- legacy 4-seg (pre-cutover history)
-     OR a.name LIKE 'terrygzhou.github.io/%/%.html'           -- 2-seg /:date/:title.html
+        a.name LIKE 'terrygzhou.github.io/%/%/%/%.html'      -- legacy 4-seg .html (pre-cutover)
+     OR a.name LIKE 'terrygzhou.github.io/%/%.html'           -- 2-seg .html /:date/:title.html
+     OR a.name REGEXP '^terrygzhou\\.github\\.io/[^/]+/[^/]+$'  -- 2-seg extensionless /:date/:slug
       )
     GROUP BY 1
 )
