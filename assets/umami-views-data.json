@@ -1,6 +1,6 @@
 {
   "site": "terrygzhou.github.io",
-  "generated_at": "2026-10-16T10:45:01.926212+00:00",
+  "generated_at": "2026-10-16T11:45:01.182715+00:00",
   "views": {
     "digital-twin-that-scales": 40,
     "from-one-agent-to-a-company-of-agents": 33,
@@ -8,8 +8,8 @@
     "when-your-agent-says-done": 29,
     "arckit-oaa-open-agile-architecture": 24,
     "from-a-security-incident-to-reconsidering-enterprise-agent-boundaries": 23,
+    "managing-context-overflow-ai-coding-agents": 21,
     "managing-context-in-vibe-coding": 20,
-    "managing-context-overflow-ai-coding-agents": 19,
     "impossible-triangle-of-llms": 17,
     "plantuml-archimate-agent-diagrams": 16,
     "executable-enterprise-architecture": 14,
