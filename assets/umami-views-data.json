@@ -1,6 +1,6 @@
 {
   "site": "terrygzhou.github.io",
-  "generated_at": "2026-10-18T17:45:01.733336+00:00",
+  "generated_at": "2026-10-18T18:45:01.901274+00:00",
   "views": {
     "digital-twin-that-scales": 40,
     "from-one-agent-to-a-company-of-agents": 34,
@@ -11,7 +11,7 @@
     "managing-context-overflow-ai-coding-agents": 22,
     "managing-context-in-vibe-coding": 20,
     "plantuml-archimate-agent-diagrams": 16,
-    "observability-architecture-for-agents": 15,
+    "observability-architecture-for-agents": 16,
     "impossible-triangle-of-llms": 15,
     "executable-enterprise-architecture": 14,
     "why-i-build-my-local-ai": 12,
