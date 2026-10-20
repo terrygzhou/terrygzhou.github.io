@@ -171,3 +171,8 @@ That's where the work is going. What's above mission control is a board that can
 - [Token Budgets: An Empirical Catalog of 63 LLM-Agent Budget-Overrun Incidents](https://arxiv.org/abs/2606.04056) — documented production cases of runaway agent spend and an enforcement design that makes a budget cap non-bypassable. Backs "a budget that stops work."
 - [mem0](https://github.com/mem0ai/mem0) — open-source memory server for LLM agents. Backs the short-term memory layer in the memory section.
 - [Selective Forgetting: A Graph-Based Memory Framework for Long-Term LLM Agents](https://arxiv.org/abs/2608.28978) — treats a knowledge graph as structured long-term agent memory, with a pruning/forgetting pass. Cited honestly: it finds a graph does not automatically beat a flat vector baseline, so a digital twin has to earn its place rather than be assumed.
+
+## Related posts
+
+- [Manage your agents in the enterprise](/2026-07-07/manage-your-agents-in-enterprise) — governance, budgeting, and escalation patterns when an agent population needs to behave like a governed team, not a swarm.
+- [Executable enterprise architecture](/2026-07-01/executable-enterprise-architecture) — why a policy written in prose is a claim, and a policy you can run is a control; the foundation the agent company's org tree is built on.

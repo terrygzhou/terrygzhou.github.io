@@ -107,3 +107,8 @@ Context overflow is not a model problem. It's an architecture problem. The five-
 Bad prompt engineering, model quality limits, and human oversight still matter. Handoff doesn't replace any of them, it just makes recovery faster.
 
 Your agents don't need infinite context. They need discipline.
+
+## Related posts
+
+- [Agent workflow patterns in practice](/2026-06-25/agent-workflow-pattern-practice) — the orchestration and handoff patterns that keep multi-agent pipelines from losing the thread across long tasks.
+- [Observability architecture for agents](/2026-07-15/observability-architecture-for-agents) — how to see what your agents are actually doing, not just what they say they did.

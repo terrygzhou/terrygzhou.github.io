@@ -1,6 +1,28 @@
 ---
 layout: default
 ---
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | json_escape }},
+  "description": {{ page.description | json_escape }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "dateModified": "{{ page.last_modified | default: page.date | date: '%Y-%m-%d' }}",
+  "author": {
+    "@type": "Person",
+    "name": "Terry Zhou"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "EYwALink",
+    "url": "https://eywalink.org"
+  },
+  "mainEntityOfPage": "{{ site.url }}{{ page.url }}",
+  "image": {{ page.image | default: '/assets/og-default.png' | absolute_url | json_escape }}
+}
+</script>
+
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">

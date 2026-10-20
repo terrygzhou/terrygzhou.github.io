@@ -125,3 +125,8 @@ The structural case for private AI is reinforced by recent signals:
 ---
 
 *Tags: `#AI-Strategy` `#PrivateAI` `#DataSovereignty` `#EnterpriseSecurity` `#VendorLockIn` `#OpenSource`*
+
+## Related posts
+
+- [The cost of running an AI lab](/2026-10-02/the-cost-of-running-an-ai-lab) — what the four budgets (compute, memory, power, observability) actually look like when you run a one-person AI company on commodity hardware.
+- [The digital twin that scales](/2026-08-21/digital-twin-that-scales) — a localised Qdrant + Mem0 + Neo4j memory layer that lets agents query who you are and how you think, without phoning home.

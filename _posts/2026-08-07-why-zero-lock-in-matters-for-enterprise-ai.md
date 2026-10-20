@@ -117,3 +117,8 @@ If you're a CTO evaluating AI infrastructure and want to understand how to build
 ---
 
 *This is the inaugural post for EyWALink. We're an open-source organisation building enterprise AI infrastructure that respects your sovereignty. Follow along as we document what we learn.*
+
+## Related posts
+
+- [Buy over build?](/2026-06-06/buy-or-build) — why AI has collapsed the development cost curve and why the old "buy over build" default no longer guarantees advantage.
+- [Private AI must be in your AI strategy](/2026-08-06/private-ai-must-be-in-your-ai-strategy) — the private-core, cloud-edge architecture that makes sovereignty a design principle rather than a hope.

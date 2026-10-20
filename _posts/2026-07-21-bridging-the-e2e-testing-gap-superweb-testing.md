@@ -185,3 +185,8 @@ SuperWeb Testing is evolving. The next areas of focus:
 - **Support for API-level testing** alongside browser automation
 
 If you are building AI-driven development workflows, the testing gap is your constraint. SuperWeb Testing aims to remove it.
+
+## Related posts
+
+- [When your agent says "done"](/2026-09-12/when-your-agent-says-done) — why "all done" is the cheapest sentence in the language, and how to make completion an observable fact instead of a claim.
+- [From a security incident to rethinking agent boundaries](/2026-10-09/from-a-security-incident-to-reconsidering-enterprise-agent-boundaries) — the isolation ladder that turns a 403 check into a kernel-enforced boundary, and why the gap matters when agents act on someone's behalf.

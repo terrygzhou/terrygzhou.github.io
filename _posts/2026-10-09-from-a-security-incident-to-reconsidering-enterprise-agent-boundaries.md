@@ -134,3 +134,8 @@ That is the difference between a boundary that is verified and one that is real.
 - [gVisor](https://scholar.google.com/scholar?q=%22The+True+Cost+of+Containing%3A+A+gVisor+Case+Study%22) — sandboxed user-space kernel; backs the tier ladder.
 - **Truth and Cost layers:** [Reflexion](https://scholar.google.com/scholar?q=%22Reflexion%3A+Language+Agents+with+Verbal+Reinforcement+Learning%22) — a model reflecting on its own output and retrying beats one-shot; backs the Truth long play; 
 - [RouteLLM](https://scholar.google.com/scholar?q=%22RouteLLM%3A+Learning+to+Route+LLMs+with+Preference+Data%22) — route easy tasks to a small model, escalate otherwise, ~2x cost savings; backs the Cost layer.
+
+## Related posts
+
+- [Manage your agents in the enterprise](/2026-07-07/manage-your-agents-in-enterprise) — governance, budgeting, and escalation patterns that keep an agent population from outgrowing the boundaries you've set.
+- [When your agent says "done"](/2026-09-12/when-your-agent-says-done) — the verification discipline that complements the boundary question: how to trust what an agent claims it did, when the claim itself is the risk.

@@ -145,3 +145,8 @@ The industry angle is the real point. A one-person AI company running five tenan
 The open-source stack makes all three possible on commodity hardware — which is the whole case against the per-token cloud. When your competitor's AI bill grows linearly with usage and yours is flat, the moat is the architecture, not the model.
 
 That's the question worth asking before you buy a cluster: what are your four budgets, and does your engine keep them in range? Let's talk.
+
+## Related posts
+
+- [The digital twin that scales](/2026-08-21/digital-twin-that-scales) — how a localised Qdrant + Mem0 + Neo4j memory layer lets agents query who you are, what you know, and how you think, without blowing up a context window or leaking data to the cloud.
+- [Why I build my local AI](/2026-06-10/why-i-build-my-local-ai) — the case for running your own inference stack instead of renting tokens, and what that means for a one-person AI company.

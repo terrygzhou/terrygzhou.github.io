@@ -155,3 +155,8 @@ I've since run the same loop in two more projects. The same `.state/` layout (qu
 ## Why this matters
 
 This is the same discipline that separates a governed agent programme from a demo. My [executable enterprise architecture](2026-07-01-executable-enterprise-architecture.md) work is built on the identical idea: a policy written in prose is a claim, and a policy you can *run* is a control. "The agent should verify its work" in a governance document is worth nothing until something (a check command, a CI gate, an exit code) enforces it.
+
+## Related posts
+
+- [Bridging the E2E testing gap](/2026-07-21/bridging-the-e2e-testing-gap-superweb-testing) — the verification pipeline that closes the gap between an agent's claim and the evidence: source analysis, test data, browser automation, and server log correlation.
+- [From a security incident to rethinking agent boundaries](/2026-10-09/from-a-security-incident-to-reconsidering-enterprise-agent-boundaries) — when the verifier itself is the threat: a real cross-tenant incident that exposed the gap between a 403 check and kernel-enforced isolation.

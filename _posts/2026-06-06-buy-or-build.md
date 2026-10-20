@@ -95,3 +95,8 @@ When software is composable and AI-augmented, ROI compounds through reuse, adapt
 ### The Bottom Line
 
 “Buy over build” was a brilliant product of its era. AI has elevated the strategic value of customisation, agility, and owned intelligence. Leaders won’t abandon buying; they’ll master the spectrum. Architectural sovereignty isn’t optional anymore. Start small, govern tightly, compose relentlessly. The margin is in the architecture.
+
+## Related posts
+
+- [Private AI must be in your AI strategy](/2026-08-06/private-ai-must-be-in-your-ai-strategy) — why a private-core, cloud-edge architecture is the way to capture the build advantage without surrendering compliance or control.
+- [Why zero lock-in matters for enterprise AI](/2026-08-07/why-zero-lock-in-matters-for-enterprise-ai) — the open-source stack that makes "exit day" a design principle, not a risk.

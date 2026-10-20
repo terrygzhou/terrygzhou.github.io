@@ -120,3 +120,8 @@ These run autonomously.
 The digital twin pattern generalises. Every team building AI agents hits the same wall: static context injection doesn't scale. As codebases and knowledge grow, context windows fill faster and the old approach breaks.
 
 The four phases are one answer to that wall, each solving a real bottleneck from the last, and everything runs on a local model. The data stays local, costs scale with compute rather than tokens, and the twin gets smarter without ever phoning home.
+
+## Related posts
+
+- [The cost of running an AI lab](/2026-10-02/the-cost-of-running-an-ai-lab) — what it actually costs to run a one-person AI company on commodity GPUs, and why the four budgets that matter are compute, memory, power, and observability.
+- [Private AI must be in your AI strategy](/2026-08-06/private-ai-must-be-in-your-ai-strategy) — why a localised inference and memory layer isn't just a tech preference but a compliance imperative for regulated workloads.
