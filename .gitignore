@@ -13,3 +13,4 @@ deploy.sh
 refresh.log
 refresh.sh
 .pi/
+.sass-cache/
