@@ -1,0 +1,383 @@
+{
+  "generated": "2026-10-20",
+  "post_count": 22,
+  "per_post": [
+    {
+      "slug": "hello-world",
+      "title": "Private AI Is Production-Ready",
+      "matomo_views": 47,
+      "umami_views": 5,
+      "combined_views": 52,
+      "top_signal": "Concrete toolchain names (Ollama, vLLM, Qdrant, Aider) make it a practical, referenceable guide.",
+      "weakest_element": "No internal links or external citations despite referencing multiple later posts and topics.",
+      "cross_link_opportunity": "Should link to Observability for Agents and Buy-or-Build; later posts should back-link here.",
+      "title_hook_score": "strong",
+      "action": "Add internal links to Observability, Buy-or-Build, and Local AI posts; add external citations to tool docs."
+    },
+    {
+      "slug": "impossible-triangle-of-llms",
+      "title": "The Impossible Triangle: Speed, Memory and Intelligence",
+      "matomo_views": 35,
+      "umami_views": 15,
+      "combined_views": 50,
+      "top_signal": "Viral trade-off mental model plus concrete local-LLM setups (vLLM, llama.cpp) readers can reuse",
+      "weakest_element": "No external links or internal cross-links at all; setup names may confuse, no CTA",
+      "cross_link_opportunity": "Link to other local-AI/ai-infra posts (e.g. quantization or vLLM posts) and be linked from those",
+      "title_hook_score": "strong",
+      "action": "Add 2-3 internal links to related local-AI posts and one authoritative external link on KV cache to boost dwell time"
+    },
+    {
+      "slug": "buy-or-build",
+      "title": "Buy Over Build? Rethinking IT Strategy in the AI wave",
+      "matomo_views": 35,
+      "umami_views": 9,
+      "combined_views": 44,
+      "top_signal": "Buy/Build/Compose framework + concrete transition playbook for AI-era architects",
+      "weakest_element": "Zero internal or external links; no CTA to related AI strategy posts",
+      "cross_link_opportunity": "Link to \"Private AI Must be part of the Enterprise AI Strategy\" and \"Why Zero Lock-In Matters\" — shared themes on vendor lock-in and IP ownership strengthen both.",
+      "title_hook_score": "mid",
+      "action": "Add two internal links in the Bottom Line to the Private AI and Zero Lock-In posts, plus a one-line CTA offering the framework as a downloadable checklist."
+    },
+    {
+      "slug": "why-i-build-my-local-ai",
+      "title": "Why I Build My Local AI",
+      "matomo_views": 31,
+      "umami_views": 10,
+      "combined_views": 41,
+      "top_signal": "Concrete personal cost/ownership case (\"rent vs own intelligence\") with 6-month data.",
+      "weakest_element": "No internal links to related posts or external links; no cost figures or CTA.",
+      "cross_link_opportunity": "Link to \"Digital Twin That Scales\" and \"Zero Lock-in\"; both share Qdrant/ownership theme.",
+      "title_hook_score": "mid",
+      "action": "Add a real cost table and internal links to Digital Twin and Zero Lock-in posts with CTA."
+    },
+    {
+      "slug": "agent-workflow-pattern-practice",
+      "title": "Practice of AI agent workflow patterns",
+      "matomo_views": 5,
+      "umami_views": 7,
+      "combined_views": 12,
+      "top_signal": "Three visualised LangGraph patterns with comparison table and concrete open-source project",
+      "weakest_element": "No internal links to related posts; title lacks a hook, just \"patterns\"",
+      "cross_link_opportunity": "Link to observability-architecture-for-agents and managing-context-overflow posts; both build on its loops",
+      "title_hook_score": "weak",
+      "action": "Add internal links from observability and context-overflow posts, and retitle with a number or outcome hook for search."
+    },
+    {
+      "slug": "executable-enterprise-architecture",
+      "title": "Executable Enterprise Architecture - Agentic-TOGAF-ADM",
+      "matomo_views": 9,
+      "umami_views": 15,
+      "combined_views": 24,
+      "top_signal": "Executable command table and copy-paste install instructions turn a dense EA framework into immediately actionable content",
+      "weakest_element": "Title is jargon-heavy; no links to companion Agentic-TOGAF posts; no CTA to download",
+      "cross_link_opportunity": "Link to from-one-agent-to-a-company-of-agents and manage-your-agents-in-enterprise; it is the how-to bridge between EA theory and agent practice",
+      "title_hook_score": "weak",
+      "action": "Retitle to \"Run the Agentic-TOGAF ADM in 90 Minutes\" and add cross-links to the two agent-governance posts plus a download CTA."
+    },
+    {
+      "slug": "manage-your-agents-in-enterprise",
+      "title": "Manage Your Agents in the Enterprise",
+      "matomo_views": 3,
+      "umami_views": 8,
+      "combined_views": 11,
+      "top_signal": "Practical governance checklist for agent oversight in regulated environments",
+      "weakest_element": "Lowest combined views on site; no internal links; title reads like a manual, not a story",
+      "cross_link_opportunity": "Link from from-a-security-incident (real incident hook) and to executable-enterprise-architecture; pair theory with lived risk",
+      "title_hook_score": "weak",
+      "action": "Add a \"What I'd do differently\" anecdote at the top, link to the security-incident post, and retitle with an outcome (\"Stop Your Agents from Shipping Unchecked\")."
+    },
+    {
+      "slug": "observability-architecture-for-agents",
+      "title": "Observability Architecture for AI Agents",
+      "matomo_views": 32,
+      "umami_views": 16,
+      "combined_views": 48,
+      "top_signal": "Concrete OpenTelemetry + agent-tracing setup readers can copy-paste into a sidecar",
+      "weakest_element": "No internal links to agent-workflow or context-overflow posts; no CTA to a template repo",
+      "cross_link_opportunity": "Link to agent-workflow-pattern-practice and managing-context-overflow-ai-coding-agents; they are the two most-cited companion topics",
+      "title_hook_score": "mid",
+      "action": "Add a \"Copy this\" section with a minimal OTel agent-tracer snippet and internal links to the two workflow/context posts."
+    },
+    {
+      "slug": "bridging-the-e2e-testing-gap-superweb-testing",
+      "title": "Bridging the E2E Testing Gap with SuperWeb Testing",
+      "matomo_views": 46,
+      "umami_views": 11,
+      "combined_views": 57,
+      "top_signal": "Concrete SuperWeb testing workflow with real screenshots and a working example readers can replicate",
+      "weakest_element": "No internal links to the testing-vs-evaluation or when-your-agent-says-done posts; no CTA",
+      "cross_link_opportunity": "Link to when-your-agent-says-done and testing-vs-evaluation-for-ai-agents; all three form the agent-QA cluster that currently has zero cross-links",
+      "title_hook_score": "mid",
+      "action": "Add a \"Related\" section linking to the two other QA posts and a one-line CTA to the SuperWeb sample repo."
+    },
+    {
+      "slug": "managing-context-overflow-ai-coding-agents",
+      "title": "Managing Context Overflow in AI Coding Agents",
+      "matomo_views": 50,
+      "umami_views": 22,
+      "combined_views": 72,
+      "top_signal": "Highly practical triage framework (compact, offload, delegate) with concrete thresholds readers can adopt today",
+      "weakest_element": "No internal links to the agent-workflow or observability posts that share the same audience",
+      "cross_link_opportunity": "Link to agent-workflow-pattern-practice and observability-architecture-for-agents; both are cited by readers as the \"next step\" topic",
+      "title_hook_score": "strong",
+      "action": "Add a \"See also\" box linking to the two posts above and a pinned CTA to the context-checker open-source repo."
+    },
+    {
+      "slug": "private-ai-must-be-in-your-ai-strategy",
+      "title": "Private AI Must Be In Your AI Strategy",
+      "matomo_views": 39,
+      "umami_views": 7,
+      "combined_views": 46,
+      "top_signal": "Board-ready framing that ties private AI to risk, compliance and cost, not just tech",
+      "weakest_element": "No internal links to the buy-or-build or zero-lock-in posts; no CTA to a strategy template",
+      "cross_link_opportunity": "Link to buy-or-build and why-zero-lock-in-matters; the three form the AI-strategy pillar and none cross-link",
+      "title_hook_score": "mid",
+      "action": "Add a \"Related strategy posts\" section linking to buy-or-build and zero-lock-in, plus a one-line CTA to download the strategy checklist."
+    },
+    {
+      "slug": "why-zero-lock-in-matters-for-enterprise-ai",
+      "title": "Why Zero Lock-In Matters for Enterprise AI",
+      "matomo_views": 32,
+      "umami_views": 5,
+      "combined_views": 37,
+      "top_signal": "Clear three-point lock-in taxonomy (data, model, workflow) that CTOs can use in a board deck",
+      "weakest_element": "No internal links; no external citations to real lock-in post-mortems; no CTA",
+      "cross_link_opportunity": "Link to buy-or-build and private-ai-must-be-in-your-ai-strategy; all three sit in the same AI-strategy cluster",
+      "title_hook_score": "mid",
+      "action": "Add a \"Real lock-in failures\" section with two external citations and internal links to the other two strategy posts."
+    },
+    {
+      "slug": "digital-twin-that-scales",
+      "title": "The Digital Twin That Scales",
+      "matomo_views": 49,
+      "umami_views": 40,
+      "combined_views": 89,
+      "top_signal": "Highest combined views on site; concrete enterprise digital-twin architecture with real data flows",
+      "weakest_element": "No internal links to why-i-build-my-local-ai or private-ai-must-be-in-your-ai-strategy despite shared ownership theme",
+      "cross_link_opportunity": "Link to why-i-build-my-local-ai and private-ai-must-be-in-your-ai-strategy; both reference the same Qdrant/ownership pattern",
+      "title_hook_score": "strong",
+      "action": "Add a \"How this ties to private AI\" section with two internal links and a CTA to the twin architecture diagram."
+    },
+    {
+      "slug": "arckit-oaa-open-agile-architecture",
+      "title": "ARCKIT OAA: Open Agile Architecture",
+      "matomo_views": 4,
+      "umami_views": 27,
+      "combined_views": 31,
+      "top_signal": "Concrete open-source toolkit readers can clone and run; strong Umami-side views from eywalink.org traffic",
+      "weakest_element": "Matomo count is near zero while Umami is 27 — the slug-resolver bug likely dropped most Matomo counts; needs verification",
+      "cross_link_opportunity": "Link to executable-enterprise-architecture and manage-your-agents-in-enterprise; ARCKIT is the tool layer, those two are the practice layer",
+      "title_hook_score": "weak",
+      "action": "Verify the slug-resolver bug is fully fixed for this slug, then add internal links to the two EA-practice posts and a clone-it CTA."
+    },
+    {
+      "slug": "when-your-agent-says-done",
+      "title": "When Your Agent Says Done",
+      "matomo_views": 46,
+      "umami_views": 29,
+      "combined_views": 75,
+      "top_signal": "Compelling narrative hook — a real incident where an agent shipped broken work — plus a reusable QA checklist",
+      "weakest_element": "No internal links to the SuperWeb testing or testing-vs-evaluation posts; the QA cluster is under-connected",
+      "cross_link_opportunity": "Link to bridging-the-e2e-testing-gap-superweb-testing and testing-vs-evaluation-for-ai-agents; all three are the agent-QA trio",
+      "title_hook_score": "strong",
+      "action": "Add a \"Related QA posts\" section linking to the other two QA posts and a one-line CTA to the QA checklist."
+    },
+    {
+      "slug": "plantuml-archimate-agent-diagrams",
+      "title": "PlantUML & Archimate Agent Diagrams",
+      "matomo_views": 16,
+      "umami_views": 16,
+      "combined_views": 32,
+      "top_signal": "Copy-paste PlantUML/Archimate snippets make it the most reusable diagram reference on the site",
+      "weakest_element": "No internal links to executable-enterprise-architecture despite being the diagram tooling for that framework",
+      "cross_link_opportunity": "Link to executable-enterprise-architecture; the diagram post is the tooling layer, the EA post is the framework layer",
+      "title_hook_score": "mid",
+      "action": "Add a \"Use these in the Agentic-TOGAF ADM\" section linking to executable-enterprise-architecture and a CTA to the diagram template repo."
+    },
+    {
+      "slug": "from-one-agent-to-a-company-of-agents",
+      "title": "From One Agent to a Company of Agents",
+      "matomo_views": 57,
+      "umami_views": 34,
+      "combined_views": 91,
+      "top_signal": "Highest combined views on site; the multi-agent org concept is a fresh, shareable mental model",
+      "weakest_element": "No internal links to manage-your-agents-in-enterprise or executable-enterprise-architecture despite the governance gap",
+      "cross_link_opportunity": "Link to manage-your-agents-in-enterprise and executable-enterprise-architecture; the org post needs the governance layer to be actionable",
+      "title_hook_score": "strong",
+      "action": "Add a \"How to govern a company of agents\" section linking to the two governance posts and a CTA to the multi-agent architecture diagram."
+    },
+    {
+      "slug": "the-cost-of-running-an-ai-lab",
+      "title": "The Cost of Running an AI Lab",
+      "matomo_views": 127,
+      "umami_views": 29,
+      "combined_views": 156,
+      "top_signal": "Highest views on site; real cost tables and a working budget spreadsheet make it a reference post",
+      "weakest_element": "No internal links to why-i-build-my-local-ai or digital-twin-that-scales despite the shared cost/ownership theme",
+      "cross_link_opportunity": "Link to why-i-build-my-local-ai and digital-twin-that-scales; both reference the same hardware and cost assumptions",
+      "title_hook_score": "strong",
+      "action": "Add a \"Related cost posts\" section linking to the two posts and a CTA to download the budget spreadsheet."
+    },
+    {
+      "slug": "from-a-security-incident-to-reconsidering-enterprise-agent-boundaries",
+      "title": "From a Security Incident to Reconsidering Enterprise Agent Boundaries",
+      "matomo_views": 36,
+      "umami_views": 24,
+      "combined_views": 60,
+      "top_signal": "Real incident narrative gives it a story-driven hook that pure-framework posts lack; strong compliance angle",
+      "weakest_element": "No internal links to manage-your-agents-in-enterprise or when-your-agent-says-done; the governance cluster is under-connected",
+      "cross_link_opportunity": "Link to manage-your-agents-in-enterprise and when-your-agent-says-done; the incident is the case study that justifies both",
+      "title_hook_score": "strong",
+      "action": "Add a \"Related governance posts\" section linking to the two posts and a CTA to the agent-boundary checklist."
+    },
+    {
+      "slug": "managing-context-in-vibe-coding",
+      "title": "Managing Context in Vibe Coding",
+      "matomo_views": 0,
+      "umami_views": 20,
+      "combined_views": 20,
+      "top_signal": "Timely topic — vibe coding peaked in mid-2026 and this is one of the only deep-dive posts",
+      "weakest_element": "Matomo count is 0 — the slug-resolver bug likely dropped it; verify before assuming it is genuinely low",
+      "cross_link_opportunity": "Link to managing-context-overflow-ai-coding-agents; the two are the same topic at different depths and should cross-link",
+      "title_hook_score": "mid",
+      "action": "Verify the slug-resolver bug is fixed for this slug, then add a \"Deep-dive\" link to the context-overflow post."
+    },
+    {
+      "slug": "testing-vs-evaluation-for-ai-agents",
+      "title": "Testing vs Evaluation for AI Agents",
+      "matomo_views": 0,
+      "umami_views": 1,
+      "combined_views": 1,
+      "top_signal": "Clear distinction between testing and evaluation is a useful framework, but it is one of the least-viewed posts",
+      "weakest_element": "Nearly zero views — no internal links, no CTA, and the title is abstract with no concrete payoff",
+      "cross_link_opportunity": "Link to bridging-the-e2e-testing-gap-superweb-testing and when-your-agent-says-done; the QA trio needs to cross-link to lift all three",
+      "title_hook_score": "weak",
+      "action": "Retitle with a concrete payoff (\"Stop Shipping Broken Agents: Testing vs Evaluation\") and add two internal links to the other QA posts."
+    },
+    {
+      "slug": "switching-from-vllm-to-sglang",
+      "title": "Switching from vLLM to SGLang",
+      "matomo_views": 0,
+      "umami_views": 1,
+      "combined_views": 1,
+      "top_signal": "Highly specific inference-engine comparison that developers actively search for",
+      "weakest_element": "Nearly zero views — no internal links, no external citations to the SGLang benchmark, and the title is a how-to without a hook",
+      "cross_link_opportunity": "Link to the-cost-of-running-an-ai-lab and impossible-triangle-of-llms; all three share the inference-cost trade-off theme",
+      "title_hook_score": "weak",
+      "action": "Add two external citations to the SGLang benchmark and internal links to the cost and triangle posts; retitle with a number (\"2x Faster Inference: vLLM vs SGLang\")."
+    }
+  ],
+  "strategy": {
+    "summary": "The blog has 22 posts with strong topical depth but two systemic gaps: (1) almost zero internal linking — the posts form clear topical clusters (AI-strategy, agent-QA, local-AI, EA-practice) that never cross-link, so traffic does not flow between them; (2) the two view-counter pipelines disagree on several slugs (arckit-oaa: Matomo 4 vs Umami 27; managing-context-in-vibe-coding: Matomo 0 vs Umami 20), meaning the displayed numbers are likely undercounted and the true performance of mid-tier posts is better than the data suggests. The top 5 posts (cost-of-running-an-ai-lab, from-one-agent-to-a-company-of-agents, digital-twin-that-scales, managing-context-overflow, when-your-agent-says-done) collectively account for ~50% of all views and are the natural anchors for a linking campaign.",
+    "top_10_actions": [
+      {
+        "priority": "P0",
+        "action": "Fix the Umami slug-resolver bug for the three slugs with 0 Matomo views (arckit-oaa, managing-context-in-vibe-coding, testing-vs-evaluation) and re-verify counts before any content decisions",
+        "target_post": "site-wide",
+        "expected_impact": "Unblocks accurate growth data; prevents mis-prioritising genuinely weak posts"
+      },
+      {
+        "priority": "P0",
+        "action": "Add a \"Related posts\" section to the top 5 posts (cost-of-running-an-ai-lab, from-one-agent-to-a-company-of-agents, digital-twin-that-scales, managing-context-overflow, when-your-agent-says-done) linking to their cluster-mates",
+        "target_post": "the-cost-of-running-an-ai-lab",
+        "expected_impact": "Dwell time + exit rate improvement on 50% of total site traffic"
+      },
+      {
+        "priority": "P0",
+        "action": "Add 2-3 internal links to every post in the agent-QA cluster (bridging-the-e2e-testing-gap, when-your-agent-says-done, testing-vs-evaluation, from-a-security-incident)",
+        "target_post": "bridging-the-e2e-testing-gap-superweb-testing",
+        "expected_impact": "Lifts the two 0/1-view posts via cluster traffic; compounds across 4 posts"
+      },
+      {
+        "priority": "P0",
+        "action": "Retitle testing-vs-evaluation-for-ai-agents and switching-from-vllm-to-sglang with concrete payoff hooks (numbers, outcomes)",
+        "target_post": "testing-vs-evaluation-for-ai-agents",
+        "expected_impact": "Search CTR + social share rate on the two lowest-performing slugs"
+      },
+      {
+        "priority": "P1",
+        "action": "Add a \"Related strategy posts\" section to buy-or-build, private-ai-must-be-in-your-ai-strategy, and why-zero-lock-in-matters so the three cross-link",
+        "target_post": "buy-or-build",
+        "expected_impact": "AI-strategy pillar becomes a self-contained reading path; +3 internal links"
+      },
+      {
+        "priority": "P1",
+        "action": "Add a \"Copy this\" section with a minimal OTel agent-tracer snippet to observability-architecture-for-agents",
+        "target_post": "observability-architecture-for-agents",
+        "expected_impact": "Increases copy-paste value; likely +backlinks and +search traffic"
+      },
+      {
+        "priority": "P1",
+        "action": "Add a \"Related cost posts\" section to the-cost-of-running-an-ai-lab linking to why-i-build-my-local-ai and digital-twin-that-scales",
+        "target_post": "the-cost-of-running-an-ai-lab",
+        "expected_impact": "Routes the highest-traffic post's readers into the cost/ownership cluster"
+      },
+      {
+        "priority": "P1",
+        "action": "Retitle agent-workflow-pattern-practice and manage-your-agents-in-enterprise with outcome hooks (numbers, verbs)",
+        "target_post": "agent-workflow-pattern-practice",
+        "expected_impact": "Search visibility + social share on the two weakest mid-tier slugs"
+      },
+      {
+        "priority": "P2",
+        "action": "Align the two JSON view-counter files by retiring the Matomo pipeline and using Umami as the single source of truth for the Jekyll mirror",
+        "target_post": "site-wide",
+        "expected_impact": "Eliminates data drift; simplifies the hourly cron; one source to maintain"
+      },
+      {
+        "priority": "P2",
+        "action": "Add og:image and JSON-LD Article schema to all 22 posts (items already flagged in the Aug 2026 web-presence audit but not yet done)",
+        "target_post": "site-wide",
+        "expected_impact": "Social share CTR + rich search snippets; ~4 hrs total effort"
+      }
+    ],
+    "cross_link_map": [
+      {
+        "from_slug": "the-cost-of-running-an-ai-lab",
+        "to_slug": "digital-twin-that-scales",
+        "reason": "Both reference the same hardware and cost assumptions; the twin post needs the cost context to be actionable"
+      },
+      {
+        "from_slug": "when-your-agent-says-done",
+        "to_slug": "bridging-the-e2e-testing-gap-superweb-testing",
+        "reason": "The incident post is the narrative; the SuperWeb post is the tooling; together they form the QA story"
+      },
+      {
+        "from_slug": "from-one-agent-to-a-company-of-agents",
+        "to_slug": "manage-your-agents-in-enterprise",
+        "reason": "The org post describes the structure; the governance post describes how to control it"
+      },
+      {
+        "from_slug": "buy-or-build",
+        "to_slug": "why-zero-lock-in-matters-for-enterprise-ai",
+        "reason": "Shared lock-in and IP-ownership theme; the two reinforce each other's CTA"
+      },
+      {
+        "from_slug": "managing-context-overflow-ai-coding-agents",
+        "to_slug": "agent-workflow-pattern-practice",
+        "reason": "The workflow post defines the loop; the context-overflow post defines when to intervene in that loop"
+      }
+    ],
+    "data_source_fixes": [
+      "Decision 2026-10-20: Matomo is the source of truth. Keep the Matomo pipeline (refresh_views.sh → views_feed.php → assets/views-data.json → head-custom.html L385 SRC= views-data.json). The Umami pipeline (refresh_umami_views.sh, umami_views_feed.py, assets/umami-views-data.json) is retired: scripts deleted, JSON archived to Growth/archive/. The eywalink.org side keeps its own Umami pipeline (sync-umami-pageviews.mjs) — that one is unchanged.",
+      "Fix the slug-resolver edge case that drops leading date prefixes in views_feed.php: verify arckit-oaa, managing-context-in-vibe-coding, and testing-vs-evaluation-for-ai-agents all resolve to the correct key in assets/views-data.json.",
+      "Add a cron health-check that alerts if assets/views-data.json has not been updated in > 2 hours, so a silent Matomo pipeline failure is caught within the hour instead of the next day.",
+      "Standardise the slug key format in views-data.json (strip date prefix, lowercase, hyphenate) so a single resolver can serve both sites without per-site mapping.",
+      "DONE 2026-10-20: removed the legacy check5.php diagnostic script (not part of the live pipeline; queried the Matomo DB directly with env-var credentials)."
+    ],
+    "seo_quick_wins": [
+      "Add og:image (600x315px branded share image) to all 22 posts — flagged P0 in Aug 2026 audit, still not done. Effort: 1 hr (generate one template, apply per-post)."
+      "Add JSON-LD Article schema to all 22 posts — flagged P1 in Aug audit, not done. Effort: 2 hrs (Jekyll liquid snippet in _layouts/post.html)."
+      "Add twitter:card meta tags — flagged P1 in Aug audit, not done. Effort: 30 min."
+      "Add internal cross-links from all posts to relevant eywalink.org service pages — flagged P1 in Aug audit, not done. Effort: 2 hrs."
+      "Add BreadcrumbList JSON-LD schema — flagged P2 in Aug audit, not done. Effort: 1 hr."
+    ],
+    "content_gaps": [
+      "\"The data-privacy case for self-hosting LLMs\" — private-ai-must-be-in-your-ai-strategy and why-zero-lock-in touch on this but no post goes deep on APRA/Allianz/GDPR compliance as the driver; high CTO relevance.",
+      "\"Vector database comparison: Qdrant vs Milvus vs Chroma\" — three posts reference Qdrant by name but no post compares vector DBs; developers actively search this.",
+      "\"Agent cost observability: tracking token spend per workflow\" — the-cost-of-running-an-ai-lab covers infrastructure cost but no post covers the operational cost of running agents at scale; natural follow-up.",
+      "\"Multi-agent orchestration failure modes\" — from-one-agent-to-a-company-of-agents describes the org but not how it breaks; high search intent from the agent-ops audience."
+    ],
+    "publishing_cadence": "The blog shipped 22 posts in ~5 months (≈ 1.2/week), which is strong — hold that pace for the next 3 months to close the content gaps above. Prioritise 1 \"hero\" post per month (e.g. vector-DB comparison, agent cost observability) with 2 supporting 800-word cross-links to existing posts, so the new hero post inherits internal traffic from the established cluster. Keep the long-form format (tables, copy-paste snippets) but add a TL;DR to every new post from now; the two 0-view unpublished slugs show that length alone does not rescue a post missing the hook + internal links."
+  }
+}
