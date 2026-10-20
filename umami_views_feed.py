@@ -50,6 +50,14 @@ def url_to_slug(url_path):
     # mirror dated path: /YYYY/... (legacy 4-seg) or /YYYY-MM-DD/<slug> (cutover)
     if len(segs) >= 2 and DATE_PREFIX.match(segs[0]):
         leaf = segs[-1].removesuffix(".html").rstrip("/")
+        # Legacy double-dated URLs (e.g. /2026/08/16/2026-07-07-<slug>.html)
+        # bake the post date into the leaf. The front-end keys on the clean
+        # title slug (pathToSlug strips only a .html), so strip a leading
+        # YYYY-MM-DD- / YYYY- prefix here to keep every URL generation of the
+        # same post under ONE key instead of fragmenting the count.
+        m = re.match(r"^\d{4}(?:-\d{2}-\d{2})?-[\w]", leaf)
+        if m:
+            leaf = leaf[m.end() - 1:]
         return leaf or None
     return None
 
