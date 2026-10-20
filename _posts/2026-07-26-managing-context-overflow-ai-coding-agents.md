@@ -12,6 +12,7 @@ tags:
   - VSCode
 draft: false
 summary: Context overflow is an architecture problem. When coding in a large project codebase, context windows kill agent sessions mid-task. Here's how I architect handoff files, subagent delegation, and task decomposition to keep coding agents productive across session boundaries.
+permalink: /2026-07-26/managing-context-overflow-ai-coding-agents
 ---
 > **TL;DR**: Context overflow is an architecture problem. When coding in a large project codebase, context windows kill agent sessions mid-task. Here's how I architect handoff files, subagent delegation, and task decomposition to keep coding agents productive across session boundaries. The session always dies. You're deep into a coding task, the agent is refactoring, testing, iterating, and then the context window fills, the conversation stalls, and you're staring at half-finished work. Next session starts, the fresh agent spends 30 minutes re-familiarising itself with what already happened, and the cycle repeats.
 

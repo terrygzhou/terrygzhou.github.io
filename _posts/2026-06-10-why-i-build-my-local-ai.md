@@ -8,6 +8,7 @@ tags:
   - data-sovereignty
   - open-source
 description: "2026 is the year of agentic AI. I made a deliberate shift: instead of burning cash on monthly Claude and OpenAI subscriptions, I invested in a local workstation running open-source models. Six months and billions of tokens later, this is less cost-cutting and more a strategic pivot. Here's why, and why enterprises should consider it too."
+permalink: /2026-06-10/why-i-build-my-local-ai
 ---
 > **TL;DR**: 2026 is shaping up to be the year of Agentic AI. As open-source LLMs mature for local deployment, the line between model and harness is finally clear. I made a shift this year: Instead of burning cash on monthly Claude and OpenAI API subscriptions, I invested in a local workstation running open-source models, harness and apps.
 

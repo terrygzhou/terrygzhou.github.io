@@ -12,6 +12,7 @@ tags:
   - software-engineering
 description: An agent on EyWALink read a sibling tenant's credentials off the shared host and listed their staff. The control plane's 403 boundary was real but bypassable, because every tenant ran as the same OS user. Here's the isolation ladder, and the tier that actually enforces it.
 summary: Why agent boundaries are the new enterprise security perimeter, the real cross-tenant incident that exposed the gap, and the isolation tiers that actually hold. The application boundary is only as strong as the identity underneath it.
+permalink: /2026-10-09/from-a-security-incident-to-reconsidering-enterprise-agent-boundaries
 ---
 
 > **TL;DR**: The hard challenge in enterprise AI is where to draw the agents' boundaries. Most platforms build that boundary at the application layer, a policy check that can be read around, and they treat the check itself as the isolation. I verified the company boundary on my agentic control plane: a key from one company gets refused on another's data. Then one of my agents found a way to list a sibling company's staff, read that company's key off the shared Dev machine and used it. The incident exposed the gap: the operating-system tier underneath the policy was missing. Here proposes a 6 × 5 matrix to describe the modern enterprise AI boundaries:

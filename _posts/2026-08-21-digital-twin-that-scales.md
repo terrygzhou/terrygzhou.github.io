@@ -14,6 +14,7 @@ tags:
   - neo4j
   - graphrag
 summary: Four iterations of building a digital twin of myself, an AI mirror of who I am, what I know, and how I think. It compounds over time without exploding context windows or leaking data to the cloud.
+permalink: /2026-08-21/digital-twin-that-scales
 ---
 > **TL;DR**: Four iterations to build a digital twin, an AI mirror of who I am, what I know, how I think. It captures everything I engage with: conversations, texts, music, videos, lessons. The end result: a localised system where my agents can query who I am on demand. Semantic search, graph relationships, adaptive memory. It completed 75% of the survey requested by Australia Census 2026, with over 60% of the answers correct.  All on my hardware, nothing sent to the cloud. The only difference is that I make decisions, not my digital twin.
 

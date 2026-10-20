@@ -7,6 +7,7 @@ tags:
   - IT-Strategy
   - buy-or-build
   - AI-Strategy
+permalink: /2026-06-06/buy-or-build
 ---
 > **TL;DR**: For two decades, **_“buy over build”_** was enterprise IT’s default constitution. It was rational: dev talent was scarce, legacy maintenance was brutal, and vendors promised scale, security, and predictable roadmaps. Enterprises traded customisation for speed.
 
