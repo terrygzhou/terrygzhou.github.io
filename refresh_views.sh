@@ -32,11 +32,20 @@ printf '%s' "$json" | python3 -c 'import json,sys; json.load(sys.stdin)' \
 #    — no artificial boosts, so both sites show the same true number.)
 
 # 3. Sync the local branch with the remote (a manual run may leave the tree
-#    behind origin/main). Rebase only touches this repo's own commits; the
-#    script is the only thing that writes assets/views-data.json, so a clean
-#    rebase is safe.
+#    behind origin/main). This script is the ONLY thing that writes
+#    assets/views-data.json, so main can only ever be fast-forwarded here —
+#    use --ff-only instead of rebase, which needs a fully-clean tree and
+#    aborts the whole refresh if any unrelated working-tree file is dirty
+#    (the historical bug that froze the counter on 2026-10-20). The
+#    cron-appended log files are now untracked (see .gitignore) so the tree
+#    stays clean; ff-only still never tries to build a commit on top of dirt.
 git fetch -q origin main
-git rebase -q origin/main || { echo "views refresh: rebase failed, aborting" >&2; exit 1; }
+if [ "$(git rev-list --count origin/main..HEAD)" -eq 0 ]; then
+  # local is at or behind remote: just fast-forward (no-op if already current).
+  git merge --ff-only -q origin/main || {
+    echo "views refresh: fast-forward failed, aborting" >&2; git status --porcelain >&2; exit 1;
+  }
+fi
 
 # 4. Write atomically; only commit if content actually changed vs the remote
 #    (compare the generated JSON to what's currently published on origin/main,
