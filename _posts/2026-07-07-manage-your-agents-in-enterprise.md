@@ -150,17 +150,17 @@ Applying the DDD lens from above, the programme slices into bounded contexts per
 
 ### The fleet in the enterprise
 
-![Agentic Commerce — agent fleet in its enterprise environment: one orchestrator (AGT-001) supervising six journey agents, observed by the AI-safety/AgentOps guardrail plane, every agent acting through the consent-gated agent-callable API layer with the P19 autonomy-ladder constraint and tamper-evident run ledger](../assets/2026-07-07-manage-your-agents-in-enterprise/agent-inventory-view.png)
+![Agentic Commerce — agent fleet in its enterprise environment: one orchestrator (AGT-001) supervising six journey agents, observed by the AI-safety/AgentOps guardrail plane, every agent acting through the consent-gated agent-callable API layer with the P19 autonomy-ladder constraint and tamper-evident run ledger](/assets/2026-07-07-manage-your-agents-in-enterprise/agent-inventory-view.png)
 
 *Agent inventory view (AAGI): eight agents — 1 orchestrator, 6 journey agents, 1 guardrail agent — catalogued with ownership, risk and oversight per autonomy level, all reachable from the orchestrator and observed by the guardrail plane.*
-Source: [`agent-inventory-view.puml`](../assets/2026-07-07-manage-your-agents-in-enterprise/agent-inventory-view.puml) (PlantUML ArchiMate, pinned plantuml-1.2026.8.jar).
+Source: [`agent-inventory-view.puml`](/assets/2026-07-07-manage-your-agents-in-enterprise/agent-inventory-view.puml) (PlantUML ArchiMate, pinned plantuml-1.2026.8.jar).
 
 ### The architecture blueprint
 
-![Agentic Commerce — agent architecture blueprint: the agent system (orchestrator + journey agents) hosted on GCP PaaS Agent Engine, reasoning via the LLM core, invoking six agent-callable tools, gated by consent/Model Armor, with every run logged to the tamper-evident ledger and no direct SOR access](../assets/2026-07-07-manage-your-agents-in-enterprise/agent-architecture-view.png)
+![Agentic Commerce — agent architecture blueprint: the agent system (orchestrator + journey agents) hosted on GCP PaaS Agent Engine, reasoning via the LLM core, invoking six agent-callable tools, gated by consent/Model Armor, with every run logged to the tamper-evident ledger and no direct SOR access](/assets/2026-07-07-manage-your-agents-in-enterprise/agent-architecture-view.png)
 
 *Agent architecture view (AAGR): hierarchical supervisor/worker pattern; PP-01 prohibits any agent/LLM from reaching a SOR directly — consent, SVID and Model Armor gate all writes.*
-Source: [`agent-architecture-view.puml`](../assets/2026-07-07-manage-your-agents-in-enterprise/agent-architecture-view.puml) (PlantUML ArchiMate).
+Source: [`agent-architecture-view.puml`](/assets/2026-07-07-manage-your-agents-in-enterprise/agent-architecture-view.puml) (PlantUML ArchiMate).
 
 ### Challenge
 
