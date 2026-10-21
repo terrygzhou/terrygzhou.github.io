@@ -18,7 +18,7 @@ summary: A capable model on a system you designed yourself outperforms the same 
 
 After running a local Qwen 27B on an RTX 5090 through SGLang, joining a Qdrant vector store with a Neo4j entity graph for semantic retrieval, driving a control-plane harness that checkpoints state machines so a human can review at any gate, and orchestrating multi-agent workflows in LangGraph,  **a capable model sitting on top of a system you designed yourself outperforms the same model running alone.**
 
-(If you haven't read [why private AI belongs in your strategy](2026-08-06-private-ai-must-be-in-your-ai-strategy.md), start there. This post goes deeper on what makes the system work.)
+(If you haven't read [why private AI belongs in your strategy](2026-08-06/private-ai-must-be-in-your-ai-strategy), start there. This post goes deeper on what makes the system work.)
 
 ---
 
