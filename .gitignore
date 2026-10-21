@@ -14,3 +14,7 @@ refresh.log
 refresh.sh
 .pi/
 .sass-cache/
+
+# Cron-appended log files — never track (appended hourly by refresh crons)
+refresh_views.log
+refresh_umami_views.log
