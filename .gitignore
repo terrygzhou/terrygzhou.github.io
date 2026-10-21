@@ -18,3 +18,6 @@ refresh.sh
 # Cron-appended log files — never track (appended hourly by refresh crons)
 refresh_views.log
 refresh_umami_views.log
+
+# umami view-refresh log (cron-appended; kept out of git)
+refresh_umami_views.log
