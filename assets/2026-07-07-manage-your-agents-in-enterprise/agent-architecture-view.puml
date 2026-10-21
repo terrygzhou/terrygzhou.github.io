@@ -1,7 +1,7 @@
 @startuml
 !include <archimate/Archimate>
 
-title "AusPost Agentic Commerce - Agent Architecture View (Horizon 1 Bounded Pilot)"
+title "Agentic Commerce - Agent Architecture View (Horizon 1 Bounded Pilot)"
 
 LAYOUT_TOP_DOWN()
 
