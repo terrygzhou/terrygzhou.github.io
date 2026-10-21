@@ -8,8 +8,8 @@ tags:
   - Agentic-Architecture
   - Open-Source
 date: 2026-10-21
-
 description: A capable model on a system you designed yourself outperforms the same model running alone — the four layers that make it so, proof from a live knowledge base, and where EyWALink's products fit.
+summary: A capable model on a system you designed yourself outperforms the same model running alone — the four layers that make it so, proof from a live knowledge base, and where EyWALink's products fit.
 ---
 
 # Intelligence Is a System, Not a Model
