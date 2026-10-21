@@ -74,7 +74,7 @@ One line of YAML. No IP addresses. No port forwarding between projects. Any new 
 
 **The `external` Pattern in practice:**
 
-![Shared Docker bridge network: grafana-stack producer and vllm / loop_factory consumers on one external segment](/assets/2026-07-15-observability/network-topology.png)
+![Shared Docker bridge network: grafana-stack producer and vllm / loop_factory consumers on one external segment](../assets/2026-07-15-observability/network-topology.png)
 
 ### What Connects
 
@@ -101,7 +101,7 @@ No `extra_hosts`, no hardcoded IPs. The network is the configuration.
 
 ### Metrics Path (Prometheus, pull-based)
 
-![Prometheus pull-based metrics path: vllm-mtp and loop_factory scraped every 15s into Prometheus, rendered in Grafana](/assets/2026-07-15-observability/metrics-path.png)
+![Prometheus pull-based metrics path: vllm-mtp and loop_factory scraped every 15s into Prometheus, rendered in Grafana](../assets/2026-07-15-observability/metrics-path.png)
 
 **Prometheus scrape config** (`prometheus.yml`):
 
@@ -113,7 +113,7 @@ No `extra_hosts`, no hardcoded IPs. The network is the configuration.
 
 ### Traces, Logs, Metrics Path (OTel, push-based)
 
-![OTel push pipeline: ingestion routed through the collector and batch layer into Phoenix / Loki / Prometheus storage, then visualized](/assets/2026-07-15-observability/otel-pipeline.png)
+![OTel push pipeline: ingestion routed through the collector and batch layer into Phoenix / Loki / Prometheus storage, then visualized](../assets/2026-07-15-observability/otel-pipeline.png)
 
 **OTel pipelines** (`otel-collector/config.yml`):
 

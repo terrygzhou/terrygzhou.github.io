@@ -18,9 +18,9 @@ permalink: /2026-08-21/digital-twin-that-scales
 ---
 > **TL;DR**: Four iterations to build a digital twin, an AI mirror of who I am, what I know, how I think. It captures everything I engage with: conversations, texts, music, videos, lessons. The end result: a localised system where my agents can query who I am on demand. Semantic search, graph relationships, adaptive memory. It completed 75% of the survey requested by Australia Census 2026, with over 60% of the answers correct.  All on my hardware, nothing sent to the cloud. The only difference is that I make decisions, not my digital twin.
 
-![The four-phase evolution: static snapshot, single-source memory, adaptive learning, graph understanding](/assets/2026-08-21-digital-twin-that-scales/evolution.png)
+![The four-phase evolution: static snapshot, single-source memory, adaptive learning, graph understanding](../assets/2026-08-21-digital-twin-that-scales/evolution.png)
 
-Diagram source: [`evolution.html`](/assets/2026-08-21-digital-twin-that-scales/evolution.html)
+Diagram source: [`evolution.html`](../assets/2026-08-21-digital-twin-that-scales/evolution.html)
 
 ## Phase 1: Static Snapshot
 
@@ -78,9 +78,9 @@ I went custom:
 
 The result: vector search for recall, graph traversal for context. 344,000 pieces of searchable content in Qdrant. 18,500 entities in the graph. Nearly 75,000 relationships. All on a single home server.
 
-![System architecture: sourcing, processing, storage (Qdrant vectors + Neo4j graph), consumption (Mem0 adaptive layer + local LLM), agents, and the heartbeat self-maintenance loop](/assets/2026-08-21-digital-twin-that-scales/architecture.png)
+![System architecture: sourcing, processing, storage (Qdrant vectors + Neo4j graph), consumption (Mem0 adaptive layer + local LLM), agents, and the heartbeat self-maintenance loop](../assets/2026-08-21-digital-twin-that-scales/architecture.png)
 
-Diagram source: [`architecture.html`](/assets/2026-08-21-digital-twin-that-scales/architecture.html)
+Diagram source: [`architecture.html`](../assets/2026-08-21-digital-twin-that-scales/architecture.html)
 
 When I ask "How did I become an enterprise architect?" the twin searches for semantically relevant content, explores the graph for career milestones, certifications, organisations, and people, then weaves both into a single answer. The resume is the skeleton, the graph is the connections, and memory fills in the details.
 
@@ -88,9 +88,9 @@ When I ask "How did I become an enterprise architect?" the twin searches for sem
 
 Three stages: sourcing, processing, consumption. Every conversation feeds back in.
 
-![Data pipeline: sourcing, processing, storage (Qdrant + Neo4j), consumption, heartbeat feedback, and self-maintenance jobs](/assets/2026-08-21-digital-twin-that-scales/pipeline.png)
+![Data pipeline: sourcing, processing, storage (Qdrant + Neo4j), consumption, heartbeat feedback, and self-maintenance jobs](../assets/2026-08-21-digital-twin-that-scales/pipeline.png)
 
-Diagram source: [`pipeline.html`](/assets/2026-08-21-digital-twin-that-scales/pipeline.html)
+Diagram source: [`pipeline.html`](../assets/2026-08-21-digital-twin-that-scales/pipeline.html)
 
 **Sourcing.** Channels: Telegram, social media, research papers, github, VS Code sessions, Obsidian notes, manual injections, automated research cron jobs, emails, Apple Notes, personal PDFs, working files, web content. Each source has its own ingestion script.
 

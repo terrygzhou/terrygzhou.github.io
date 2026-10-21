@@ -1,0 +1,62 @@
+@startuml
+!include <archimate/Archimate>
+
+title "AusPost Agentic Commerce - AI Agent Inventory View (Horizon 1 Bounded Pilot)"
+
+LAYOUT_TOP_DOWN()
+
+' --- Motivation overlay ---
+Motivation_Driver(sd1, "Post-purchase journeys need trusted, governed agent mediation")
+Motivation_Goal(sg1, "Catalogued, auditable agent fleet with defined oversight per autonomy level")
+Motivation_Constraint(sc1, "P19 autonomy ladder: no journey starts above Recommend w/o AGF exception")
+
+' --- Strategy: journey orchestration ---
+Strategy_Capability(capJourney, "Agentic Post-Purchase Orchestration (Journey Agent family)")
+Strategy_Capability(capGuard, "AI Safety / AgentOps Guardrail Plane (P21/P22)")
+
+' --- Application agents (AGT-001..AGT-007) ---
+Application_Component(agtOrch, "AGT-001: Post-Purchase Orchestrator Agent")
+Application_Component(agtTrack, "AGT-002: Proactive Tracking Agent")
+Application_Component(agtRedirect, "AGT-003: Delivery Preference / Redirect Agent")
+Application_Component(agtLocker, "AGT-004: Locker / Out-of-Home Agent")
+Application_Component(agtException, "AGT-005: Exception & Service Recovery Agent")
+Application_Component(agtReturns, "AGT-006: Returns / Reverse Logistics Agent")
+Application_Component(agtSending, "AGT-007: Sending / Lodgement Agent")
+Application_Component(agtGuard, "AGT-008: AI Safety & AgentOps Guardrail Agent")
+
+' --- Technology: agent-callable capability layer (governed, agent does not bypass SOR) ---
+Technology_SystemSoftware(layAgent, "Agent-Callable Domain API layer (consent + SVID + Model Armor)")
+Technology_SystemSoftware(layAgentOps, "AgentOps + Tamper-Evident Run Ledger (P22)")
+
+' --- Motivation influence ---
+Rel_Influence(sd1, sg1, "drives")
+Rel_Influence(sc1, sg1, "constrains")
+
+' --- Orchestration: journey orchestrator routes to journey agents ---
+Rel_Realization(capJourney, agtOrch, "supervises")
+Rel_Realization(agtOrch, agtTrack, "routes: tracking context")
+Rel_Realization(agtOrch, agtRedirect, "routes: preference / redirect")
+Rel_Realization(agtOrch, agtLocker, "routes: locker / OOH")
+Rel_Realization(agtOrch, agtException, "routes: exception / recovery")
+Rel_Realization(agtOrch, agtReturns, "routes: returns / reverse log.")
+Rel_Realization(agtOrch, agtSending, "routes: sending / lodgement")
+
+' --- Journey agents act through governed capability layer ---
+Rel_Realization(agtTrack, layAgent, "read-only domain APIs")
+Rel_Realization(agtRedirect, layAgent, "consent-gated redirect")
+Rel_Realization(agtLocker, layAgent, "eligibility + confirmed action")
+Rel_Realization(agtException, layAgent, "case / status APIs")
+Rel_Realization(agtReturns, layAgent, "return / label APIs")
+Rel_Realization(agtSending, layAgent, "lodgement / e-label APIs")
+
+' --- Guardrail plane observes every agent run ---
+Rel_Realization(capGuard, agtGuard, "monitors")
+Rel_Realization(agtGuard, layAgentOps, "evaluates + logs every run")
+Rel_Access_rw(agtGuard, layAgentOps, "tamper-evident intent/decision/cost")
+
+' --- Layout constraints ---
+Lay_D(sg1, capJourney)
+Lay_D(capJourney, agtOrch)
+Lay_D(agtOrch, layAgent)
+
+@enduml

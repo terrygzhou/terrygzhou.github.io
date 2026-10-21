@@ -20,7 +20,7 @@ permalink: /2026-09-12/when-your-agent-says-done
 
 Your agent is not lying when it says "all done." It's answering the question you asked. Ask it to show instead.
 
-![From trust to evidence: seven stages: the five-step evolution of an evidence-based workflow, plus two properties of the finished system](/assets/2026-09-12-when-your-agent-says-done/phases.svg)
+![From trust to evidence: seven stages: the five-step evolution of an evidence-based workflow, plus two properties of the finished system](../assets/2026-09-12-when-your-agent-says-done/phases.svg)
 
 ## "All done": the most expensive claim in agentic engineering
 

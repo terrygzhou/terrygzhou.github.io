@@ -1,0 +1,68 @@
+@startuml
+!include <archimate/Archimate>
+
+title "AusPost Agentic Commerce - Agent Architecture View (Horizon 1 Bounded Pilot)"
+
+LAYOUT_TOP_DOWN()
+
+' --- Motivation overlay ---
+Motivation_Goal(g1, "Trusted, governed post-purchase orchestration; reusable agent-callable capability layer")
+Motivation_Constraint(c1, "PP-01 no agent/LLM direct SOR access; consent + SVID + Model Armor gates all write actions")
+
+' --- Strategy capability ---
+Strategy_Capability(capAgt, "Agentic Post-Purchase Orchestration (bounded pilot)")
+
+' --- Application: agent system core ---
+Application_Component(agt, "Agent System (Orchestrator + journey agents AGT-001..AGT-007)")
+Application_Component(llm, "LLM Core - GCP Gemini Enterprise / multi-LLM routing (AI Gateway)")
+Application_Component(mem, "Memory - Session + Durable + Vector (context / preferences / delivery history)")
+Application_Component(guard, "Guardrails - Model Armor + consent/scope check + kill-switch (AI Safety AGT-008)")
+
+' --- Application tools (agent-callable domain APIs) ---
+Application_Service(tTrack, "T-001 Tracking + Notification API (read-only)")
+Application_Service(tRedirect, "T-002 Delivery Preference / Redirect API (consent-gated write)")
+Application_Service(tLocker, "T-003 Locker / Out-of-Home eligibility API")
+Application_Service(tCase, "T-004 Case / Exception API (Salesforce/Genesys)")
+Application_Service(tConsent, "T-005 Consent & Mandate Service (scope / revocation / step-up)")
+Application_Service(tLedger, "T-006 AgentOps + Tamper-Evident Run Ledger API")
+
+' --- Technology: authoritative SORs (agents wrap, never bypass) ---
+Technology_SystemSoftware(sor, "Authoritative Systems of Record (Fulfilment / SAP / Salesforce / Genesys)")
+Technology_Node(host, "GCP PaaS Agent Engine (isolated VPC + VPC Service Controls)")
+
+' --- Motivation influence ---
+Rel_Influence(g1, capAgt, "drives")
+Rel_Influence(c1, guard, "constrains")
+
+' --- Agent system realizes capability ---
+Rel_Realization(capAgt, agt, "realizes")
+
+' --- Orchestration: agent core wiring (adjacent tiers only) ---
+Rel_Realization(agt, llm, "reasoning via LLM")
+Rel_Realization(agt, mem, "reads/writes context")
+Rel_Realization(agt, guard, "subject to safety gate")
+
+' --- Tools invoked through governed layer (read-only or consent-gated) ---
+Rel_Realization(agt, tTrack, "read-only tools")
+Rel_Realization(agt, tRedirect, "consent-gated write")
+Rel_Realization(agt, tLocker, "consent-gated write")
+Rel_Realization(agt, tCase, "case open/update")
+
+' --- Cross-cutting gates on every run ---
+Rel_Realization(guard, tConsent, "checks consent scope pre-write")
+Rel_Realization(guard, tLedger, "logs every run (audit)")
+
+' --- SORs: tools wrap, agent never reaches SOR directly ---
+Rel_Realization(tRedirect, sor, "wraps SOR (no direct LLM access)")
+Rel_Realization(tCase, sor, "wraps SOR (no direct LLM access)")
+
+' --- Deployment ---
+Rel_Serving(host, agt, "hosts agent system")
+Rel_Serving(host, llm, "serves LLM via AI Gateway")
+
+' --- Layout constraints ---
+Lay_D(g1, capAgt)
+Lay_D(capAgt, agt)
+Lay_D(agt, llm)
+
+@enduml
