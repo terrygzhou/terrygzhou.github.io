@@ -1,0 +1,65 @@
+@startuml
+' ArcKit OAA — guided-control pipeline, ArchiMate style
+' source: guided-control-tiers.d2 (replaced). Render: java -Djava.awt.headless=true -jar plantuml-latest.jar -charset UTF-8 guided-control-tiers.puml
+top to bottom direction
+
+skinparam archimate {
+    roundCorner 8
+}
+skinparam rectangle {
+    roundCorner 8
+    Shadowing false
+}
+skinparam package {
+    RoundCorner 8
+    Shadowing false
+}
+skinparam linethickness 1
+skinparam arrow {
+    Color #555555
+}
+
+' native ArchiMate icons (bundled in the jar)
+sprite $agent    jar:archimate/actor
+sprite $proc     jar:archimate/application-process
+sprite $constr   jar:archimate/constraint
+sprite $deliv   jar:archimate/deliverable
+sprite $gap     jar:archimate/gap-filled
+
+title <color:#222222>ArcKit OAA — Guided-Control Pipeline</color>
+
+rectangle "AI Agent\n(the author)" as agent <<$agent>> #Application
+
+package "Guided Control Pipeline" as pipeline #f9f9f9 {
+    rectangle "1. Intake Interview" as t1 <<$proc>> #Application
+    rectangle "Structured questions from\ntemplate field schema" as n1 <<$constr>> #Strategy
+    rectangle "2. Template Rendering" as t2 <<$proc>> #Application
+    rectangle "Renders only when all\nrequired fields populated" as n2 <<$constr>> #Strategy
+    rectangle "3. Schema Validation" as t3 <<$proc>> #Application
+    rectangle "JSON Schema check —\nincomplete fields fail,\nnever silently get invented" as n3 <<$constr>> #Strategy
+    rectangle "4. Per-Phase Gates" as t4 <<$proc>> #Application
+    rectangle "Completeness checks +\ncross-reference\nconsistency with prior phase" as n4 <<$constr>> #Strategy
+
+    t1 -[hidden]down- n1
+    t2 -[hidden]down- n2
+    t3 -[hidden]down- n3
+    t4 -[hidden]down- n4
+}
+
+' tier progression (the 4-tier chain)
+t1 --> t2 : fields complete
+t2 --> t3 : render OK
+t3 --> t4 : valid
+
+' agent feeds the intake interview
+agent --> t1 : answers intake
+
+' final artefact
+rectangle "Artefact\n(ARC-NNN-v1.0.md)" as out <<$deliv>> #Technology
+t4 --> out : passed all 4 tiers
+
+' contrast: free-form agent output has no control layer
+rectangle "Hallucination risk:\nfree-form agent output\nwith no structural check" as hall <<$gap>> #Technology
+hall ..> agent : no control layer
+
+@enduml

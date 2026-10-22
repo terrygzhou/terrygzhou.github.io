@@ -1,0 +1,46 @@
+@startuml
+title SuperWeb Testing - Four-Phase E2E Pipeline
+
+skinparam defaultFontSize 11
+skinparam ArrowColor #4a4a4a
+
+top to bottom direction
+
+' ArchiMate native corner icons (names confirmed in this jar)
+sprite $src  jar:archimate/technology-system-software
+sprite $proc jar:archimate/application-process
+sprite $data jar:archimate/application-data-object
+
+' ---- Inputs (technology layer) ----
+rectangle "Source Code + Server Logs" as src <<$src>> #Technology
+
+' ---- Four pipeline phases (application processes) ----
+rectangle "Phase 1 - Source Analysis\n(form schemas, API routes)" as p1 <<$proc>> #Application
+rectangle "Phase 2 - Data Generation\n(LLM test data, N variations)" as p2 <<$proc>> #Application
+rectangle "Phase 3 - Browser Testing\n(Playwright automation)" as p3 <<$proc>> #Application
+rectangle "Phase 4 - Log Correlation\n(match results to server logs)" as p4 <<$proc>> #Application
+
+' ---- Structured intermediate artefacts (data objects) ----
+rectangle "JSON schemas + API routes" as d1 <<$data>> #Application
+rectangle "LLM test data (N variations)" as d2 <<$data>> #Application
+rectangle "Results + screenshots" as d3 <<$data>> #Application
+
+' ---- Final output ----
+rectangle "Structured JSON Report\n(failure triage + source trace)" as out <<$data>> #Application
+
+' ---- Data flow: phase -> artefact -> next phase ----
+p1 --> d1
+d1 --> p2
+p2 --> d2
+d2 --> p3
+p3 --> d3
+d3 --> p4
+
+' ---- Source feeds analysis (solid) + correlation (dashed) ----
+src --> p1 : "AST pattern matching"
+src ..> p4 : "log sources (Docker, files, journal)"
+
+' ---- Final report ----
+p4 --> out : "failure triage + source trace"
+
+@enduml

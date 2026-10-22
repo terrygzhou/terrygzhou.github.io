@@ -1,4 +1,8 @@
 {
+  "/assets/2026-07-01-executable-enterprise-architecture/togaf-adm-cycle.svg": {
+    "width": 695,
+    "height": 1100
+  },
   "/assets/2026-07-07-manage-your-agents-in-enterprise/agent-inventory-view.png": {
     "width": 1888,
     "height": 786
@@ -8,16 +12,16 @@
     "height": 2562
   },
   "/assets/2026-07-21-superweb-testing/pipeline.png": {
-    "width": 8462,
-    "height": 1260
+    "width": 414,
+    "height": 1154
   },
   "/assets/2026-08-21-digital-twin-that-scales/evolution.png": {
     "width": 1520,
     "height": 1522
   },
   "/assets/2026-09-03-arckit-oaa/commands-flow.svg": {
-    "width": 1529,
-    "height": 2020
+    "width": 1138,
+    "height": 571
   },
   "/assets/2026-09-12-when-your-agent-says-done/phases.png": {
     "width": 720,

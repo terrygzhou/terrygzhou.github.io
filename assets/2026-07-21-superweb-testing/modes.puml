@@ -1,0 +1,53 @@
+@startuml
+title SuperWeb Testing - Script Mode vs Agent Mode
+
+skinparam defaultFontSize 11
+skinparam ArrowColor #4a4a4a
+
+top to bottom direction
+
+' ArchiMate native corner icons (names confirmed in this jar)
+sprite $cli   jar:archimate/application-component
+sprite $wave  jar:archimate/strategy-course-of-action
+sprite $proc  jar:archimate/application-process
+sprite $tech  jar:archimate/technology-system-software
+sprite $cons  jar:archimate/constraint
+
+' ---- Entry point ----
+rectangle "superweb CLI" as cli <<$cli>> #Application
+
+' ---- Mode headers (execution approaches) ----
+rectangle "Script Mode\n--mode scripted" as sm <<$wave>> #Strategy
+rectangle "Agent Mode\n--mode agent" as am <<$wave>> #Strategy
+
+' ---- Script mode step chain ----
+rectangle "Analyze\n(source AST scan)" as s1 <<$proc>> #Application
+rectangle "Generate\n(LLM data generation)" as s2 <<$proc>> #Application
+rectangle "Test\n(Playwright)" as s3 <<$proc>> #Application
+rectangle "Correlate\n(log matching)" as s4 <<$proc>> #Application
+rectangle "CI/CD - pre-commit hooks\nNo container overhead\nDeterministic, reproducible" as ci <<$cons>> #Strategy
+
+' ---- Agent mode: OpenHands server hosts 3-conversation workflow ----
+rectangle "OpenHands Agent Server\n(Docker container)" as ohs <<$tech>> #Technology
+rectangle "Analyze\n(AI code + schema + data)" as a1 <<$proc>> #Application
+rectangle "Test\n(AI Playwright)" as a2 <<$proc>> #Application
+rectangle "Report\n(structured results + triage)" as a3 <<$proc>> #Application
+
+' ---- CLI routes to both modes ----
+cli --> sm
+cli ..> am : "Docker required"
+
+' ---- Script step chain (JSON between each) ----
+sm --> s1
+s1 --> s2 : "JSON"
+s2 --> s3 : "JSON"
+s3 --> s4 : "JSON"
+s4 --> ci
+
+' ---- Agent mode: server hosts the conversation workflow ----
+am --> ohs
+ohs --> a1
+a1 --> a2 : "JSON"
+a2 --> a3 : "JSON"
+
+@enduml

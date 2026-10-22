@@ -1,0 +1,63 @@
+@startuml
+title Migration Waves - Auditable, Repeatable ADM Roadmap
+
+skinparam defaultFontSize 11
+skinparam ArrowColor #4a4a4a
+
+top to bottom direction
+
+' ArchiMate native corner icons (only names confirmed to exist in this jar)
+sprite $goal jar:archimate/motivation-goal
+sprite $drv  jar:archimate/motivation-driver
+sprite $wave jar:archimate/strategy-course-of-action
+sprite $repo jar:archimate/strategy-capability
+sprite $out  jar:archimate/motivation-outcome
+
+' ---- Target state the roadmap serves ----
+rectangle "Repeatable, auditable\narchitecture delivery" as goal <<$goal>> #Strategy
+
+' ---- Cross-cutting repository every wave consults / feeds ----
+rectangle "Architecture Repository\npatterns · standards · building blocks" as repo <<$repo>> #Technology
+
+' ---- Four migration waves (the 9 commands grouped by phase) ----
+rectangle "Wave 1 - Preliminary + Phase A\nvision · scope · capability map" as w1 <<$wave>> #Strategy
+rectangle "Wave 2 - Phase C\napplication inventory + rationalization" as w2 <<$wave>> #Strategy
+rectangle "Wave 3 - Phase E + F\ngap analysis + transition architecture" as w3 <<$wave>> #Strategy
+rectangle "Wave 4 - Phase G + H\ngovernance board + change management" as w4 <<$wave>> #Strategy
+
+' ---- The community-testing driver (What's Next) ----
+rectangle "Community testing:\nedge cases · compliance mapping\n· linting + templates" as drive <<$drv>> #Strategy
+
+' ---- Delivery outcomes ----
+rectangle "Governance baseline\n(compliance scorecard)" as o1 <<$out>> #Strategy
+rectangle "Auditable transition plan\n(work packages + acceptance)" as o2 <<$out>> #Strategy
+rectangle "Continuous re-entry\n(Phase H feeds next cycle)" as o3 <<$out>> #Strategy
+
+' ---- goal -> waves ----
+goal --> w1
+goal --> repo
+
+' ---- wave chain ----
+w1 --> w2
+w2 --> w3
+w3 --> w4
+
+' ---- each wave consults the repository ----
+w1 ..> repo
+w2 ..> repo
+w3 ..> repo
+w4 ..> repo
+
+' ---- ADM cycle re-entry (Phase H -> Preliminary) ----
+w4 ..> w1 : "ADM re-entry"
+
+' ---- waves -> outcomes ----
+w4 --> o1
+w4 --> o2
+w4 --> o3
+
+' ---- What's Next driver -> outcomes (hardens the recipe) ----
+drive --> o2
+drive --> o3
+
+@enduml

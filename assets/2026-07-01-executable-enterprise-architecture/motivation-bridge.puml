@@ -1,0 +1,52 @@
+@startuml
+title From Business Frustration to Executable Architecture
+
+skinparam defaultFontSize 11
+skinparam ArrowColor #4a4a4a
+
+top to bottom direction
+
+' ArchiMate native corner icons (bundled in the jar)
+sprite $drv jar:archimate/motivation-driver
+sprite $con jar:archimate/motivation-constraint
+sprite $gob jar:archimate/motivation-goal
+sprite $app jar:archimate/application-component
+sprite $svc jar:archimate/application-service
+sprite $out jar:archimate/motivation-outcome
+
+' ---- Motivation layer: the executive's problem ----
+rectangle "No dedicated EA team" as m1 <<$drv>> #Strategy
+rectangle "Million-dollar\nBig 4 budget" as m2 <<$con>> #Strategy
+rectangle "Slide decks that\nnever execute" as m3 <<$con>> #Strategy
+
+' ---- Goal that the tooling must serve ----
+rectangle "Repeatable, auditable,\nautomated architecture delivery" as goal <<$gob>> #Strategy
+
+' ---- Application layer: what PR #626 ships ----
+rectangle "arckit-togaf-adm\nTOGAF ADM as slash commands\n+ build recipes" as tool <<$app>> #Application
+rectangle "TOGAF ADM\n(Preliminary .. Phase H)" as adm <<$svc>> #Application
+rectangle "CI/CD · artifact stores\n· governance dashboards" as gov <<$svc>> #Application
+
+' ---- Outcomes ----
+rectangle "Agent-readable,\nconfigurable, actionable\nphases" as o1 <<$out>> #Strategy
+rectangle "Consistency at scale:\nphase completion enforced\nprogrammatically" as o2 <<$out>> #Strategy
+rectangle "Framework-agnostic:\nlayer EA / C4 / custom\non the extensible schema" as o3 <<$out>> #Strategy
+rectangle "Open-source,\nno vendor lock-in" as o4 <<$out>> #Strategy
+
+' ---- Motivation -> goal ----
+m1 --> goal
+m2 --> goal
+m3 --> goal
+
+' ---- goal -> tooling ----
+goal --> tool : "ArcKit answers with"
+tool --> adm : "encodes"
+adm  --> gov : "integrates into"
+
+' ---- tooling -> outcomes ----
+gov --> o1
+gov --> o2
+gov --> o3
+gov --> o4
+
+@enduml

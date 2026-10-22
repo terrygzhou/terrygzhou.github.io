@@ -1,0 +1,67 @@
+@startuml
+' ArcKit OAA — command dependency flow, ArchiMate style
+' source: commands-flow.d2 (replaced). Render: java -Djava.awt.headless=true -jar plantuml-latest.jar -charset UTF-8 commands-flow.puml
+left to right direction
+
+skinparam archimate {
+    roundCorner 8
+}
+skinparam rectangle {
+    roundCorner 8
+    Shadowing false
+}
+skinparam linethickness 1
+skinparam arrow {
+    Color #555555
+}
+
+' native ArchiMate icons (bundled in the jar)
+sprite $prin  jar:archimate/motivation-principle
+sprite $req   jar:archimate/motivation-requirement
+sprite $stke  jar:archimate/motivation-stakeholder
+sprite $oastr jar:archimate/strategy-capability
+sprite $opar  jar:archimate/application-component
+sprite $oal   jar:archimate/application-process
+sprite $oasec jar:archimate/application-service
+sprite $oagov jar:archimate/strategy-course-of-action
+
+title <color:#222222>ArcKit OAA — Command Dependency Flow</color>
+
+package "Foundation (motivation layer)" as foundation #f0f4ff {
+    rectangle "principles\n(PRIN)" as PRIN <<$prin>> #Strategy
+    rectangle "requirements\n(REQ)" as REQ <<$req>> #Strategy
+    rectangle "stakeholders\n(STKE)" as STKE <<$stke>> #Strategy
+}
+
+package "OAA overlay" as oaa #f6fff0 {
+    rectangle "agile-strategy\n(OASTR)" as OASTR <<$oastr>> #Application
+    rectangle "product-architecture\n(OAPR)" as OAPR <<$opar>> #Application
+    rectangle "oaa-adm-lite\n(OAAL)" as OAAL <<$oal>> #Application
+    rectangle "agile-security\n(OASEC)" as OASEC <<$oasec>> #Application
+    rectangle "agile-governance\n(OAGOV)" as OAGOV <<$oagov>> #Application
+}
+
+' foundation internal dependencies
+PRIN --> REQ : deps
+PRIN --> STKE : deps
+
+' foundation -> overlay (required dependencies)
+PRIN --> OASTR
+PRIN --> OAPR
+PRIN --> OAAL
+PRIN --> OASEC
+PRIN --> OAGOV
+REQ --> OASTR
+REQ --> OAPR
+REQ --> OAAL
+STKE --> OASTR
+STKE --> OAAL
+
+' overlay chain
+OAPR --> OAAL
+OAPR --> OASEC
+OAAL --> OASEC
+OAAL --> OAGOV
+OASEC ..> OAGOV : optional
+
+@enduml

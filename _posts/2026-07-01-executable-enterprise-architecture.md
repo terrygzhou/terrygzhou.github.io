@@ -8,6 +8,7 @@ tags:
 date: 2026-07-01
 permalink: /2026-07-01/executable-enterprise-architecture
 description: "TOGAF ADM is the most widely adopted enterprise architecture framework, yet most teams can't operationalise it without a dedicated EA team. ArcKit's open-source update turns TOGAF ADM into agent-readable slash commands and build recipes, making architecture delivery executable, auditable, and repeatable, without a six-figure consulting budget."
+image: /assets/2026-07-01-executable-enterprise-architecture/togaf-adm-cycle.svg
 ---
 > **TL;DR**: Are you an executive leader without an architecture background, frustrated by the disconnect between your business goals, operational realities, and technology landscape? You know transformation is critical, but you’re stuck: unclear on where to go, how to get there, and unwilling to spend millions on Big 4 consultants for a “strategy” that may never be executable. That’s exactly why **PR #626** was built. 
 
@@ -23,6 +24,8 @@ This release ([Repo of the codebase:](https://github.com/terrygzhou/arc-kit)) br
 TOGAF ADM remains the most widely adopted enterprise architecture framework globally. Yet, many teams struggle to operationalise it: it needs EA specialists with the domain knowledge of your industry, engage heavily with your business and technology teams in a long period to create a target state architecture with the investment plan and implementation strategy to realise your vision. 
 
 This work will be enabling **configurable, validated, and repeatable architecture workflows** that speak the same language as modern DevOps, IaC, and governance tooling.
+
+![From Business Frustration to Executable Architecture](../assets/2026-07-01-executable-enterprise-architecture/motivation-bridge.svg)
 
 ---
 
@@ -44,7 +47,9 @@ Note that this post focus on `arckit-togaf-adm` only, instead of `arckit-agent-a
 | `/arckit:transition-architecture`     | Phase F, Migration Planning        | Work packages, migration waves, resource plans, acceptance criteria                |
 | `/arckit:architecture-board`          | Phase G, Implementation Governance | Board charter, compliance scorecard, governance process                            |
 | `/arckit:architecture-change`         | Phase H, Change Management         | Change requests with impact assessment, ADM cycle re-entry                         |
-| `/arckit:architecture-repository`     | Continuous                          | Patterns library, standards register, reusable building blocks across all projects |
+| `/arckit:architecture-repository`     | Continuous                           | Patterns library, standards register, reusable building blocks across all projects |
+
+![TOGAF ADM Cycle as Executable ArcKit Slash Commands](../assets/2026-07-01-executable-enterprise-architecture/togaf-adm-cycle.svg)
 
 ---
 
@@ -198,6 +203,8 @@ This PR is currently in review and ready for community testing. I’m looking fo
 - Real-world ADM workflow exports from enterprise teams.
 - Suggestions for mapping ADM to compliance frameworks (NIST, ISO, etc.)
 - Contributors for phase-specific linting rules or artifact templates
+
+![Migration Waves - Auditable, Repeatable ADM Roadmap](../assets/2026-07-01-executable-enterprise-architecture/migration-waves-roadmap.svg)
 
 If you work with TOGAF, architecture governance, or open-source EA tooling, please star the repo, comment on the PR, or open an issue with your use case.
 

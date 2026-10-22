@@ -1,0 +1,50 @@
+@startuml
+title TOGAF ADM Cycle as Executable ArcKit Slash Commands
+
+skinparam defaultFontSize 11
+skinparam ArrowColor #4a4a4a
+
+top to bottom direction
+
+' ArchiMate native corner icons (bundled in the jar)
+sprite $goal jar:archimate/motivation-goal
+sprite $cog  jar:archimate/strategy-course-of-action
+sprite $cap  jar:archimate/strategy-capability
+sprite $pric jar:archimate/motivation-principle
+
+' ---- Motivation / vision (Strategy layer) ----
+rectangle "EA Vision and Target State\n(scoped by Preliminary)" as vision <<$goal>> #Strategy
+rectangle "PRIN principles\n(create if missing)" as prin <<$pric>> #Strategy
+
+' ---- ADM forward chain (each phase = a course of action) ----
+rectangle "Preliminary\n/arckit:adm-preliminary" as p0 <<$cog>> #Strategy
+rectangle "Phase A · Business\n/arckit:business-capability-map" as pA <<$cog>> #Strategy
+rectangle "Phase C · Application\n/arckit:application-inventory\n/arckit:application-rationalization" as pC <<$cog>> #Strategy
+rectangle "Phase E · Opportunities\n/arckit:gap-analysis" as pE <<$cog>> #Strategy
+rectangle "Phase F · Migration\n/arckit:transition-architecture" as pF <<$cog>> #Strategy
+rectangle "Phase G · Governance\n/arckit:architecture-board" as pG <<$cog>> #Strategy
+rectangle "Phase H · Change Mgmt\n/arckit:architecture-change" as pH <<$cog>> #Strategy
+
+' ---- Cross-cutting repository (Continuous) ----
+rectangle "Architecture Repository · Continuous\n/arckit:architecture-repository\npatterns · standards · building blocks" as repo <<$cap>> #Strategy
+
+' ---- Forward flow ----
+vision  --> p0
+prin    ..> p0 : "governs"
+p0  --> pA
+pA  --> pC
+pC  --> pE
+pE  --> pF
+pF  --> pG
+pG  --> pH
+
+' ---- ADM re-entry loop (dashed) ----
+pH ..> pA : "ADM re-entry"
+
+' ---- Repository feeds every phase (dashed, cross-cutting) ----
+repo -[#808080,dashed]-> p0
+repo -[#808080,dashed]-> pC
+repo -[#808080,dashed]-> pE
+repo -[#808080,dashed]-> pG
+
+@enduml

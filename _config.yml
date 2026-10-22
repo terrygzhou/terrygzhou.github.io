@@ -35,11 +35,12 @@ defaults:
 # stay in sync with `image:` front matter and the files in assets/;
 # regenerate the sizes with: python3 validate_og_meta.py --write
 og_image_sizes:
+  /assets/2026-07-01-executable-enterprise-architecture/togaf-adm-cycle.svg: { width: 695, height: 1100 }
   /assets/2026-07-07-manage-your-agents-in-enterprise/agent-inventory-view.png: { width: 1888, height: 786 }
   /assets/2026-07-15-observability/network-topology.png: { width: 4700, height: 2562 }
-  /assets/2026-07-21-superweb-testing/pipeline.png: { width: 8462, height: 1260 }
+  /assets/2026-07-21-superweb-testing/pipeline.png: { width: 414, height: 1154 }
   /assets/2026-08-21-digital-twin-that-scales/evolution.png: { width: 1520, height: 1522 }
-  /assets/2026-09-03-arckit-oaa/commands-flow.svg: { width: 1529, height: 2020 }
+  /assets/2026-09-03-arckit-oaa/commands-flow.svg: { width: 1138, height: 571 }
   /assets/2026-09-12-when-your-agent-says-done/phases.png: { width: 720, height: 1304 }
   /assets/2026-09-21-plantuml-archimate-agent-diagrams/mapping.png: { width: 1066, height: 617 }
   /assets/2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.png: { width: 2000, height: 1104 }
