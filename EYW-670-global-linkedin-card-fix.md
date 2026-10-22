@@ -26,7 +26,7 @@ Does the EYW-669 defect (no per-post `image:` → EyWALink `og-default.png` card
 | 2026-09-21 plantuml-archimate | `mapping.png` (1066×617) |
 | 2026-09-27 company-of-agents | `multi-tenant-architecture.png` (1568×560) |
 | 2026-10-02 cost-of-running-an-ai-lab | `sglang-metric.png` (1398×1029) |
-| 2026-10-21 intelligence-is-a-system | `ai-system-layers.png` (1562×862) — confirmed live already; now in the registry too |
+| 2026-10-21 intelligence-is-a-system | `ai-system-layers.png` (2000×1104) — confirmed live already; now in the registry too |
 
 Each `image:` value is root-absolute (`/assets/...`) matching what `absolute_url` and the head lookup expect.
 
@@ -53,7 +53,7 @@ No diagram exists to promote, so they intentionally keep the EyWALink default ca
 ## Deploy & verification gate (not done — Pages build is user-gated)
 
 1. Commit + push `main`; wait for a green Pages build.
-2. `curl` any changed post, confirm `og:image` = the diagram URL and `og:image:width/height` = its real size (e.g. 1562×862 for the 10-21 post, 8462×1260 for superweb).
+2. `curl` any changed post, confirm `og:image` = the diagram URL and `og:image:width/height` = its real size (e.g. 2000×1104 for the 10-21 post, 8462×1260 for superweb).
 3. Social preview re-fetch: for any *existing* LinkedIn post, the card only refreshes when the link is deleted and re-pasted (private crawler) — same note as EYW-669.
 
 ## Open items inherited from EYW-669

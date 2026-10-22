@@ -17,8 +17,8 @@ The LinkedIn link preview for the post showed a dark-navy **EyWALink-branded car
 The post front matter had **no per-post `image:` field**. The site's `_includes/head-custom.html` then fell back to a hardcoded default for **both** social protocols:
 
 ```
-<meta property="og:image"    content="{{ page.image | default: '/assets/og-default.png' | absolute_url }}" />
-<meta property="twitter:image" content="{{ page.image | default: '/assets/og-default.png' | absolute_url }}" />
+<meta property="og:image"    content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ "/assets/og-default.png" | absolute_url }}{% endif %}" />
+<meta property="twitter:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ "/assets/og-default.png" | absolute_url }}{% endif %}" />
 <meta name="twitter:site" content="@EYwALink" />
 ```
 
@@ -27,7 +27,7 @@ The post front matter had **no per-post `image:` field**. The site's `_includes/
 
 **Why LinkedIn specifically:** LinkedIn's link-preview engine reads **Twitter Card** metadata (`twitter:card`, `twitter:image`, `twitter:site`), *not* the Open Graph tags. So even though `og:image` and `twitter:image` would have pointed at the same place, the absence of a per-post image meant both fell back to the EyWALink `og-default.png`. The card therefore carried EyWALink branding on three axes: image, `twitter:site` handle, and the post description ("…where EyWALink's products fit").
 
-A second latent defect: the head emitted `og:image:width/height` = `600×315` **unconditionally** — wrong for any per-post image that isn't that exact size (the diagram is **1562×862**), and a wrong declared size can distort the preview.
+A second latent defect: the head emitted `og:image:width/height` = `600×315` **unconditionally** — wrong for any per-post image that isn't that exact size (the diagram is **2000×1104**), and a wrong declared size can distort the preview.
 
 ## Options for fix
 
@@ -46,7 +46,7 @@ A second latent defect: the head emitted `og:image:width/height` = `600×315` **
 
 - Live page now serves `og:image` **and** `twitter:image` = `https://terrygzhou.github.io/assets/2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.png` (no 600×315 dims on it).
 - `og_title == twitter_title`, `og_image == twitter_image` (consistent; only diff was a curly vs straight apostrophe in the description).
-- Diagram returns HTTP 200, `image/png`, 213 KB, **1562×862**, `age: 0`.
+- Diagram returns HTTP 200, `image/png`, 213 KB, **2000×1104**, `age: 0`.
 - Default card (index, no `page.image`) still correctly emits 600×315 dims.
 - Both commits pushed to `main`; Pages builds `39705690341` and `39705781257` completed **success**.
 - Rendered the card from the live meta tags in a browser — image = four-layer system diagram, not the navy card.

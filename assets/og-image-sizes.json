@@ -15,6 +15,10 @@
     "width": 1520,
     "height": 1522
   },
+  "/assets/2026-09-03-arckit-oaa/commands-flow.svg": {
+    "width": 1529,
+    "height": 2020
+  },
   "/assets/2026-09-12-when-your-agent-says-done/phases.png": {
     "width": 720,
     "height": 1304
@@ -23,24 +27,20 @@
     "width": 1066,
     "height": 617
   },
+  "/assets/2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.png": {
+    "width": 2000,
+    "height": 1104
+  },
   "/assets/multi-tenant-agent-platform/multi-tenant-architecture.png": {
     "width": 1568,
     "height": 560
-  },
-  "/assets/sglang-metric.png": {
-    "width": 1398,
-    "height": 1029
-  },
-  "/assets/2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.png": {
-    "width": 1562,
-    "height": 862
   },
   "/assets/og-default.png": {
     "width": 600,
     "height": 315
   },
-  "/assets/2026-09-03-arckit-oaa/commands-flow.svg": {
-    "width": 1529,
-    "height": 2020
+  "/assets/sglang-metric.png": {
+    "width": 1398,
+    "height": 1029
   }
 }
