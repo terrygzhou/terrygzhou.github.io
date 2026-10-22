@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-10-22T22:15:01+00:00",
+    "generated_at": "2026-10-22T23:15:01+00:00",
     "views": {
         "the-cost-of-running-an-ai-lab": 133,
         "from-one-agent-to-a-company-of-agents": 63,
@@ -16,7 +16,7 @@
         "impossible-triangle-of-llms": 38,
         "observability-architecture-for-agents": 36,
         "why-zero-lock-in-matters-for-enterprise-ai": 34,
-        "why-i-build-my-local-ai": 32,
+        "why-i-build-my-local-ai": 33,
         "intelligence-is-a-system-not-a-model": 22,
         "executable-enterprise-architecture": 21,
         "plantuml-archimate-agent-diagrams": 21,
