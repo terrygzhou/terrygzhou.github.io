@@ -10,6 +10,7 @@ tags:
   - Open-Source
   - DevOps
 permalink: /2026-09-12/when-your-agent-says-done
+image: /assets/2026-09-12-when-your-agent-says-done/phases.png
 ---
 > **TL;DR**:  My own verification script marked a half-finished project complete. That ended the trust-based workflow. Now completion is an observable fact: a task queue, executable checks, a cron runner, exit codes.  If you're running agents on multi-day work: 
 > - **Don't gate on self-reports.** Require an artifact, a test, an exit code.

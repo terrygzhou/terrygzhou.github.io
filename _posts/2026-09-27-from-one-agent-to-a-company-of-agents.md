@@ -12,6 +12,7 @@ tags:
   - ai-transformation
 description: "A coding agent is a tool you invoke. A company of agents is a system that runs. I built EyWALink as an AI company where every role — CEO, content author, engineer — is an agent, and found that the hard part was never the model. It was the control plane: issues, heartbeats, budgets, org trees. This post maps what it takes to run agents as employees, and what enterprises need before they hire their first one."
 summary: A coding agent is a tool you invoke. A company of agents is a system that runs. After a year of running EyWALink and its multiple client tenants as agent-run companies — every role an agent, every task an issue, every invocation a heartbeat — the lesson is that the model was never the hard part. The control plane was.
+image: /assets/multi-tenant-agent-platform/multi-tenant-architecture.png
 ---
 
 > **TL;DR**: I run an AI company, [EyWALink](https://www.eywalink.org), with no human employees. Every role — CEO, content author, legal counsel, chief engineer, etc. — is an agent. **EyWALink mission control** runs them: multi-tenant, harness-agnostic, with **EyWALink workflow platform** as the per-tenant execution plane. After 8 months, the lesson is that agents-as-employees need four things: an org tree with reporting lines, a workflow agents wake up to, budgets that can actually stop work, and memory that doesn't forget. This post covers mission control and workflow platform — the layer that turns a collection of agents into an organisation.

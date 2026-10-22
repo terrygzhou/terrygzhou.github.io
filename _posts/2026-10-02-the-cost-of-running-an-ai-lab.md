@@ -15,6 +15,7 @@ tags:
   - ai-infrastructure
   - performance
 description: "Eight months running an AI lab locally: the GPU-as-capex cost model, the engine path from vLLM to SGLang, and why prefix caching — not raw speed — is what made five tenants and twenty projects affordable on one box before shipping to clients."
+image: /assets/sglang-metric.png
 ---
 
 Running Eywalink, an AI company, is cheap at the model layer and expensive everywhere else. Over eight months, one Mac and a server of RTX 5090 (32GB) carried every inference workload for a 5-tenant, 20+ projects development before shipment. The cost equation is dominated by four budgets you can actually control — and the serving engine you pick decides whether those budgets stay in range.

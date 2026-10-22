@@ -21,3 +21,24 @@ defaults:
       values:
           layout: post
 # last-built: 2026-07-06 23:13:12
+
+# Map of social-card image paths -> {width, height}. Consumed by
+# _includes/head-custom.html so per-post og:image:width/height use the real
+# pixel size instead of the hardcoded 600x315 default card dims. Keys MUST
+# stay in sync with `image:` front matter and the files in assets/;
+# regenerate the sizes with: python3 validate_og_meta.py --write
+og_image_sizes:
+  /assets/2026-07-07-manage-your-agents-in-enterprise/agent-inventory-view.png: { width: 1888, height: 786 }
+  /assets/2026-07-15-observability/network-topology.png: { width: 4700, height: 2562 }
+  /assets/2026-07-21-superweb-testing/pipeline.png: { width: 8462, height: 1260 }
+  /assets/2026-08-21-digital-twin-that-scales/evolution.png: { width: 1520, height: 1522 }
+  /assets/2026-09-12-when-your-agent-says-done/phases.png: { width: 720, height: 1304 }
+  /assets/2026-09-21-plantuml-archimate-agent-diagrams/mapping.png: { width: 1066, height: 617 }
+  /assets/multi-tenant-agent-platform/multi-tenant-architecture.png: { width: 1568, height: 560 }
+  /assets/sglang-metric.png: { width: 1398, height: 1029 }
+  /assets/2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.png: { width: 1562, height: 862 }
+  /assets/og-default.png: { width: 600, height: 315 }
+  /assets/2026-09-03-arckit-oaa/commands-flow.svg:
+    width: 1529
+    height: 2020
+    note: "SVG — LinkedIn/Twitter card support is renderer-dependent; PNG preferred for new posts"

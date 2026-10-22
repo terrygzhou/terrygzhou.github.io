@@ -11,6 +11,7 @@ date: 2026-09-03
 description: "ArcKit OAA turns the Open Group's agile C208 standard into machine-executable architecture sprints: TOGAF for the baseline, O-AA for the velocity. Five commands and one build recipe deliver sprint-based, product-driven architecture work, with structured intake interviews that keep hallucination out by construction."
 status: published
 permalink: /2026-09-03/arckit-oaa-open-agile-architecture
+image: /assets/2026-09-03-arckit-oaa/commands-flow.svg
 ---
 > **TL;DR**: Two months ago, I published [Executable Enterprise Architecture, Agentic-TOGAF-ADM](https://terrygzhou.github.io/2026/07/01/executable-enterprise-architecture.html), where I showed how the **ArcKit** open-source project turned the TOGAF ADM into agent-readable slash commands and build recipes. The core insight: architecture frameworks stop being slide decks and become executable, auditable, repeatable workflows.
 
