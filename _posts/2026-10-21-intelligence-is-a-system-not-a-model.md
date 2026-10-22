@@ -9,6 +9,7 @@ tags:
   - Open-Source
 permalink: /2026-10-21/intelligence-is-a-system-not-a-model
 date: 2026-10-21
+image: /assets/2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.png
 description: A capable model on a system you built yourself beats the same model running alone. Here is the four-layer stack, where the compounding capabilities live, and where EyWALink's products fit.
 summary: A capable model on a system you built yourself beats the same model running alone. Here is the four-layer stack, where the compounding capabilities live, and where EyWALink's products fit.
 ---
