@@ -17,8 +17,8 @@ The LinkedIn link preview for the post showed a dark-navy **EyWALink-branded car
 The post front matter had **no per-post `image:` field**. The site's `_includes/head-custom.html` then fell back to a hardcoded default for **both** social protocols:
 
 ```
-<meta property="og:image"    content="{{{{ page.image | default: '/assets/og-default.png' | absolute_url }}}}" />
-<meta property="twitter:image" content="{{{{ page.image | default: '/assets/og-default.png' | absolute_url }}}}" />
+<meta property="og:image"    content="{{ page.image | default: '/assets/og-default.png' | absolute_url }}" />
+<meta property="twitter:image" content="{{ page.image | default: '/assets/og-default.png' | absolute_url }}" />
 <meta name="twitter:site" content="@EYwALink" />
 ```
 
@@ -40,7 +40,7 @@ A second latent defect: the head emitted `og:image:width/height` = `600×315` **
 ## What was done
 
 - `_posts/2026-10-21-intelligence-is-a-system-not-a-model.md` — added the `image:` line (Option 1).
-- `_includes/head-custom.html` — wrapped `og:image:width/height` in `{%% unless page.image %%}` so the 600×315 dims are only emitted for the default card, not per-post images.
+- `_includes/head-custom.html` — wrapped `og:image:width/height` in `{% unless page.image %}` so the 600×315 dims are only emitted for the default card, not per-post images.
 
 ## Verification (live)
 

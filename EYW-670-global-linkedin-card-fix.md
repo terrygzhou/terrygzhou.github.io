@@ -8,7 +8,7 @@ Does the EYW-669 defect (no per-post `image:` → EyWALink `og-default.png` card
 
 **Yes — 10 of 20 published posts had no `image:` field at all**, so all of them fell back to the EyWALink-branded default card on every social share (LinkedIn reads the Twitter Card meta, per EYW-669). Plus two latent defects affecting **all** posts:
 
-1. `og:image:width/height` was hardcoded to the default card's 600×315 for *any* per-post image — wrong declared size can distort the preview. (EYW-669 noted this but the local working tree did not contain the `{%% unless page.image %%}` wrap it describes.)
+1. `og:image:width/height` was hardcoded to the default card's 600×315 for *any* per-post image — wrong declared size can distort the preview. (EYW-669 noted this but the local working tree did not contain the `{% unless page.image %}` wrap it describes.)
 2. There was no per-post `image:` at all on the 10 image-less posts (they are text-only, no hero diagram to reuse).
 
 ## Solution applied (in-repo, uncommitted — awaiting deploy gate)
