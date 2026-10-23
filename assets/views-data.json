@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-10-22T23:15:01+00:00",
+    "generated_at": "2026-10-23T00:15:01+00:00",
     "views": {
         "the-cost-of-running-an-ai-lab": 133,
         "from-one-agent-to-a-company-of-agents": 63,
@@ -20,7 +20,7 @@
         "intelligence-is-a-system-not-a-model": 22,
         "executable-enterprise-architecture": 21,
         "plantuml-archimate-agent-diagrams": 21,
-        "arckit-oaa-open-agile-architecture": 19,
+        "arckit-oaa-open-agile-architecture": 20,
         "agent-workflow-pattern-practice": 13
     }
 }
