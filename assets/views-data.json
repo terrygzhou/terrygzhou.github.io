@@ -1,10 +1,10 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-10-23T00:15:01+00:00",
+    "generated_at": "2026-10-23T01:15:01+00:00",
     "views": {
         "the-cost-of-running-an-ai-lab": 133,
         "from-one-agent-to-a-company-of-agents": 63,
-        "digital-twin-that-scales": 54,
+        "digital-twin-that-scales": 55,
         "bridging-the-e2e-testing-gap-superweb-testing": 53,
         "managing-context-overflow-ai-coding-agents": 53,
         "manage-your-agents-in-enterprise": 53,
@@ -17,7 +17,7 @@
         "observability-architecture-for-agents": 36,
         "why-zero-lock-in-matters-for-enterprise-ai": 34,
         "why-i-build-my-local-ai": 33,
-        "intelligence-is-a-system-not-a-model": 22,
+        "intelligence-is-a-system-not-a-model": 23,
         "executable-enterprise-architecture": 21,
         "plantuml-archimate-agent-diagrams": 21,
         "arckit-oaa-open-agile-architecture": 20,
