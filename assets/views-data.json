@@ -1,15 +1,15 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-10-26T23:15:01+00:00",
+    "generated_at": "2026-10-27T00:15:01+00:00",
     "views": {
         "the-cost-of-running-an-ai-lab": 133,
         "from-one-agent-to-a-company-of-agents": 63,
         "digital-twin-that-scales": 56,
         "bridging-the-e2e-testing-gap-superweb-testing": 53,
-        "managing-context-overflow-ai-coding-agents": 53,
         "when-your-agent-says-done": 53,
-        "manage-your-agents-in-enterprise": 53,
         "hello-world": 52,
+        "manage-your-agents-in-enterprise": 52,
+        "managing-context-overflow-ai-coding-agents": 51,
         "from-a-security-incident-to-reconsidering-enterprise-agent-boundaries": 48,
         "private-ai-must-be-in-your-ai-strategy": 43,
         "buy-or-build": 39,
@@ -19,8 +19,8 @@
         "why-i-build-my-local-ai": 33,
         "intelligence-is-a-system-not-a-model": 29,
         "executable-enterprise-architecture": 22,
-        "arckit-oaa-open-agile-architecture": 21,
-        "plantuml-archimate-agent-diagrams": 21,
+        "arckit-oaa-open-agile-architecture": 20,
+        "plantuml-archimate-agent-diagrams": 18,
         "agent-workflow-pattern-practice": 14
     }
 }
