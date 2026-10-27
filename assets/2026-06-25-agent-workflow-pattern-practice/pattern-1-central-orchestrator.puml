@@ -1,0 +1,44 @@
+@startuml
+!include <archimate/Archimate>
+LAYOUT_TOP_DOWN()
+
+title "Pattern 1 — Central Orchestration Layer Coordinates Multiple LangGraph Workflows"
+
+' Strategy / Motivation
+Motivation_Driver(drv, "Spec-driven self-improving loop (SDD)")
+Strategy_Capability(cap, "Central-orchestrator pattern")
+
+' Human
+Motivation_Stakeholder(human, "Human Reviewer")
+
+' Application layer
+Application_Component(orch, "Central Orchestrator (FastAPI / Temporal / Airflow)")
+Application_Service(lg1, "LangGraph: Spec Generation")
+Application_Service(lg2, "LangGraph: Code Generation")
+Application_Service(lg3, "LangGraph: Test & Validate")
+
+' Technology layer
+Technology_Node(state, "State Store (PostgreSQL / Redis)")
+Technology_SystemSoftware(obs, "Observability (OTel + LangSmith)")
+
+' Relations
+Rel_Influence(drv, cap, "drives")
+Rel_Realization(cap, orch, "realizes")
+Rel_Realization(orch, lg1, "routes to")
+Rel_Realization(orch, lg2, "routes to")
+Rel_Realization(orch, lg3, "routes to")
+Rel_Association(human, orch, "interrupt / resume")
+Rel_Realization(lg1, state, "reads / writes")
+Rel_Realization(lg2, state, "reads / writes")
+Rel_Realization(lg3, state, "reads / writes")
+Rel_Realization(lg1, obs, "emits traces")
+Rel_Realization(lg2, obs, "emits traces")
+Rel_Realization(lg3, obs, "emits traces")
+
+' Vertical ordering
+Lay_D(drv, cap)
+Lay_D(cap, orch)
+Lay_D(orch, lg1)
+Lay_D(lg1, state)
+
+@enduml

@@ -1,0 +1,80 @@
+@startuml eywalink-agentops-archimate
+!theme plain
+left to right direction
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+
+title EyWALink AgentOps — Architecture (ArchiMate view)
+' A self-hosted observability stack + an agentic ops team, under the Paperclip
+' control-plane governance boundary, writing learnings back to the ontology.
+' Rule (this jar): a rectangle that has an edge may NOT carry both a fill color
+' and a sprite. Packages carry the layer fill; leaf boxes keep the sprite, no fill.
+
+' --- Sprites (verified present in jar) ---
+sprite $goal  jar:archimate/motivation-goal
+sprite $cap   jar:archimate/strategy-capability
+sprite $comp  jar:archimate/application-component
+sprite $svc   jar:archimate/application-service
+sprite $sw    jar:archimate/technology-system-software
+
+' ============ STRATEGY LAYER ============
+rectangle "Goal: Operate & Improve (Phase 4)\nMTTD<5m · MTTR<15m · 100% spend tracked\n>90% alert TP · >50% incidents auto-resolved" as goal <<$goal>> #ffe4e1
+
+' ============ CAPABILITY LAYER ============
+rectangle "Capability: AgentOps\nfractional AI-ops team" as cap <<$cap>> #fff2cc
+goal --> cap : "realised by"
+
+' ============ APPLICATION LAYER ============
+package "AgentOps agent team (AG-UI Bots)" as team #f2fff5 {
+  rectangle "Monitor\nanomaly detect from baseline"      as monitor   <<$svc>>
+  rectangle "Diagnose\nreproduce in sandbox"              as diagnose  <<$svc>>
+  rectangle "Remediate\nhot-fix · regression-test · deploy" as remediate <<$svc>>
+}
+
+package "Self-healing runbooks" as runbooks #f2fff5 {
+  rectangle "Paperclip workflows\nHITL gate at high blast-radius" as rb <<$comp>>
+}
+
+' OpenBot — evaluated per-tenant add-on (alpha, MIT fork)
+rectangle "OpenBot console (per-tenant, optional)\nwatch live · take the wheel · routines" as openbot <<$comp>> #ffe9f0
+
+' ============ TECHNOLOGY LAYER ============
+package "Observability stack (self-hosted)" as obs #f0f0ff {
+  rectangle "OTel Collector + Phoenix\nLLM-call tracing"          as otel  <<$sw>>
+  rectangle "Prometheus / Grafana / Loki\nmetrics · dashboards · logs" as prom <<$sw>>
+  rectangle "SGLang :8080 / vLLM-MTP\ninference + GPU"           as llm   <<$sw>>
+}
+
+rectangle "Control Plane (Paperclip)\nmulti-tenant governance · audit boundary" as control <<$sw>> #fff8ec
+
+' ============ KNOWLEDGE LAYER ============
+rectangle "Self-Improving Ontology\nincident records · audit · operational learnings" as ontology <<$cap>> #fff2cc
+
+' ============ EDGES ============
+cap     --> team        : "operationalised by"
+monitor --> diagnose    : "anomaly triggers"
+diagnose --> remediate : "root-cause feeds fix"
+team    --> runbooks    : "auto-remediation via"
+runbooks --> team       : "gated action returns"
+
+team    --> obs         : "reads telemetry + emits alerts"
+obs     --> team        : "signals drive incidents"
+
+team    ..> openbot     : "operator watch / takeover (optional)"
+openbot ..> team        : "routines + HITL"
+
+team    --> control     : "operates under governance"
+control --> team        : "grants + audit trail"
+
+team    --> ontology    : "writes incident records + learnings"
+ontology ..> goal       : "closes Phase 4 -> Phase 1 loop"
+
+' ============ LAYOUT ANCHORS ============
+goal -down[hidden]-> cap
+cap -down[hidden]-> team
+team -down[hidden]-> runbooks
+runbooks -down[hidden]-> obs
+obs -down[hidden]-> control
+control -down[hidden]-> ontology
+
+@enduml

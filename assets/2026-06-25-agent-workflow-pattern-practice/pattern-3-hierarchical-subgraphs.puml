@@ -1,0 +1,52 @@
+@startuml
+!include <archimate/Archimate>
+LAYOUT_TOP_DOWN()
+
+title "Pattern 3 — Hierarchical LangGraph Workflows (Graph-of-Graphs)"
+
+' Strategy / Motivation
+Strategy_Capability(cap, "Graph-of-graphs: each node is a full sub-workflow")
+Motivation_Constraint(mod, "Each subgraph runs its own loop count + HIL gate")
+
+' Human
+Motivation_Stakeholder(human, "Human Reviewer (per subgraph)")
+
+' Parent graph
+Application_Component(parent, "Parent LangGraph Graph")
+Application_Service(nodeA, "Node A: Architecture Design")
+Application_Service(nodeB, "Node B: Code Gen + Unit Tests")
+Application_Service(nodeC, "Node C: Integration Tests")
+
+' Sub-workflows (child graphs)
+Application_Service(subA, "Subgraph A: Design Review -> Spec Output")
+Application_Service(subB, "Subgraph B: Code Gen -> Unit Tests")
+Application_Service(subC, "Subgraph C: Integration Tests -> Refactor Loop")
+
+' Technology layer
+Technology_Node(pstate, "Parent State Channels")
+Technology_Node(nckpt, "Nested Checkpoints (add_subgraph)")
+Technology_SystemSoftware(nls, "Nested LangSmith Traces")
+
+' Relations
+Rel_Realization(cap, parent, "realizes")
+Rel_Influence(mod, subC, "isolates loop budget")
+Rel_Realization(parent, nodeA, "node")
+Rel_Realization(nodeA, subA, "expands to")
+Rel_Realization(parent, nodeB, "node")
+Rel_Realization(nodeB, subB, "expands to")
+Rel_Realization(parent, nodeC, "node")
+Rel_Realization(nodeC, subC, "expands to")
+Rel_Association(human, subA, "HIL pause")
+Rel_Association(human, subB, "HIL pause")
+Rel_Association(human, subC, "HIL pause")
+Rel_Realization(parent, pstate, "reads / writes")
+Rel_Realization(parent, nckpt, "checkpoints")
+Rel_Realization(parent, nls, "emits traces")
+
+' Vertical ordering
+Lay_D(cap, parent)
+Lay_D(parent, nodeA)
+Lay_D(nodeA, subA)
+Lay_D(subA, pstate)
+
+@enduml

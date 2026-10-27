@@ -1,0 +1,44 @@
+@startuml
+!include <archimate/Archimate>
+LAYOUT_TOP_DOWN()
+
+title "Pattern 2 — LangGraph Itself as the Orchestration Layer"
+
+' Strategy / Motivation
+Strategy_Capability(cap, "Single-Graph loop factory (plan-generate-validate-reflect)")
+Motivation_Constraint(gate, "Pass / fail gate: all tests + coverage, else loop or human")
+
+' Human
+Motivation_Stakeholder(hil, "Human-in-the-Loop")
+
+' Application layer — one StateGraph
+Application_Component(graph, "Single LangGraph StateGraph (orchestrator)")
+Application_Service(plan, "Plan (generate spec)")
+Application_Service(gen, "Generate (code / artifacts)")
+Application_Service(val, "Validate (tests + lint + spec)")
+Application_Service(ref, "Reflect (compare vs requirements)")
+
+' Technology layer
+Technology_Node(ckpt, "Checkpoint (SqliteSaver / PostgresSaver)")
+Technology_SystemSoftware(lst, "Single LangSmith Trace")
+
+' Relations
+Rel_Realization(cap, graph, "realizes")
+Rel_Influence(gate, val, "gates")
+Rel_Realization(graph, plan, "start")
+Rel_Realization(plan, gen, "feeds")
+Rel_Realization(gen, val, "produces")
+Rel_Realization(val, ref, "scores")
+Rel_Realization(ref, gen, "fail: inject fixes")
+Rel_Association(hil, graph, "pause / resume")
+Rel_Realization(graph, ckpt, "checkpoints")
+Rel_Realization(graph, lst, "emits trace")
+
+' Vertical ordering
+Lay_D(cap, graph)
+Lay_D(graph, plan)
+Lay_D(plan, gen)
+Lay_D(gen, val)
+Lay_D(val, ckpt)
+
+@enduml
