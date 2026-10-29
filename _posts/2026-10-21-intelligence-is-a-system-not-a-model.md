@@ -161,7 +161,7 @@ The positioning gap against the proprietary stack (LangSmith, PagerDuty) is sove
 
 ## Why this matters for strategy
 
-Vendor lock-in happens when you treat the model as the product. You depend on one provider's API, inherit their black-box behaviour, and lose the ability to iterate on the thing that actually matters, the system. I wrote about [why zero lock-in is a sovereignty question, not a cost one](/2026-08-07/why-zero-lock-in-matters-for-enterprise-ai), and about [what it actually costs to own your inference on a local workstation](/2026-06-10/why-i-build-my-local-ai).
+Vendor lock-in happens when you treat the model as the product. You depend on one provider's API, inherit their black-box behaviour, and lose the ability to iterate on the thing that actually matters, the system. I wrote about [why zero lock-in is a sovereignty question, not a cost one](/2026-08-17/why-zero-lock-in-matters-for-enterprise-ai), and about [what it actually costs to own your inference on a local workstation](/2026-06-10/why-i-build-my-local-ai).
 
 Open-source models plus strong system design flip that.
 - Your data stays yours, and the pipeline compounds.

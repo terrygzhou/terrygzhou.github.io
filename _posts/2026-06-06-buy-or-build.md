@@ -100,4 +100,4 @@ When software is composable and AI-augmented, ROI compounds through reuse, adapt
 ## Related posts
 
 - [Private AI must be in your AI strategy](/2026-08-06/private-ai-must-be-in-your-ai-strategy) — why a private-core, cloud-edge architecture is the way to capture the build advantage without surrendering compliance or control.
-- [Why zero lock-in matters for enterprise AI](/2026-08-07/why-zero-lock-in-matters-for-enterprise-ai) — the open-source stack that makes "exit day" a design principle, not a risk.
+- [Why zero lock-in matters for enterprise AI](/2026-08-17/why-zero-lock-in-matters-for-enterprise-ai) — the open-source stack that makes "exit day" a design principle, not a risk.
