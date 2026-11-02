@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-02T00:15:01+00:00",
+    "generated_at": "2026-11-02T01:15:01+00:00",
     "views": {
         "the-cost-of-running-an-ai-lab": 133,
         "from-one-agent-to-a-company-of-agents": 64,
@@ -22,7 +22,7 @@
         "arckit-oaa-open-agile-architecture": 21,
         "plantuml-archimate-agent-diagrams": 18,
         "agent-workflow-pattern-practice": 15,
-        "architects-at-their-best-time-in-the-ai-era": 11,
+        "architects-at-their-best-time-in-the-ai-era": 12,
         "agentops-per-tenant-agent-ops-boundary": 7
     }
 }
