@@ -1,0 +1,71 @@
+@startuml arckit-codex-hooks-archimate
+!theme plain
+top to bottom direction
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+
+title Codex hooks with ArcKit — the control plane (ArchiMate view)
+' One Node script (arckit-codex-hook.mjs) is wired to six Codex lifecycle
+' events and acts as guardrail, context injector, and session logger. Stop
+' writes session memory that the next SessionStart reads back: that loop is
+' what turns six independent commands into a control plane.
+
+' --- Sprites (verified present in jar) ---
+sprite $goal  jar:archimate/motivation-goal
+sprite $svc   jar:archimate/application-service
+sprite $comp  jar:archimate/application-component
+sprite $sw    jar:archimate/technology-system-software
+
+' ============ GOAL (strategy) ============
+rectangle "Goal: agent that behaves like a control plane\\nGuarantee lives in the harness, not the model's intentions" as goal <<$goal>> #ffe4e1
+
+' ============ HARNESS (Codex + config) ============
+package "Codex harness + config.toml [[hooks.*]]" as harness #f0f0ff {
+  rectangle "Fires a lifecycle event\\nJSON on stdin · exit 2 or JSON on stdout" as fire <<$comp>>
+}
+
+' ============ THE ONE SCRIPT (technology) ============
+' Color + edge, so no sprite on this node (per the color+sprite+edge rule).
+rectangle "arckit-codex-hook.mjs\\nONE script · dispatches on argv\\nnode \"$HOOK\" <Event>" as hook #fff8ec
+
+' ============ SIX HANDLERS BY ROLE (application) ============
+package "Guardrail — can say no" as guard #fff2cc {
+  rectangle "PreToolUse\\ntaxonomy · protected files\\nsecret scan · payload validation" as ptu <<$svc>>
+  rectangle "PermissionRequest\\nwhitelist MCP servers" as pr <<$svc>>
+}
+
+package "Context injector — before the model thinks" as ctx #e3f2fd {
+  rectangle "SessionStart\\nprime workspace + load memory" as ss <<$svc>>
+  rectangle "UserPromptSubmit\\nblock secrets + inject artifact graph" as up <<$svc>>
+}
+
+package "Session logger — after the write" as logr #f2fff5 {
+  rectangle "PostToolUse\\nstamp provenance + reindex manifest" as po <<$svc>>
+  rectangle "Stop\\nclassify session + write memory" as stp <<$svc>>
+}
+
+' ============ MEMORY + STATIC RULES (technology) ============
+package "ArcKit workspace (.arckit/)" as ws #f0f0ff {
+  rectangle "memory/sessions.md\\nlast 30 session log entries" as mem <<$sw>>
+}
+rectangle ".codex/rules/\\nstatic allow/forbid (the dumb stuff)" as rules <<$sw>> #eeeeee
+
+' ============ EDGES ============
+goal ..> hook        : "realised by"
+fire --> hook         : "spawns · JSON in"
+hook --> guard        : "guardrail"
+hook --> ctx          : "context"
+hook --> logr         : "logging"
+stp  --> mem          : "writes session"
+mem  ..> ss           : "reads back next session"
+rules ..> fire        : "fires before the model decides"
+
+' ============ LAYOUT ANCHORS ============
+goal -down[hidden]-> harness
+harness -down[hidden]-> hook
+hook -down[hidden]-> guard
+guard -right[hidden]-> ctx
+ctx -right[hidden]-> logr
+guard -down[hidden]-> ws
+
+@enduml
