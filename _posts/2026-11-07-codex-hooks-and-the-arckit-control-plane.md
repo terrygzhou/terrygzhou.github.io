@@ -73,7 +73,7 @@ ArcKit is an open-source governance toolkit for architecture work. It turns an a
 
 The whole hook layer is one Node script, `hooks/arckit-codex-hook.mjs`, wired to six events. The three jobs it plays (guardrail, context injector, session logger) and the memory loop that closes between `Stop` and `SessionStart` are the shape of a control plane:
 
-![Codex hooks with ArcKit. One script wired to six lifecycle events, grouped as guardrail / context injector / session logger, with Stop writing memory that the next SessionStart reads back](/assets/2026-11-07-codex-hooks-and-the-arckit-control-plane/arckit-codex-hooks.html)
+![Codex hooks with ArcKit. One script wired to six lifecycle events, grouped as guardrail / context injector / session logger, with Stop writing memory that the next SessionStart reads back](/assets/2026-11-07-codex-hooks-and-the-arckit-control-plane/arckit-codex-hooks.png)
 
 ([`arckit-codex-hooks.html`](/assets/2026-11-07-codex-hooks-and-the-arckit-control-plane/arckit-codex-hooks.html))
 
