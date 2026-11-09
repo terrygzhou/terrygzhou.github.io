@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-09T04:15:01+00:00",
+    "generated_at": "2026-11-09T05:15:01+00:00",
     "views": {
         "the-cost-of-running-an-ai-lab": 133,
         "from-one-agent-to-a-company-of-agents": 64,
@@ -23,7 +23,7 @@
         "arckit-oaa-open-agile-architecture": 19,
         "plantuml-archimate-agent-diagrams": 14,
         "agent-workflow-pattern-practice": 14,
-        "codex-hooks-and-the-arckit-control-plane": 9,
+        "codex-hooks-and-the-arckit-control-plane": 10,
         "agentops-per-tenant-agent-ops-boundary": 7
     }
 }
