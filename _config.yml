@@ -43,6 +43,7 @@ og_image_sizes:
   /assets/2026-09-03-arckit-oaa/commands-flow.svg: { width: 1138, height: 571 }
   /assets/2026-09-12-when-your-agent-says-done/phases.png: { width: 720, height: 1304 }
   /assets/2026-09-21-plantuml-archimate-agent-diagrams/mapping.png: { width: 1066, height: 617 }
+  /assets/2026-10-09-from-a-security-incident-to-reconsidering-enterprise-agent-boundaries/isolation-tiers-boundary-layers.png: { width: 1800, height: 1520 }
   /assets/2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.png: { width: 2000, height: 1104 }
   /assets/multi-tenant-agent-platform/multi-tenant-architecture.png: { width: 1568, height: 560 }
   /assets/og-default.png: { width: 600, height: 315 }

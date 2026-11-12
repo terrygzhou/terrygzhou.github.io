@@ -90,6 +90,8 @@ For a board, the layers extend into the obligations it owns:
 
 An enterprise that deploys multi-tenant agents and implements only Judgement and Cost, "it makes good decisions and it is cheap," while skipping a machine-enforced Identity and Execution boundary, has built the most expensive version of this incident and is waiting for it to happen.
 
+![Six-tier isolation ladder (T1 app 403 → T6 hardware) with the five boundary layers overlaid on the tier where their control is enforced: T3 per-tenant OS account is the first kernel-enforced boundary (coral, focal); T2 marks the incident point (dashed); T1 carries Judgement, Truth, and Cost as software-requested controls; T4–T5 carry Execution and Identity as enforced; T6 subsumes all layers](../assets/2026-10-09-from-a-security-incident-to-reconsidering-enterprise-agent-boundaries/isolation-tiers-boundary-layers.png)
+
 ---
 
 ## What the fix actually looks like
