@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-12T21:15:01+00:00",
+    "generated_at": "2026-11-12T22:15:01+00:00",
     "views": {
         "agent-workflow-pattern-practice": 11,
         "agentops-per-tenant-agent-ops-boundary": 9,
@@ -9,7 +9,7 @@
         "bridging-the-e2e-testing-gap-superweb-testing": 11,
         "buy-or-build": 9,
         "codex-hooks-and-the-arckit-control-plane": 11,
-        "digital-twin-that-scales": 40,
+        "digital-twin-that-scales": 41,
         "executable-enterprise-architecture": 25,
         "from-a-security-incident-to-reconsidering-enterprise-agent-boundaries": 50,
         "from-one-agent-to-a-company-of-agents": 35,
