@@ -1,0 +1,72 @@
+# Publish gate for terrygzhou.github.io.
+# Runs on every push to main: post hygiene (validate_posts.py), front-matter
+# integrity for the Jekyll build (draft guard + YAML parse). Pages itself still
+# deploys on push; this workflow gives CI a real signal to monitor
+# (see ~/.hermes/scripts/github_actions_watch.py).
+name: publish-check
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validator deps
+        run: pip install pyyaml
+
+      - name: Post hygiene (invisible chars, table boundaries, front matter)
+        run: python3 validate_posts.py
+
+      - name: Front-matter sanity (draft guard + YAML parse)
+        run: |
+          set -euo pipefail
+          fail=0
+          # No published post may carry draft: true (Jekyll would ship it with
+          # broken draft-asset links); publish via publish_draft.sh instead.
+          while IFS= read -r f; do
+            [ -f "$f" ] || continue
+            fm=$(awk 'NR==1&&/^---/{fm=1;next} fm&&/^---/{exit} fm{print}' "$f")
+            if echo "$fm" | grep -qE '^draft:[[:space:]]*"?[tT][rR][uU][eE]"?'; then
+              echo "ERROR: draft post committed: $f"
+              fail=1
+            fi
+          done < <(git ls-files '_posts/*.md')
+
+          # Every post's front matter must be parseable YAML — a broken block
+          # makes Jekyll drop the post's URL/fields silently.
+          python3 - <<'PY'
+          import pathlib, sys
+          try:
+              import yaml
+          except ImportError:
+              print("yaml not installed; skipping parse check")
+              sys.exit(0)
+          bad = []
+          for p in sorted(pathlib.Path("_posts").glob("*.md")):
+              t = p.read_text(encoding="utf-8", errors="replace")
+              lines = t.splitlines()
+              if not lines or lines[0].strip() != "---":
+                  continue
+              end = next((i for i, l in enumerate(lines[1:], 1) if l.strip() == "---"), None)
+              if end is None:
+                  bad.append(f"{p.name}: unterminated front matter")
+                  continue
+              block = "\n".join(lines[1:end])
+              try:
+                  yaml.safe_load(block)
+              except Exception as e:
+                  bad.append(f"{p.name}: YAML error: {e}")
+          if bad:
+              print("\n".join(bad))
+              sys.exit(1)
+          print("front matter OK")
+          PY
+          [ "$fail" -eq 0 ]
