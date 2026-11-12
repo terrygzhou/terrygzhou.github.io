@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-12T09:15:01+00:00",
+    "generated_at": "2026-11-12T10:15:01+00:00",
     "views": {
         "agent-workflow-pattern-practice": 11,
         "agentops-per-tenant-agent-ops-boundary": 9,
@@ -11,7 +11,7 @@
         "codex-hooks-and-the-arckit-control-plane": 11,
         "digital-twin-that-scales": 40,
         "executable-enterprise-architecture": 25,
-        "from-a-security-incident-to-reconsidering-enterprise-agent-boundaries": 49,
+        "from-a-security-incident-to-reconsidering-enterprise-agent-boundaries": 50,
         "from-one-agent-to-a-company-of-agents": 34,
         "hello-world": 6,
         "impossible-triangle-of-llms": 15,
@@ -21,7 +21,7 @@
         "managing-context-overflow-ai-coding-agents": 22,
         "observability-architecture-for-agents": 16,
         "plantuml-archimate-agent-diagrams": 16,
-        "private-ai-must-be-in-your-ai-strategy": 8,
+        "private-ai-must-be-in-your-ai-strategy": 10,
         "switching-from-vllm-to-sglang": 1,
         "testing-vs-evaluation-for-ai-agents": 1,
         "the-cost-of-running-an-ai-lab": 59,
