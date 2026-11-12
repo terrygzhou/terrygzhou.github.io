@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-12T08:15:01+00:00",
+    "generated_at": "2026-11-12T09:15:01+00:00",
     "views": {
         "agent-workflow-pattern-practice": 11,
         "agentops-per-tenant-agent-ops-boundary": 9,
@@ -15,7 +15,7 @@
         "from-one-agent-to-a-company-of-agents": 34,
         "hello-world": 6,
         "impossible-triangle-of-llms": 15,
-        "intelligence-is-a-system-not-a-model": 30,
+        "intelligence-is-a-system-not-a-model": 31,
         "manage-your-agents-in-enterprise": 54,
         "managing-context-in-vibe-coding": 20,
         "managing-context-overflow-ai-coding-agents": 22,
