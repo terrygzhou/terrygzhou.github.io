@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-12T12:15:01+00:00",
+    "generated_at": "2026-11-12T13:15:02+00:00",
     "views": {
         "agent-workflow-pattern-practice": 11,
         "agentops-per-tenant-agent-ops-boundary": 9,
@@ -12,7 +12,7 @@
         "digital-twin-that-scales": 40,
         "executable-enterprise-architecture": 25,
         "from-a-security-incident-to-reconsidering-enterprise-agent-boundaries": 50,
-        "from-one-agent-to-a-company-of-agents": 34,
+        "from-one-agent-to-a-company-of-agents": 35,
         "hello-world": 6,
         "impossible-triangle-of-llms": 15,
         "intelligence-is-a-system-not-a-model": 31,
@@ -24,7 +24,7 @@
         "private-ai-must-be-in-your-ai-strategy": 10,
         "switching-from-vllm-to-sglang": 1,
         "testing-vs-evaluation-for-ai-agents": 1,
-        "the-cost-of-running-an-ai-lab": 59,
+        "the-cost-of-running-an-ai-lab": 60,
         "when-your-agent-says-done": 30,
         "why-i-build-my-local-ai": 10,
         "why-zero-lock-in-matters-for-enterprise-ai": 5
