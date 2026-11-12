@@ -19,17 +19,21 @@ cd "$BLOG"
 
 # 1. Generate the JSON (PHP runs inside the matomo container, PHP 8.2).
 docker cp "$BLOG/views_feed.php" matomo:/tmp/views_feed.php
+# Copy views_offsets.json (one-time Umami backfill, EYW-523) into the
+# container so __DIR__-relative path in views_feed.php resolves to /tmp.
+if [ -f "$BLOG/views_offsets.json" ]; then
+  docker cp "$BLOG/views_offsets.json" matomo:/tmp/views_offsets.json
+fi
 json="$(docker exec --env-file "$MCOMPOSE_DIR/.env" matomo \
-  php -r 'require "/tmp/views_feed.php";')" \
+  php -r 'chdir("/tmp"); require "/tmp/views_feed.php";')" \
   || { echo "views refresh: PHP generation failed" >&2; exit 1; }
 printf '%s' "$json" | python3 -c 'import json,sys; json.load(sys.stdin)' \
   || { echo "views refresh: generated JSON is invalid, aborting" >&2; exit 1; }
 
-# 2. Apply persisted per-key boost offsets (EYW-481) so the boost survives
-#    hourly regeneration. Offsets live in views_offsets.json (committed to
-#    the repo); missing file or missing key = no offset for that key.
-#    (Removed: the counter is now the real combined site1+site2 pageview total
+# 2. (Removed: the counter is now the real combined site1+site2 pageview total
 #    — no artificial boosts, so both sites show the same true number.)
+#    The one-time Umami backfill is applied by views_feed.php itself via
+#    views_offsets.json (EYW-523); no shell-side step needed.
 
 # 3. Sync the local branch with the remote (a manual run may leave the tree
 #    behind origin/main). This script is the ONLY thing that writes

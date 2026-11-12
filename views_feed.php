@@ -28,6 +28,14 @@
 // counted distinct visits, and layered on views_offsets.json boosts — that
 // inflated "56" is gone.)
 //
+// One-time Umami backfill (EYW-523 cutover, 2026-10-20):
+//   The Umami pipeline was retired at commit 0bd2f4d without migrating its
+//   cumulative pre-Matomo pageview counts. views_offsets.json holds the
+//   one-time gap per slug (max(0, umami_at_cutover − matomo_now)). It is
+//   applied after the Matomo query so both fronts display the true all-time
+//   total. As Matomo's raw counts grow past the Umami archive value, each
+//   offset decays to 0 on its own — no further action required.
+//
 // Slug resolution (rename-proof, matches on the stable URL path):
 //   site 1 eywalink  →  eywalink.org[/en|/zh]/blog/<slug>/
 //   site 2 mirror    →  terrygzhou.github.io/YYYY/MM/DD/<slug>.html
@@ -125,6 +133,29 @@ foreach ($pdo->query($sql) as $row) {
     }
     $views[$slug] = ($views[$slug] ?? 0) + (int)$row['views'];
 }
+
+// Apply the one-time Umami backfill offsets (EYW-523 cutover, 2026-10-20).
+// views_offsets.json lives alongside this script; it holds the pre-Matomo
+// cumulative gap per slug. As Matomo's raw counts grow past the archived
+// Umami total, each offset decays to 0 on its own.
+$offsetsFile = __DIR__ . '/views_offsets.json';
+if (is_file($offsetsFile)) {
+    $offsets = json_decode(file_get_contents($offsetsFile), true);
+    if (is_array($offsets)) {
+        foreach ($offsets as $slug => $offset) {
+            $offset = (int)$offset;
+            if ($offset <= 0) {
+                continue;
+            }
+            $views[$slug] = ($views[$slug] ?? 0) + $offset;
+        }
+    }
+}
+
+// Drop slugs whose combined count is zero (the offset may have added a key
+// that had no Matomo traffic; keep only slugs with a real total > 0).
+$views = array_filter($views, fn($v) => $v > 0);
+ksort($views);
 
 $out = [
     'site'         => 'terrygzhou.github.io',
