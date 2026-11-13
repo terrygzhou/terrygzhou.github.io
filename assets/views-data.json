@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-13T19:15:01+00:00",
+    "generated_at": "2026-11-13T20:15:01+00:00",
     "views": {
         "agent-workflow-pattern-practice": 11,
         "agentops-per-tenant-agent-ops-boundary": 11,
@@ -21,7 +21,7 @@
         "managing-context-overflow-ai-coding-agents": 22,
         "observability-architecture-for-agents": 16,
         "plantuml-archimate-agent-diagrams": 16,
-        "private-ai-must-be-in-your-ai-strategy": 10,
+        "private-ai-must-be-in-your-ai-strategy": 11,
         "switching-from-vllm-to-sglang": 1,
         "testing-vs-evaluation-for-ai-agents": 1,
         "the-cost-of-running-an-ai-lab": 60,
