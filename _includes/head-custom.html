@@ -83,8 +83,12 @@ if (document.readyState === 'loading') {
 }
 </script>
 
-<!-- Umami Analytics — with client cookie differentiation -->
-<script async defer src="https://track.eywalink.org/script.js" data-website-id="a0b6f621-98c9-4adb-82f9-4f179a08d674" data-before-send="umamiBeforeSend"></script>
+<!-- Web analytics: Matomo (self-hosted, cookieless). Umami retired 2026-11-16.
+     The first-party ew_reader_id cookie (sha256 of a random uuid, no PII) is the
+     stable reader identity and now feeds ONLY Matomo (setUserId). Matomo is
+     cookie-free via disableCookies; matomo.js auto-tracks pageviews + outbound /
+     download / content-link clicks with zero custom events.
+     See openspec/changes/add-matomo-analytics. -->
 <script>
 // Cookie helpers
 function _setCookie(name, val, days) {
@@ -113,33 +117,13 @@ var _readerIdCookie = 'ew_reader_id';
     var id = hashed.substring(0, 40);
     _setCookie(_readerIdCookie, id, 730); // 2 years
   }
-  // Wait for umami global, then identify
-  var tries = 0;
-  function tryIdentify() {
-    if (window.umami && umami.identify) {
-      var rid = _getCookie(_readerIdCookie);
-      if (rid) umami.identify(rid, { source: 'reader_cookie' });
-    } else if (++tries < 20) {
-      setTimeout(tryIdentify, 100);
-    }
-  }
-  tryIdentify();
 })();
-
-// Attach cookie-derived metadata to every event
-function umamiBeforeSend(type, payload) {
-  var rid = _getCookie(_readerIdCookie);
-  if (rid) {
-    payload.reader_id = rid;
-  }
-  return payload;
-}
 </script>
 
-<!-- Matomo Analytics — self-hosted, cookieless (dual-run alongside Umami; see openspec/changes/add-matomo-analytics)
-     Reuses the first-party ew_reader_id cookie as the Matomo user id (stable, no PII),
-     keeps Matomo itself cookie-free via disableCookies, and lets matomo.js auto-track
-     outbound / download / content-link clicks with zero custom events. -->
+<!-- Matomo Analytics — self-hosted, cookieless. Sole web tracker since Umami was
+     retired 2026-11-16. Reuses the first-party ew_reader_id cookie as the stable
+     user id (no PII), keeps Matomo itself cookie-free via disableCookies, and lets
+     matomo.js auto-track outbound / download / content-link clicks. -->
 <script>
 (function () {
   var TRACKER_BASE = 'https://matomo.eywalink.org/';
@@ -155,7 +139,7 @@ function umamiBeforeSend(type, payload) {
   // and tracker.trackContentInteraction().
 
   // Mint the tracker once the first-party reader id is available, so setUserId
-  // is present even on a first-ever visit (ew_reader_id is created by the Umami block).
+  // is present even on a first-ever visit (ew_reader_id is minted in the block above).
   function initMatomo() {
     var rid = _getCookie('ew_reader_id');
     if (rid) _paq.push(['setUserId', rid]);
