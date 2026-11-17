@@ -12,6 +12,7 @@ tags:
   - performance
 description: Traditional capacity planning assumes predictable load — but an agentic harness that spawned 194 sub-agents to ingest 13 GB into the digital-twin ontology invented the load mid-flight and OOM'd the box globally. It hit our lab, not client production, and the resilience we'd already engineered is what saved us. Here's the incident and why the fix is bounding, not forecasting.
 summary: You can't pre-size a sub-agent army. The OOM was the proof; the checkpoints that already existed were the saviour. The full post-mortem, and why "stop predicting, start tolerating."
+image: /assets/2026-11-14-new-challenges-in-agentic-resilience/incident.png
 permalink: /2026-11-14/from-an-oom-incident-to-assess-agentic-system-resilience
 ---
 
