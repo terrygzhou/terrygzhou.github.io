@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "New challenges in agentic resilience: when the sub-agent army OOMs the host"
-date: 2026-11-14
+title: Agentic systems bring new challenges of reliability
+date: 2026-11-17
 tags:
   - agentic-architecture
   - ai-infrastructure
@@ -12,7 +12,7 @@ tags:
   - performance
 description: Traditional capacity planning assumes predictable load — but an agentic harness that spawned 194 sub-agents to ingest 13 GB into the digital-twin ontology invented the load mid-flight and OOM'd the box globally. It hit our lab, not client production, and the resilience we'd already engineered is what saved us. Here's the incident and why the fix is bounding, not forecasting.
 summary: You can't pre-size a sub-agent army. The OOM was the proof; the checkpoints that already existed were the saviour. The full post-mortem, and why "stop predicting, start tolerating."
-image: /assets/2026-11-14-new-challenges-in-agentic-resilience/incident.png
+image: /assets/2026-11-17-new-challenges-in-agentic-resilience/incident.png
 permalink: /2026-11-14/from-an-oom-incident-to-assess-agentic-system-resilience
 ---
 
@@ -22,14 +22,14 @@ This incident is the clearest case. On our lab box, at 08:31:46 the kernel's OOM
 
 ## What actually happened
 
-![incident.png](/assets/2026-11-14-new-challenges-in-agentic-resilience/incident.png)
+![incident.png](/assets/2026-11-17-new-challenges-in-agentic-resilience/incident.png)
 
 The trigger was a research agent had kicked off to ingest a 11 GB imported folder into the digital-twin enterprise ontology containers. The harness (DSH) went for maximum throughput and spawned 194 sub-agents in the background to grind through it, with no capacity estimate and no headroom check. Each worker fed the ingest pipeline, and the three biggest memory consumers on the box filled up fast:
 - the ingest script at ~11.2 GB resident set size (RSS)
 - the digital-twins container at ~10.8 GB
 - qdrant-dt at ~10.5 GB
 
-![subagents.png](/assets/2026-11-14-new-challenges-in-agentic-resilience/subagents.png)
+![subagents.png](/assets/2026-11-17-new-challenges-in-agentic-resilience/subagents.png)
 
 A ~32 GB VRAM GPU was doing the embedding, on a box already at 51 of 60 GiB, with 9 GiB free and 12 GiB of swap committed. The burst was bigger than the headroom could absorb, so the kernel did what it does: a global OOM, not a contained one. With overcommit enabled, the OOM killer is the system's last line of defence, and it fires against the whole box ([why the OOM killer is the last resort](https://lwn.net/Articles/104179/)).
 
