@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EA Ontology Layer Stack</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper: #f5f5f5;
+      --color-ink:   #2d3142;
+      --color-muted: #4f5d75;
+      --color-soft:  #5a6580;
+      --color-accent:#bf4520;
+      --font-sans:  'Geist', system-ui, sans-serif;
+      --font-serif: 'Instrument Serif', 'Noto Serif', serif;
+      --font-mono:  'Geist Mono', ui-monospace, monospace;
+    }
+    body { font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+    .frame { max-width: 900px; width: 100%; }
+    .diagram-container { width: 100%; overflow-x: auto; }
+    .eyebrow { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.5rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 880px; display: block; }
+    @media print { .diagram-container { overflow-x: visible; } svg { min-width: 0; } }
+
+    /* Diagram text roles (carried into the exported SVG) */
+    svg text { font-family: 'Geist', system-ui, sans-serif; }
+    .oe-tier    { font-family: var(--font-mono); font-size: 9px; font-weight: 600; letter-spacing: 0.14em; fill: #5a6580; }
+    .oe-tier-ac { fill: #bf4520; }
+    .oe-name    { font-size: 15px; font-weight: 600; fill: #2d3142; }
+    .oe-sub     { font-family: var(--font-mono); font-size: 9px; fill: #4f5d75; }
+    .oe-edge    { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.04em; fill: #5a6580; }
+    .oe-legend  { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.06em; fill: #5a6580; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Layer stack &middot; Diagram Design</p>
+    <h1>EA Ontology &mdash; the governing layer between the tools and the twin</h1>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 880 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ea-ontology-layers-title ea-ontology-layers-desc">
+        <title id="ea-ontology-layers-title">EA ontology layer stack</title>
+        <desc id="ea-ontology-layers-desc">The EA ontology meta-model sits on top as the governing layer; ArcKit's togaf-adm and oaa producers and the Qdrant-Neo4j-Mem0 digital twin read from it, and both persist their structured output into the shared machine-readable model store exposed to agents over MCP.</desc>
+        <defs>
+          <marker id="oe-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+        </defs>
+
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+
+        <!-- ===== band backgrounds ===== -->
+        <rect x="20" y="40"  width="840" height="88" rx="6" fill="rgba(191,69,32,0.06)" stroke="#bf4520" stroke-width="1.2"/>
+        <rect x="20" y="176" width="840" height="96" rx="6" fill="rgba(79,93,117,0.05)" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+        <rect x="20" y="312" width="840" height="64" rx="6" fill="rgba(45,49,66,0.05)" stroke="rgba(45,49,66,0.28)" stroke-width="1"/>
+
+        <!-- tier tabs -->
+        <text class="oe-tier oe-tier-ac" x="36" y="64">L1 &middot; EA ONTOLOGY</text>
+        <text class="oe-tier" x="36" y="198">L2 &middot; GENERATION + REASONING</text>
+        <text class="oe-tier" x="36" y="334">L3 &middot; MODEL STORE</text>
+
+        <!-- L1 content -->
+        <text class="oe-name" x="440" y="92" text-anchor="middle">Enterprise Architecture Ontology</text>
+        <text class="oe-sub"  x="440" y="110" text-anchor="middle">capabilities &middot; processes &middot; apps &middot; platforms &middot; data &middot; agents &middot; initiatives &middot; risks</text>
+
+        <!-- L2 inner boxes -->
+        <rect x="40"  y="204" width="388" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text class="oe-name" x="234" y="228" text-anchor="middle">arckit-togaf-adm + oaa</text>
+        <text class="oe-sub"  x="234" y="246" text-anchor="middle">intake + generation</text>
+
+        <rect x="452" y="204" width="388" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text class="oe-name" x="646" y="228" text-anchor="middle">Digital twin</text>
+        <text class="oe-sub"  x="646" y="246" text-anchor="middle">Qdrant + Neo4j + Mem0 &middot; retrieval</text>
+
+        <!-- L3 content -->
+        <text class="oe-name" x="440" y="338" text-anchor="middle">Machine-readable model store</text>
+        <text class="oe-sub"  x="440" y="356" text-anchor="middle">graph DB &middot; MCP-exposed for agent querying</text>
+
+        <!-- ===== arrows (governs / persists) ===== -->
+        <line x1="234" y1="128" x2="234" y2="204" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#oe-arrow)"/>
+        <line x1="646" y1="128" x2="646" y2="204" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#oe-arrow)"/>
+        <line x1="234" y1="260" x2="234" y2="312" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#oe-arrow)"/>
+        <line x1="646" y1="260" x2="646" y2="312" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#oe-arrow)"/>
+
+        <!-- arrow labels (opaque masks, 6-10px gap from stroke) -->
+        <rect x="182" y="154" width="44" height="12" rx="2" fill="#f5f5f5"/>
+        <text class="oe-edge" x="204" y="163" text-anchor="middle">GOVERNS</text>
+        <rect x="654" y="154" width="44" height="12" rx="2" fill="#f5f5f5"/>
+        <text class="oe-edge" x="676" y="163" text-anchor="middle">GOVERNS</text>
+        <rect x="178" y="280" width="48" height="12" rx="2" fill="#f5f5f5"/>
+        <text class="oe-edge" x="202" y="289" text-anchor="middle">PERSISTS</text>
+        <rect x="654" y="280" width="48" height="12" rx="2" fill="#f5f5f5"/>
+        <text class="oe-edge" x="678" y="289" text-anchor="middle">PERSISTS</text>
+
+        <!-- ===== legend ===== -->
+        <line x1="20" y1="400" x2="860" y2="400" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
+        <rect x="36" y="414" width="12" height="12" rx="2" fill="rgba(191,69,32,0.06)" stroke="#bf4520" stroke-width="1"/>
+        <text class="oe-legend" x="56" y="424">ONTOLOGY (focal)</text>
+        <rect x="200" y="414" width="12" height="12" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text class="oe-legend" x="220" y="424">PRODUCER</text>
+        <rect x="320" y="414" width="12" height="12" rx="2" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+        <text class="oe-legend" x="340" y="424">MODEL STORE</text>
+        <line x1="440" y1="420" x2="464" y2="420" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#oe-arrow)"/>
+        <text class="oe-legend" x="474" y="424">GOVERNS / PERSISTS</text>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
