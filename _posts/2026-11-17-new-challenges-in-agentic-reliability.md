@@ -10,28 +10,26 @@ tags:
   - multi-tenant
   - open-source
   - performance
-description: Traditional capacity planning assumes predictable load — but an agentic harness that spawned 194 sub-agents to ingest 13 GB into the digital-twin ontology invented the load mid-flight and OOM'd the box globally. It hit our lab, not client production, and the resilience we'd already engineered is what saved us. Here's the incident and why the fix is bounding, not forecasting.
+description: Traditional capacity planning assumes predictable load — but an agentic harness that spawned 194 sub-agents to ingest 11 GB into the digital-twin ontology invented the load mid-flight and OOM'd the box globally. It hit our lab, not client production, and the resilience we'd already engineered is what saved us. Here's the incident and why the fix is bounding, not forecasting.
 summary: You can't pre-size a sub-agent army. The OOM was the proof; the checkpoints that already existed were the saviour. The full post-mortem, and why "stop predicting, start tolerating."
 image: /assets/2026-11-17-new-challenges-in-agentic-resilience/incident.png
-permalink: /2026-11-14/from-an-oom-incident-to-assess-agentic-system-resilience
+permalink: /2026-11-17/new-challenges-in-agentic-resilience
 ---
 
-Capacity planning has long stood on predictable workloads: load-test, size to the measured peak, hold headroom, autoscale past a threshold. The operator knows the load in advance. Agentic systems break that assumption. An agent harness that spawns 194 sub-agents invents the load mid-flight; the peak is a property of the sub-agent army, not of my config. Both leading LLM-agent surveys treat that fan-out as emergent behaviour, not a tunable knob ([Rise of LLM-based agents](https://arxiv.org/abs/2309.07864), [LLM autonomous agents](https://arxiv.org/abs/2308.11432)), and with no peak to size to in advance, the traditional toolbox no longer fits.
-
-This incident is the clearest case. On our lab box, at 08:31:46 the kernel's OOM killer fired globally, not inside a cgroup. It took out all agent workers, the observability stack, and the EyWALink mission control planes. Load spiked to ~685 on eight cores; by the time I looked, both services had auto-restarted and the load was decaying (685 → 581 → 202). It was the second memory event in twelve hours.
+In our lab, a research agent kicked off an 11 GB ingest into the digital-twin ontology; to get throughput the harness fanned out 194 sub-agents in the background, and they suddenly consumed every last GiB of headroom on the box. The kernel's OOM killer then fired globally — not inside any cgroup — and took out all agent workers, the observability stack, and the mission-control planes at once; the core services auto-restarted within seconds, but it was already the second memory event in twelve hours. This is where traditional capacity planning stops applying. That model is built for predictable workloads: load-test, size to the measured peak, hold headroom. Agentic systems break it — the harness invents the load mid-flight, and the sub-agents it spawns are emergent, not a fixed, schedulable job list, so there is no peak to size to and no headroom to hold. That is a new class of challenge for agentic enterprise systems, not a bug to patch. The abstraction this post is built on is therefore: stop predicting the workload, start tolerating the burst. What follows is the full incident, the lessons we drew, and what to build next so the system stays resilient when the next unbounded fan-out lands.
 
 ## What actually happened
 
 ![incident.png](/assets/2026-11-17-new-challenges-in-agentic-resilience/incident.png)
 
-The trigger was a research agent had kicked off to ingest a 11 GB imported folder into the digital-twin enterprise ontology containers. The harness (DSH) went for maximum throughput and spawned 194 sub-agents in the background to grind through it, with no capacity estimate and no headroom check. Each worker fed the ingest pipeline, and the three biggest memory consumers on the box filled up fast:
+The trigger was a research agent had kicked off to ingest an 11 GB imported folder into the digital-twin enterprise ontology containers. The harness (DSH) went for maximum throughput and spawned 194 sub-agents in the background to grind through it, with no capacity estimate and no headroom check. Each worker fed the ingest pipeline, and the three biggest memory consumers on the box filled up fast:
 - the ingest script at ~11.2 GB resident set size (RSS)
 - the digital-twins container at ~10.8 GB
 - qdrant-dt at ~10.5 GB
 
 ![subagents.png](/assets/2026-11-17-new-challenges-in-agentic-resilience/subagents.png)
 
-A ~32 GB VRAM GPU was doing the embedding, on a box already at 51 of 60 GiB, with 9 GiB free and 12 GiB of swap committed. The burst was bigger than the headroom could absorb, so the kernel did what it does: a global OOM, not a contained one. With overcommit enabled, the OOM killer is the system's last line of defence, and it fires against the whole box ([why the OOM killer is the last resort](https://lwn.net/Articles/104179/)).
+A local LLM model over the GPU was doing the embedding, on a box already at 51 of 60 GiB, with 9 GiB free and 12 GiB of swap committed. The burst was bigger than the headroom could absorb, so the kernel did what it does: a global OOM, not a contained one. With overcommit enabled, the OOM killer is the system's last line of defence, and it fires against the whole box ([why the OOM killer is the last resort](https://lwn.net/Articles/104179/)).
 
 The tell that it wasn't a leak: the ingest job had been running 20h18m with a flat RSS (~11.2 GB on both samples). A big, stable footprint. The leak was us: we scheduled more parallel work than the machine could hold.
 
@@ -78,7 +76,7 @@ Observability now includes a control loop, not only a post-mortem lens. What the
 The next step splits the system on one line: keep the intelligence private, put the behaviour in the cloud.
 
 - **Intelligence stays privately.** The durable state (models, vector store, ontology, checkpoints) is the asset. It is high-value and latency-sensitive, and it does not need to scale. It stays private, on the box, replicated to a standby for availability; replication and fault tolerance is the discipline that keeps durable state up through a single-box failure ([Designing Data-Intensive Applications](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/)). It is the part you do not ship out to get headroom.
-- **Agentic behaviour goes to the cloud.** The sub-agent army and the burst workers are the part that scales wildly and unpredictably: 194 when a 13 GB ingest lands, near-zero the rest of the time. That is exactly what autoscaling, spot-eligible cloud workers are for ([auto-scaling taxonomy](https://dl.acm.org/doi/10.1145/3148149), [autoscaling under unpredictable load](https://pmc.ncbi.nlm.nih.gov/articles/PMC11398277/)): spin them up for the spike, drain them when it is over, and the bill tracks the burst instead of a permanently fat box.
+- **Agentic behaviour goes to the cloud.** The sub-agent army and the burst workers are the part that scales wildly and unpredictably: 194 when an 11 GB ingest lands, near-zero the rest of the time. That is exactly what autoscaling, spot-eligible cloud workers are for ([auto-scaling taxonomy](https://dl.acm.org/doi/10.1145/3148149), [autoscaling under unpredictable load](https://pmc.ncbi.nlm.nih.gov/articles/PMC11398277/)): spin them up for the spike, drain them when it is over, and the bill tracks the burst instead of a permanently fat box.
 - **Isolation caps the blast radius.** Each burst runs in its own bounded, disposable worker, so a runaway agent degrades its own workload and a line item on a cloud bill, not the private store or the gateway it sits next to. That is the bulkhead pattern, applied to a pool of burst workers: compartmentalise each tenant so one compartment's failure cannot sink the rest ([Release It!](https://www.oreilly.com/library/view/release-it-2nd/9781680504552/)). The shared box keeps the state that matters; the cloud eats the spike. One box OOMs; the other just bills.
 
 The design goal is to build for a workload you will never pre-size, so that when the burst lands, the blast radius is one bounded, disposable worker, not the gateway and the whole box. The three agentOps controls enforce that on the shared box today; the cloud burst layer extends the same principle one hop out. This incident survived; the next one is cheap instead of fatal.
