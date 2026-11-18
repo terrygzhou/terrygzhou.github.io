@@ -22,14 +22,14 @@ In our lab, a research agent kicked off an 11 GB ingest into the digital-twin on
 
 ![incident.png](/assets/2026-11-17-new-challenges-in-agentic-resilience/incident.png)
 
-The trigger: a research agent was kicked off to ingest an 11 GB imported folder into the digital-twin enterprise ontology containers. The harness (DSH) went for maximum throughput and spawned 194 sub-agents in the background to grind through it, with no capacity estimate and no headroom check. Each worker fed the ingest pipeline, and the three biggest memory consumers on the box filled up fast:
-- the ingest script at ~11.2 GB resident set size (RSS)
+The trigger: a research agent kicked off to ingest an 14 GB imported folder into the digital-twin enterprise ontology containers. The harness (DSH) went for maximum throughput and spawned 194 sub-agents in the background to grind through it, with no capacity estimate and no headroom check. Each worker fed the ingest pipeline, and the three biggest memory consumers on the box filled up fast:
+- the ingest script at ~14.2 GB resident set size (RSS)
 - the digital-twins container at ~10.8 GB
 - qdrant-dt at ~10.5 GB
 
 ![subagents.png](/assets/2026-11-17-new-challenges-in-agentic-resilience/subagents.png)
 
-A local LLM model over the GPU was doing the embedding, on a box already at 51 of 60 GiB, with 9 GiB free and 12 GiB of swap committed. The burst was bigger than the headroom could absorb, so the kernel did what it does: a global OOM, not a contained one. With overcommit enabled, the OOM killer is the system's last line of defence, and it fires against the whole box ([why the OOM killer is the last resort](https://lwn.net/Articles/104179/)).
+A local LLM model over the GPU was doing the embedding, on a box already at 55 of 64 GiB, with 9 GiB free and 12 GiB of swap committed. The burst was bigger than the headroom could absorb, so the kernel did what it does: a global OOM, not a contained one. With overcommit enabled, the OOM killer is the system's last line of defence, and it fires against the whole box ([why the OOM killer is the last resort](https://lwn.net/Articles/104179/)).
 
 The tell that it wasn't a leak: the ingest job had been running 20h18m with a flat RSS (~11.2 GB on both samples). A big, stable footprint. The leak was us: we scheduled more parallel work than the machine could hold.
 
@@ -54,11 +54,11 @@ The resilience design did exactly the job it was built for. The lesson is that t
 
 The incident is not a bug to patch; it is a paradigm mismatch between the capacity model and the workload. Three dimensions make it concrete:
 
-| Dimension | Traditional enterprise workload | Agentic workload (this incident) |
-|---|---|---|
-| **Load profile** | Deterministic, schedulable, measured peak (load-tested) | Emergent, dynamic, unbounded fan-out (194 sub-agents spawned mid-flight) |
-| **Failure mode** | Graceful degradation, queue saturation, API rate-limiting | Global kernel OOM killing core services, observability, and control planes simultaneously |
-| **Reaction window** | Minutes to hours; time to shed load via standard auto-scalers | Seconds; headroom vanishes before traditional alerts or human intervention can react |
+| Dimension           | Traditional enterprise workload                               | Agentic workload (this incident)                                                          |
+| ------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **Load profile**    | Deterministic, schedulable, measured peak (load-tested)       | Emergent, dynamic, unbounded fan-out (194 sub-agents spawned mid-flight)                  |
+| **Failure mode**    | Graceful degradation, queue saturation, API rate-limiting     | Global kernel OOM killing core services, observability, and control planes simultaneously |
+| **Reaction window** | Minutes to hours; time to shed load via standard auto-scalers | Seconds; headroom vanishes before traditional alerts or human intervention can react      |
 
 The load profile is the root. Everything else — the failure mode and the vanishing reaction window — is downstream of the fact that the harness invents its own load.
 
@@ -104,7 +104,7 @@ The diagnosis yields four structural patterns. Each answers the same question: w
 | 3. Reactive auto-shedding | Medium | High | High | Medium |
 | 4. Hybrid split | Optimized | High | Very high | Medium-high |
 
-### The recommendation: Option 4 + Option 2
+### The recommendation
 
 Adopt the hybrid split combined with cgroup isolation for local safety. The rationale is the diagnosis: predictive sizing is dead. You cannot forecast workload when the software itself decides how many workers to instantiate.
 
