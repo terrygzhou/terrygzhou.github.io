@@ -142,9 +142,9 @@ That is the whole argument in miniature. The intelligence lives in the pipeline 
 
 EyWALink's portfolio is this argument industrialised. Each product is one layer of the stack, sold as a system instead of a model.
 
-![Reference architecture of an AI system: four compounding layers (Operations, Evaluation, Orchestration, Knowledge) over a swappable Model base, with EyWALink products mapped into each layer and the Knowledge layer highlighted as the compounding asset2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.png)
+![Reference architecture of an AI system: four compounding layers (Operations, Evaluation, Orchestration, Knowledge) over a swappable Model base, with EyWALink products mapped into each layer and the Knowledge layer highlighted as the compounding asset](/assets/2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.png)
 
-Diagram source: [`ai-system-layers.html`2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.html)
+Diagram source: [`ai-system-layers.html`](/assets/2026-10-21-intelligence-is-a-system-not-a-model/ai-system-layers.html)
 
 | Product                  | Layer         | What it adds                                                                                                                                                                                                                                                          |
 | ------------------------ | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
