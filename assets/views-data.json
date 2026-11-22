@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-22T10:15:01+00:00",
+    "generated_at": "2026-11-22T11:15:02+00:00",
     "views": {
         "agent-workflow-pattern-practice": 15,
         "agentops-per-tenant-agent-ops-boundary": 11,
@@ -29,6 +29,6 @@
         "the-cost-of-running-an-ai-lab": 29,
         "when-your-agent-says-done": 39,
         "why-i-build-my-local-ai": 12,
-        "why-zero-lock-in-matters-for-enterprise-ai": 6
+        "why-zero-lock-in-matters-for-enterprise-ai": 7
     }
 }
