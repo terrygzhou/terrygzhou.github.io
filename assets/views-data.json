@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-24T06:15:01+00:00",
+    "generated_at": "2026-11-24T07:15:01+00:00",
     "views": {
         "agent-workflow-pattern-practice": 1,
         "agentops-per-tenant-agent-ops-boundary": 11,
@@ -20,7 +20,7 @@
         "manage-your-agents-in-enterprise": 3,
         "managing-context-in-vibe-coding": 20,
         "managing-context-overflow-ai-coding-agents": 13,
-        "new-challenges-in-agentic-resilience": 8,
+        "new-challenges-in-agentic-resilience": 9,
         "observability-architecture-for-agents": 11,
         "plantuml-archimate-agent-diagrams": 6,
         "private-ai-must-be-in-your-ai-strategy": 8,
