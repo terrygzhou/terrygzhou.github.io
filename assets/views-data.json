@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-25T06:15:01+00:00",
+    "generated_at": "2026-11-25T07:15:01+00:00",
     "views": {
         "agent-workflow-pattern-practice": 2,
         "agentops-per-tenant-agent-ops-boundary": 12,
@@ -8,7 +8,7 @@
         "arckit-oaa-open-agile-architecture": 10,
         "bridging-the-e2e-testing-gap-superweb-testing": 4,
         "buy-or-build": 7,
-        "codex-hooks-and-the-arckit-control-plane": 16,
+        "codex-hooks-and-the-arckit-control-plane": 17,
         "digital-twin-that-scales": 27,
         "executable-enterprise-architecture": 8,
         "from-a-security-incident-to-reconsidering-enterprise-agent-boundaries": 3,
