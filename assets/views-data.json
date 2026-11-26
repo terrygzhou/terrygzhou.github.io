@@ -1,6 +1,6 @@
 {
     "site": "terrygzhou.github.io",
-    "generated_at": "2026-11-26T15:15:01+00:00",
+    "generated_at": "2026-11-26T16:15:01+00:00",
     "views": {
         "agent-workflow-pattern-practice": 2,
         "agentops-per-tenant-agent-ops-boundary": 12,
@@ -10,7 +10,7 @@
         "buy-or-build": 7,
         "codex-hooks-and-the-arckit-control-plane": 17,
         "digital-twin-that-scales": 27,
-        "executable-enterprise-architecture": 9,
+        "executable-enterprise-architecture": 10,
         "from-a-security-incident-to-reconsidering-enterprise-agent-boundaries": 3,
         "from-an-oom-incident-to-assess-agentic-system-resilience": 1,
         "from-one-agent-to-a-company-of-agents": 26,
